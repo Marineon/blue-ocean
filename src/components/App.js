@@ -10,7 +10,6 @@ import '../shared/styles/App.css';
 
 import Home from './Home';
 
-import { BrowserRouter as Router } from 'react-router-dom';
 import UserContextProvider from '../contexts/user-context';
 import PhotosContextProvider from '../contexts/photos-context';
 import DarkModeSwitch from './DarkModeSwitch';
