@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Switch, Route } from 'react-router-dom';
 import { ThemeProvider } from '@material-ui/core';
@@ -9,6 +8,9 @@ import '../shared/styles/App.css';
 import Themes from '../shared/styles/themes';
 import Home from './Home';
 import { BrowserRouter as Router } from 'react-router-dom';
+import UserContextProvider from '../contexts/user-context';
+import PhotosContextProvider from '../contexts/photos-context';
+
 
 function App() {
   const [darkMode, setDarkMode] = useState(false);
@@ -20,13 +22,17 @@ function App() {
       <React.Fragment>
         <ThemeProvider theme={appliedTheme}>
           <CssBaseline />
-          <Container className="App">
-            <Switch>
-              <Route exact path="/" >
-                <Home />
-              </Route>
-            </Switch>
-          </Container>
+            <Container className="App">
+              <UserContextProvider>
+                <PhotosContextProvider>
+                  <Switch>
+                    <Route exact path="/" >
+                      <Home />
+                    </Route>
+                  </Switch>
+                </PhotosContextProvider>
+              </UserContextProvider>
+            </Container>
         </ThemeProvider>
       </React.Fragment>
     </Router>
