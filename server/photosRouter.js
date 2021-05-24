@@ -2,15 +2,22 @@ const express = require('express');
 const photosRouter = express.Router();
 
 photosRouter.get('/allPhotos', (req, res) => {
+    const { userId } = req.body;
   //get all photos that user has permission to see (from friends and their own for now)
   //either the query or node should verify photo permissions before sending
 });
 
-photosRouter.patch('/', (req, res) => {
+photosRouter.patch('/single', (req, res) => {
   //update specified information on specified photo(s)
 
 
 });
+
+photosRouter.patch('/multiple', (req, res) => {
+    //update specified information on specified photo(s)
+  
+  
+  });
 
 photosRouter.put('/', (req, res) => {
     //upload a new photo

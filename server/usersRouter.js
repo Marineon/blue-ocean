@@ -7,9 +7,5 @@ usersRouter.put('/friends/:action', (req, res) => {
     //So overall: 'request', 'cancelRequest', 'accept', 'reject', 'remove' will be different parameter routes
 });
 
-usersRouter.delete('/:userId', (req, res) => {
-    //this is future feature for superusers, providing option to delete a user account
-    //don't need to worry about it for Monday
-})
 
 export default usersRouter;
