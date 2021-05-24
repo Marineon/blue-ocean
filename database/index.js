@@ -19,20 +19,20 @@ const friendSchema = new Schema({
   userId: Number,
   userName: String
 });
-//
 
 const userSchema = new Schema({
-  firstName: String,
-  lastName: String,
+  userId: Number,
+  fullName: String,
   email: String,
   password: String,
   userLevel: Number,  /* 1=general user, 2='super user', 3=admin  */
   friends: [friendSchema],
-  pending: [friendSchema],
-  requested: [friendSchema]
+  pending: [friendSchema], /* friend requests sent */
+  requested: [friendSchema]  /* incoming friend requests */
 });
 
 const photoSchema = new Schema({
+  photoId: Number,
   uploadDate: Date,
   description: String,
   tags: Array,
