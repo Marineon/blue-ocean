@@ -2,23 +2,33 @@ import express from 'express';
 const photosRouter = express.Router();
 
 photosRouter.get('/allPhotos', (req, res) => {
+<<<<<<< HEAD
     const { userId } = req.body;
+=======
+>>>>>>> made comments about endpoint / what queries will need to accomplish
   //get all photos that user has permission to see (from friends and their own for now)
   //either the query or node should verify photo permissions before sending
 });
 
+<<<<<<< HEAD
 photosRouter.patch('/single', (req, res) => {
+=======
+photosRouter.patch('/', (req, res) => {
+>>>>>>> made comments about endpoint / what queries will need to accomplish
   //update specified information on specified photo(s)
 
 
 });
 
+<<<<<<< HEAD
 photosRouter.patch('/multiple', (req, res) => {
     //update specified information on specified photo(s)
   
   
   });
 
+=======
+>>>>>>> made comments about endpoint / what queries will need to accomplish
 photosRouter.put('/', (req, res) => {
     //upload a new photo
     //this functionality is currently in images route, not sure how we want to handle upload. 
@@ -31,4 +41,8 @@ photosRouter.delete('/', (req, res) => {
 });
 
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> made comments about endpoint / what queries will need to accomplish
 export default photosRouter;
