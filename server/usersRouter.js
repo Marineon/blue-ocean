@@ -9,6 +9,7 @@ usersRouter.put('/friends/:action', (req, res) => {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 usersRouter.delete('/:userId', (req, res) => {
     //this is future feature for superusers, providing option to delete a user account
@@ -17,5 +18,7 @@ usersRouter.delete('/:userId', (req, res) => {
 >>>>>>> made comments about endpoint / what queries will need to accomplish
 =======
 >>>>>>> skeleton of all photos/users end points. (without queries)
+=======
+>>>>>>> 88c0cab1d552d9536104111c9b4156b5177e51a0
 
 export default usersRouter;
