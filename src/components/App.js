@@ -13,7 +13,7 @@ import Home from './Home';
 import UserContextProvider from '../contexts/user-context';
 import PhotosContextProvider from '../contexts/photos-context';
 import DarkModeSwitch from './DarkModeSwitch';
-import GetImagesTemp from './GetImagesTemp/GetImagesTemp';
+import TestPage from './TestPage/TestPage';
 
 
 function App() {
