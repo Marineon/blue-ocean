@@ -1,4 +1,4 @@
-const express = require('express');
+import express from 'express';
 const photosRouter = express.Router();
 
 photosRouter.get('/allPhotos', (req, res) => {
