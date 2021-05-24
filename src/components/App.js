@@ -30,6 +30,7 @@ function App() {
               <DarkModeSwitch darkMode={darkMode} setDarkMode={setDarkMode} />
               <UserContextProvider>
                 <PhotosContextProvider>
+                  <DarkModeSwitch darkMode={darkMode} setDarkMode={setDarkMode} />
                   <Switch>
                     <Route exact path="/" ><Home /></Route>
                     <Route exact path="/getimagestemp" ><GetImagesTemp /></Route>
