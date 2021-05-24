@@ -14,7 +14,7 @@ import DarkModeSwitch from './DarkModeSwitch';
 import GetImagesTemp from './GetImagesTemp/GetImagesTemp';
 import UserContextProvider from '../contexts/user-context';
 import PhotosContextProvider from '../contexts/photos-context';
-
+import TestPage from './TestPage/TestPage';
 
 function App() {
   const [darkMode, setDarkMode] = useState(false);

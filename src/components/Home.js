@@ -17,7 +17,7 @@ const Home = () => {
         <br />
         <ContextTest />
       </Typography>
-      <Link to='/getimagestemp' component={RouterLink}>Testing Purposes Only</Link>
+      <Link to='/testpage' component={RouterLink}>Testing Purposes Only</Link>
     </div>
   );
 };
