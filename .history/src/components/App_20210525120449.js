@@ -23,6 +23,8 @@ function App() {
   const appliedTheme = createMuiTheme(darkMode ? Themes.dark : Themes.light)
 
   return (
+    <>
+    <Login />
     <Router>
       <React.Fragment>
         <ThemeProvider theme={appliedTheme}>
@@ -43,6 +45,7 @@ function App() {
         </ThemeProvider>
       </React.Fragment>
     </Router>
+    </>
   );
 }
 

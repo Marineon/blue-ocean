@@ -33,7 +33,6 @@ function App() {
               <PhotosContextProvider>
                 <Switch>
                   <Route exact path="/gallery" render={() => <Gallery />} />
-                  <Route exact path="/login" render={() => <Login />} />
                   <Route exact path="/" render={() => <Home />} />
                   <Route exact path="/testpage" render={() => <TestPage />} />
                 </Switch>

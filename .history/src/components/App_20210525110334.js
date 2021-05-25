@@ -23,26 +23,28 @@ function App() {
   const appliedTheme = createMuiTheme(darkMode ? Themes.dark : Themes.light)
 
   return (
-    <Router>
-      <React.Fragment>
-        <ThemeProvider theme={appliedTheme}>
-          <CssBaseline />
-          <Container className="App">
-            <DarkModeSwitch darkMode={darkMode} setDarkMode={setDarkMode} />
-            <UserContextProvider>
-              <PhotosContextProvider>
-                <Switch>
-                  <Route exact path="/gallery" render={() => <Gallery />} />
-                  <Route exact path="/login" render={() => <Login />} />
-                  <Route exact path="/" render={() => <Home />} />
-                  <Route exact path="/testpage" render={() => <TestPage />} />
-                </Switch>
-              </PhotosContextProvider>
-            </UserContextProvider>
-          </Container>
-        </ThemeProvider>
-      </React.Fragment>
-    </Router>
+    // <Login>
+      <Router>
+        <React.Fragment>
+          <ThemeProvider theme={appliedTheme}>
+            <CssBaseline />
+            <Container className="App">
+              <DarkModeSwitch darkMode={darkMode} setDarkMode={setDarkMode} />
+              <UserContextProvider>
+                <PhotosContextProvider>
+                  <Switch>
+                    <Route exact path="/gallery" render={() => <Gallery />} />
+                    <Route exact path="/" render={() => <Home />} />
+                    <Route exact path="/testpage" render={() => <TestPage />} />
+                  </Switch>
+                </PhotosContextProvider>
+              </UserContextProvider>
+            </Container>
+          </ThemeProvider>
+        </React.Fragment>
+      </Router>
+    // </Login>
+
   );
 }
 

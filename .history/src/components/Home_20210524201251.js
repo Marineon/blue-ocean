@@ -19,7 +19,6 @@ const Home = () => {
         <ContextTest />
       </Typography>
       <Link to='/testpage' component={RouterLink}>Testing Purposes Only</Link>
-      <Link to='/login' component={RouterLink}>Testing Login</Link>
     </div>
   );
 };
