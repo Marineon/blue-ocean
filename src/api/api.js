@@ -45,10 +45,7 @@ api.getUserInfo = (currentUserId) => {
   })
 }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> main
+
 api.updatePhoto = (editsObj) => {
   // EditsObj = {
   // userId: UserIdNumOfRequetsinguser,
@@ -57,6 +54,7 @@ api.updatePhoto = (editsObj) => {
   // addTags: [‘array’, ‘ofTags’, ‘toAdd’],
   // removeTags: [‘array’, ‘ofTags’, ‘toRemove’],
   // accessLevel: NumOfPermission(0=private,1=onlySpecificUsers(future feature),2=allFriends,3=global)
+  //}
   axios.patch(`${hostname}:${PORT}/api/photos/single`, editsObj)
   .then((res) => {
     console.log('successful patch, we should add in refresh photos API call or something here', res.body);
@@ -73,6 +71,7 @@ api.updatePhotos = (editsObj) => {
   // addTags: [‘array’, ‘ofTags’, ‘toAdd’],
   // removeTags: [‘array’, ‘ofTags’, ‘toRemove’],
   // accessLevel: NumOfPermission(0=private,1=onlySpecificUsers(future feature),2=allFriends,3=global)
+  //}
   axios.patch(`${hostname}:${PORT}/api/photos/multiple`, editsObj)
   .then((res) => {
     console.log('successful patch, we should add in refresh photos API call or something here', res.body);
@@ -83,11 +82,6 @@ api.updatePhotos = (editsObj) => {
 };
 
 
-<<<<<<< HEAD
-=======
->>>>>>> main
-=======
->>>>>>> main
 // api.getAllPhotos = (userId) => {
 //   axios.get(`${hostname}:${PORT}/api/photos/allPhotos`, {data: { userid }})
 //   .then((res) => { console.log('put me in state or something', res.body)})
