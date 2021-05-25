@@ -1,5 +1,5 @@
 
-import React, { useState,  } from 'react';
+import React, { useState, } from 'react';
 import { Drawer, Button } from '@material-ui/core';
 import { List, ListItem } from '@material-ui/core';
 import { Link as RouterLink } from 'react-router-dom';
@@ -104,61 +104,60 @@ export default function NavDrawer() {
 
   return (
     <React.Fragment>
-    <div className={classes.root}>
-      <AppBar
-        position="fixed"
-        className={clsx(classes.appBar, {
-          [classes.appBarShift]: showState,
-        })}
-      >
-      <Toolbar
-      style={{display:"flex", justifyContent: "flex-start"}}
-      >
-      <Typography variant="h6" noWrap className={classes.title}>
-      Persistent drawer
+      <div className={classes.root}>
+        <AppBar
+          position="fixed"
+          className={clsx(classes.appBar, {
+            [classes.appBarShift]: showState,
+          })}
+        >
+          <Toolbar
+            style={{ display: "flex", justifyContent: "flex-start" }}
+          >
+            <Typography variant="h6" noWrap className={classes.title}>
+              Persistent drawer
       </Typography>
-      <div
-style={{display: "flex", justifyContent: "center", width: "88%"}}
->
-<Search
-/>
-</div>
-      <IconButton
-        color="inherit"
-        aria-label="open drawer"
-        edge="end"
-        onClick={handleDrawerOpen}
-        className={clsx(showState && classes.hide)}
-      >
-        <MenuIcon />
-      </IconButton>
-    </Toolbar>
-  </AppBar>
-      <main
-        className={clsx(classes.content, {
-          [classes.contentShift]: showState,
-        })}
-      >
+            <div
+              style={{ display: "flex", justifyContent: "center", width: "88%" }}
+            >
+              <Search />
+            </div>
+            <IconButton
+              color="inherit"
+              aria-label="open drawer"
+              edge="end"
+              onClick={handleDrawerOpen}
+              className={clsx(showState && classes.hide)}
+            >
+              <MenuIcon />
+            </IconButton>
+          </Toolbar>
+        </AppBar>
+        <main
+          className={clsx(classes.content, {
+            [classes.contentShift]: showState,
+          })}
+        >
         </main>
         <Drawer
-        className={classes.drawer}
-        variant="persistent"
-        anchor="right"
-        open={showState}
-        onClose={toggleDrawer(false)}
-        classes={{
-          paper: classes.drawerPaper,
-        }}
-      >
-        <div className={classes.drawerHeader}>
-          <IconButton onClick={handleDrawerClose}>
-            {theme.direction === 'rtl' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
-          </IconButton>
-        </div>
-        <Divider />
-        {list()}
-      </Drawer>
-    </div>
+          className={classes.drawer}
+          variant="persistent"
+          anchor="right"
+          open={showState}
+          onClose={toggleDrawer(false)}
+          classes={{
+            paper: classes.drawerPaper,
+          }}
+        >
+          <div className={classes.drawerHeader}>
+            <IconButton onClick={handleDrawerClose}>
+              {theme.direction === 'rtl' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
+            </IconButton>
+          </div>
+          <Divider />
+          {list()}
+        </Drawer>
+      </div>
     </React.Fragment>
   )
 
