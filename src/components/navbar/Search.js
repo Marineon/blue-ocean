@@ -1,19 +1,28 @@
-import React, { useState } from 'react';
-// import Link from '@material-ui/core/Link';
-// import Typography from '@material-ui/core/Typography'
-// import { Link as RouterLink } from 'react-router-dom';
-// import TextField from '@material-ui/core/TextField';
-// import Autocomplete from '@material-ui/lab/Autocomplete';
+import React, { useState, useEffect /*, useContext */ } from 'react';
 import SearchIcon from '@material-ui/icons/Search';
 import InputBase from '@material-ui/core/InputBase';
+// import { PhotosContext } from '../../contexts/photos-context.js';
 import fakePhotos from '../dummyData/fakePhotos';
 
-// Two options for Search field:
-// 1. App Bar:  https://material-ui.com/components/app-bar/#app-bar-with-a-primary-search-field
-// 2. Free Solo (currently using):  https://material-ui.com/components/autocomplete/#search-input
+// SEARCH BY
+// 1. tags
+// 2. users/friends
 
 const Search = () => {
-  const [photoList, setPhotoList] = useState(fakePhotos)
+  const [ searchTerm, setSearchTerm ] = useState(null);
+  const [ searchResults, setSearchResults ] = useState([]);
+  // const { photos } = useContext(PhotosContext); // enable when `photos-context` is ready to use
+
+  useEffect(() => {
+    // upon `searchResults` change, send results to render view of new array
+  }, [searchResults])
+
+  function search() {
+    const matches = fakePhotos[0].photos.filter(photo => photo.tags.includes(searchTerm.toLowerCase()))
+    setSearchResults(matches)
+  }
+
+
 
   return (
     <div>
@@ -21,8 +30,9 @@ const Search = () => {
         data-testid="search-bar"
         placeholder="Search…"
         inputProps={{ 'aria-label': 'search' }}
+        onChange={(e) => setSearchTerm(e.target.value)}
       />
-      <SearchIcon />
+      <SearchIcon onClick={() => search()}/>
     </div>
   );
 };

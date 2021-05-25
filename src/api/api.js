@@ -45,6 +45,7 @@ api.getUserInfo = (currentUserId) => {
   })
 }
 
+<<<<<<< HEAD
 api.updatePhoto = (editsObj) => {
   // EditsObj = {
   // userId: UserIdNumOfRequetsinguser,
@@ -79,6 +80,8 @@ api.updatePhotos = (editsObj) => {
 };
 
 
+=======
+>>>>>>> main
 // api.getAllPhotos = (userId) => {
 //   axios.get(`${hostname}:${PORT}/api/photos/allPhotos`, {data: { userid }})
 //   .then((res) => { console.log('put me in state or something', res.body)})
