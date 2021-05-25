@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 // import Link from '@material-ui/core/Link';
 // import Typography from '@material-ui/core/Typography'
 // import { Link as RouterLink } from 'react-router-dom';
@@ -6,12 +6,15 @@ import React from 'react';
 // import Autocomplete from '@material-ui/lab/Autocomplete';
 import SearchIcon from '@material-ui/icons/Search';
 import InputBase from '@material-ui/core/InputBase';
+import fakePhotos from '../dummyData/fakePhotos';
 
 // Two options for Search field:
 // 1. App Bar:  https://material-ui.com/components/app-bar/#app-bar-with-a-primary-search-field
-// 2. Free Solo:  https://material-ui.com/components/autocomplete/#search-input
+// 2. Free Solo (currently using):  https://material-ui.com/components/autocomplete/#search-input
 
 const Search = () => {
+  const [photoList, setPhotoList] = useState(fakePhotos)
+
   return (
     <div>
       <InputBase
