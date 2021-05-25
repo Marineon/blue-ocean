@@ -46,6 +46,9 @@ api.getUserInfo = (currentUserId) => {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> main
 api.updatePhoto = (editsObj) => {
   // EditsObj = {
   // userId: UserIdNumOfRequetsinguser,
@@ -80,6 +83,9 @@ api.updatePhotos = (editsObj) => {
 };
 
 
+<<<<<<< HEAD
+=======
+>>>>>>> main
 =======
 >>>>>>> main
 // api.getAllPhotos = (userId) => {
