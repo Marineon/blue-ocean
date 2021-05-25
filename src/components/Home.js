@@ -22,6 +22,7 @@ const Home = () => {
         <FriendsList friends={friends} pending={pending} requested={requested}/>
       </Typography>
       <Link to='/testpage' component={RouterLink}>Testing Purposes Only</Link>
+      <Link to='/login' component={RouterLink}>Testing Login</Link>
     </div>
   );
 };
