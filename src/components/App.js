@@ -16,6 +16,7 @@ import TestPage from './TestPage/TestPage';
 import UserContextProvider from '../contexts/user-context';
 import PhotosContextProvider from '../contexts/photos-context';
 import NavDrawer from './navbar/NavDrawer';
+import CreateUser from './Login/CreateUser'
 
 function App() {
   const [darkMode, setDarkMode] = useState(false);
@@ -36,6 +37,7 @@ function App() {
                   <Route exact path="/gallery" render={() => <Gallery />} />
                   <Route exact path="/" render={() => <Home />} />
                   <Route exact path="/testpage" render={() => <TestPage />} />
+                  <Route exact path="/CreateUser" render={() => <CreateUser />} />
                 </Switch>
               </PhotosContextProvider>
             </UserContextProvider>
