@@ -13,8 +13,7 @@ import FriendsList from './FriendsList';
 import ContextTest from './ContextTest';
 
 const Home = () => {
-  // Use context in this instance is for the friends list
-      const { friends, pending, requested } = useContext(UserContext);
+     const { friends, pending, requested } = useContext(UserContext)
   return (
     <div>
       <Typography variant="h2">

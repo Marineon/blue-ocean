@@ -6,6 +6,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 
 
+
 const { friendAction } = api;
 
 const Friend = ({ friend, status }) => {
@@ -41,6 +42,7 @@ const Friend = ({ friend, status }) => {
             return 'Requested';
         }
     }
+
 
 
     return (
