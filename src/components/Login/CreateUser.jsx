@@ -9,26 +9,32 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
 import Input from '@material-ui/core/Input';
+import OutlinedInput from '@material-ui/core/OutlinedInput';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
+import clsx from 'clsx';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    '& > *': {
-      margin: theme.spacing(1),
-      width: '25ch',
-    },
-    create: {
-      margin: theme.spacing(3, 0, 2),
-      width: '25ch',
-    }
+    display: 'flex',
+    flexWrap: 'wrap',
+  },
+  margin: {
+    margin: theme.spacing(1),
+  },
+  withoutLabel: {
+    marginTop: theme.spacing(3),
+  },
+  textField: {
+    width: '25ch',
   },
 }));
 
 export default function CreateUser() {
   const classes = useStyles();
+
   const [values, setValues] = React.useState({
     password: '',
     showPassword: false,
@@ -50,7 +56,7 @@ export default function CreateUser() {
     <React.Fragment>
       <CssBaseline />
       <Container maxWidth="sm">
-        <Typography component="div" style={{ backgroundColor: '#cfe8fc', height: '100vh' }}>
+        <Typography component="div" style={{ height: '100vh' }}>
           <TextField
             className={classes.margin}
             id="outlined-basic"
@@ -96,12 +102,15 @@ export default function CreateUser() {
             margin="normal"
           />
           <br />
-          <TextField
-            className={classes.margin}
+          <FormControl className={clsx(classes.margin, classes.textField)}variant="outlined">
+          <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
+          <OutlinedInput
             id="outlined-basic"
             label="Password"
             variant="outlined"
             required
+            type={values.showPassword ? 'text' : 'password'}
+            value={values.password}
             onChange={handleChange('password')}
             value={""}
             margin="normal"
@@ -111,12 +120,15 @@ export default function CreateUser() {
                   aria-label="toggle password visibility"
                   onClick={handleClickShowPassword}
                   onMouseDown={handleMouseDownPassword}
+                  edge="end"
                 >
                   {values.showPassword ? <Visibility /> : <VisibilityOff />}
                 </IconButton>
               </InputAdornment>
             }
+            labelWidth={70}
           />
+          </FormControl>
           <Button
             type="submit"
             fullWidth
