@@ -14,6 +14,7 @@ import { PhotosContext } from '../../contexts/photos-context';
 import EditPhotosModal from './EditPhotosModal'
 import PhotoModal from '../PhotoView/PhotoModal';
 import AlbumRow from '../albums/AlbumRow'
+import CreateOrEditAlbumModal from '../albums/CreateOrEditAlbumModal';
 
 
 let styles = {
@@ -37,6 +38,7 @@ function Gallery(props) {
   const [onSelect, setOnSelect] = useState(false);
   const [selected, setSelected] = useState([]);
   const [shownPhotos, setShownPhotos] = useState(photos);
+  const [showAlbumModal, setShowAlbumModal] = useState(false);
 
   const { classes,
     // children, className, ...other
@@ -64,7 +66,11 @@ function Gallery(props) {
   };
 
   const handleClose = () => {
+<<<<<<< HEAD
     setShowEditPhotosModal(false)
+=======
+    setShowModal(false)
+>>>>>>> committing before push for Tony
     setShowAlbumModal(false)
   }
   const handleOpen = () => {
@@ -77,11 +83,10 @@ function Gallery(props) {
 
   return (
     <>
-
     <AlbumRow setShownPhotos={setShownPhotos} handleSelectClick={handleSelectClick} onSelect={onSelect}/>
     <Paper id="wrapper">
     <div style={{ height: 50, display:'flex', justifyContent:'space-between', flexWrap: 'wrap' }}>
-      <IconButton aria-label="new-album">
+      <IconButton onClick={() => setShowAlbumModal(true)} aria-label="new-album">
       {onSelect && selected.length > 0 ?
           <AddAlbumIcon /> : null }
        </IconButton>
@@ -144,6 +149,13 @@ function Gallery(props) {
         showModal={showPhotoModal}
         setShowModal={setShowPhotoModal}
       />
+    <CreateOrEditAlbumModal
+      open={showAlbumModal}
+      onClose={handleClose}
+      aria-labelledby="Create album"
+      aria-describedby="Modal to create albums"
+      selected={selected}
+      isCreate={true}/>
   </Paper>
   </>
 )
