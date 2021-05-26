@@ -3,6 +3,7 @@ import SearchIcon from '@material-ui/icons/Search';
 import InputBase from '@material-ui/core/InputBase';
 import { PhotosContext } from '../../contexts/photos-context.js';
 import { SearchContext } from '../../contexts/search-context';
+import { Link as RouterLink } from 'react-router-dom';
 // import fakePhotos from '../dummyData/fakePhotos';
 
 // SEARCH BY
@@ -25,6 +26,7 @@ const Search = () => {
     // const matches = fakePhotos[0].photos.filter(photo => photo.tags.includes(searchTerm.toLowerCase()))
     const matches = photos.filter(photo => photo.tags.includes(searchTerm.toLowerCase()))
     setSearchResults(matches)
+
   }
 
 
@@ -37,7 +39,9 @@ const Search = () => {
         inputProps={{ 'aria-label': 'search' }}
         onChange={(e) => setSearchTerm(e.target.value)}
       />
-      <SearchIcon onClick={() => search()}/>
+      <RouterLink to='/search'>
+        <SearchIcon onClick={() => search()}/>
+      </RouterLink>
     </div>
   );
 };
