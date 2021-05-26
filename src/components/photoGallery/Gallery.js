@@ -42,6 +42,7 @@ function Gallery(props) {
   const [selected, setSelected] = useState([]);
   const [shownPhotos, setShownPhotos] = useState(photos);
   const [showAlbumModal, setShowAlbumModal] = useState(false);
+  const [currentAlbum, setCurrentAlbum] = useState({});
 
   const { classes,
     // children, className, ...other
@@ -78,7 +79,7 @@ function Gallery(props) {
 
   return (
     <>
-    <AlbumRow setShownPhotos={setShownPhotos} handleSelectClick={handleSelectClick} onSelect={onSelect}/>
+    <AlbumRow currentAlbum={currentAlbum} setCurrentAlbum={setCurrentAlbum} setShownPhotos={setShownPhotos} handleSelectClick={handleSelectClick} onSelect={onSelect}/>
     <Paper id="wrapper">
     <div style={{ height: 50, display:'flex', justifyContent:'space-between', flexWrap: 'wrap' }}>
       <IconButton onClick={() => setShowAlbumModal(true)} aria-label="new-album">

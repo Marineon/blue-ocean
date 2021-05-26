@@ -46,7 +46,7 @@ function AlbumRow (props) {
     // setPhotos,
     // updatePhoto
   } = useContext(PhotosContext);
-  const [currentAlbum, setCurrentAlbum] = useState({});
+  // const [currentAlbum, setCurrentAlbum] = useState({});
   const [showModal, setShowModal] = useState(false);
 
   const handleClose = () => {
@@ -58,20 +58,20 @@ function AlbumRow (props) {
 
   const returnToAll = () => {
     props.setShownPhotos(photos);
-    setCurrentAlbum({});
+    props.setCurrentAlbum({});
   }
 
   return (
     <Paper className={classes.root}>
 
-      {currentAlbum.title ?
+      {props.currentAlbum.title ?
       <>
       <CreateOrEditAlbumModal
       open={showModal}
       onClose={handleClose}
       aria-labelledby="Edit album"
       aria-describedby="Modal to edit albums"
-      album={currentAlbum}
+      album={props.currentAlbum}
       isCreate={false}
       />
       <div style={{
@@ -79,13 +79,13 @@ function AlbumRow (props) {
         width: '100%',
       }}>
       <Typography className={classes.title} gutterBottom component="h2">
-        {currentAlbum.title}
+        {props.currentAlbum.title}
       </Typography>
       <Typography variant="body2" component="p">
-            By&nbsp;{currentAlbum.description}
+            By&nbsp;{props.currentAlbum.description}
       </Typography>
       <Typography variant="body2" color="textSecondary" component="p">
-            By&nbsp;{currentAlbum.owner}
+            By&nbsp;{props.currentAlbum.owner}
       </Typography>
         <div style={{
           display: 'flex',
@@ -103,7 +103,7 @@ function AlbumRow (props) {
         <Album
           key={index}
           album={item}
-          setCurrentAlbum={setCurrentAlbum}
+          setCurrentAlbum={props.setCurrentAlbum}
           setShownPhotos={props.setShownPhotos}
           handleSelectClick={props.handleSelectClick}
           onSelect={props.onSelect}
