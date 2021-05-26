@@ -108,7 +108,7 @@ function CreateOrEditAlbumsModal(props) {
         maxHeight: '90vh',
       }}
         className={classes.paper}>
-        <h2 id="simple-modal-title">Editing Album</h2>
+        <h2 id="simple-modal-title">{props.isCreate ? 'Create New Album' : 'Editing Album'}</h2>
         <form onSubmit={handleSubmit} className={classes.root} noValidate autoComplete="off">
         <TextField id="title" label="Title" value={title} onChange={(e)=> {setTitle(e.target.value)}}/>
         <TextField id="description" label="Description" value={description} onChange={(e)=> {setDescription(e.target.value)}}/>
