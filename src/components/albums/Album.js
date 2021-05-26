@@ -21,11 +21,12 @@ import EditIcon from '@material-ui/icons/Edit'
 
 
 import { PhotosContext } from '../../contexts/photos-context';
-import EditAlbumModal from './EditAlbumModal';
+import CreateOrEditAlbumModal from './CreateOrEditAlbumModal';
 
 const useStyles = makeStyles({
   root: {
     maxHeight: 100,
+    maxWidth: 100,
     padding: 0,
   },
   content: {
@@ -91,12 +92,13 @@ function Album (props) {
           {true ? <EditIcon /> : <InfoIcon />}
         </IconButton>
       </CardActions>
-      <EditAlbumModal
+      <CreateOrEditAlbumModal
         open={showModal}
         onClose={handleClose}
         aria-labelledby="Edit album"
         aria-describedby="Modal to edit albums"
         album={props.album}
+        isCreate={false}
       />
     </Card>
   );

@@ -44,11 +44,16 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-function EditAlbumsModal(props) {
-  const [title, setTitle] = useState(props.album.title);
-  const [description, setDescription] = useState(props.album.description);
+function CreateOrEditAlbumsModal(props) {
+  let album = {title: '', description: '', tags: [], permission: 0, photos: props.selected };
+  if (!props.isCreate) {
+    album=props.album;
+  }
+
+  const [title, setTitle] = useState(album.title);
+  const [description, setDescription] = useState(album.description);
   const [currentTag, setCurrentTag] = useState('');
-  const [tags, setTags] = useState(props.album.tags);
+  const [tags, setTags] = useState(album.tags);
   const [permission, setPermission] = useState(0);
 
   const handleKeyPress = (event) => {
@@ -87,6 +92,7 @@ function EditAlbumsModal(props) {
   }
 
   const classes = useStyles();
+
   return(
   <Modal
         open={props.open}
@@ -137,4 +143,4 @@ function EditAlbumsModal(props) {
   )
 }
 
-export default EditAlbumsModal
+export default CreateOrEditAlbumsModal

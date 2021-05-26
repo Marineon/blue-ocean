@@ -16,7 +16,7 @@ import InfoIcon from '@material-ui/icons/Info';
 
 import { PhotosContext } from '../../contexts/photos-context';
 import Album from './Album';
-import EditAlbumModal from './EditAlbumModal';
+import CreateOrEditAlbumModal from './CreateOrEditAlbumModal';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -66,12 +66,13 @@ function AlbumRow (props) {
 
       {currentAlbum.title ?
       <>
-      <EditAlbumModal
+      <CreateOrEditAlbumModal
       open={showModal}
       onClose={handleClose}
       aria-labelledby="Edit album"
       aria-describedby="Modal to edit albums"
       album={currentAlbum}
+      isCreate={false}
       />
       <div style={{
         textAlign: 'start',
