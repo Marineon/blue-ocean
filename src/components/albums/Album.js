@@ -2,6 +2,7 @@ import React, { useContext, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> added bunch of album features
 // import GridList from '@material-ui/core/GridList';
@@ -15,6 +16,8 @@ import { makeStyles } from '@material-ui/core/styles';
 // import DeleteIcon from '@material-ui/icons/Delete';
 <<<<<<< HEAD
 =======
+=======
+>>>>>>> added bunch of album features
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 import { withStyles } from "@material-ui/core/styles";
@@ -24,6 +27,9 @@ import Switch from '@material-ui/core/Switch';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormGroup from '@material-ui/core/FormGroup';
 import DeleteIcon from '@material-ui/icons/Delete';
+<<<<<<< HEAD
+>>>>>>> added bunch of album features
+=======
 >>>>>>> added bunch of album features
 =======
 >>>>>>> added bunch of album features
@@ -35,6 +41,7 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 // import CardMedia from '@material-ui/core/CardMedia';
 =======
 import CardMedia from '@material-ui/core/CardMedia';
@@ -42,11 +49,15 @@ import CardMedia from '@material-ui/core/CardMedia';
 =======
 // import CardMedia from '@material-ui/core/CardMedia';
 >>>>>>> added bunch of album features
+=======
+import CardMedia from '@material-ui/core/CardMedia';
+>>>>>>> added bunch of album features
 import Typography from '@material-ui/core/Typography';
 import EditIcon from '@material-ui/icons/Edit'
 
 
 import { PhotosContext } from '../../contexts/photos-context';
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 import CreateOrEditAlbumModal from './CreateOrEditAlbumModal';
@@ -56,10 +67,14 @@ import EditAlbumModal from './EditAlbumModal';
 =======
 import CreateOrEditAlbumModal from './CreateOrEditAlbumModal';
 >>>>>>> working on adding create feature on the edit modal
+=======
+import EditAlbumModal from './EditAlbumModal';
+>>>>>>> added bunch of album features
 
 const useStyles = makeStyles({
   root: {
     maxHeight: 100,
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
     maxWidth: 100,
@@ -68,6 +83,8 @@ const useStyles = makeStyles({
 =======
     maxWidth: 100,
 >>>>>>> working on adding create feature on the edit modal
+=======
+>>>>>>> added bunch of album features
     padding: 0,
   },
   content: {
@@ -135,6 +152,7 @@ function Album (props) {
       </CardActions>
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
       <CreateOrEditAlbumModal
 =======
       <EditAlbumModal
@@ -142,11 +160,15 @@ function Album (props) {
 =======
       <CreateOrEditAlbumModal
 >>>>>>> working on adding create feature on the edit modal
+=======
+      <EditAlbumModal
+>>>>>>> added bunch of album features
         open={showModal}
         onClose={handleClose}
         aria-labelledby="Edit album"
         aria-describedby="Modal to edit albums"
         album={props.album}
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
         isCreate={false}
@@ -155,6 +177,8 @@ function Album (props) {
 =======
         isCreate={false}
 >>>>>>> working on adding create feature on the edit modal
+=======
+>>>>>>> added bunch of album features
       />
     </Card>
   );

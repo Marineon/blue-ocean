@@ -1,5 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
+<<<<<<< HEAD
 // import GridList from '@material-ui/core/GridList';
 // import GridListTile from '@material-ui/core/GridListTile';
 // import { withStyles } from "@material-ui/core/styles";
@@ -9,6 +10,17 @@ import Button from '@material-ui/core/Button';
 // import FormControlLabel from '@material-ui/core/FormControlLabel';
 // import FormGroup from '@material-ui/core/FormGroup';
 // import DeleteIcon from '@material-ui/icons/Delete';
+=======
+import GridList from '@material-ui/core/GridList';
+import GridListTile from '@material-ui/core/GridListTile';
+import { withStyles } from "@material-ui/core/styles";
+import Paper from '@material-ui/core/Paper';
+import Button from '@material-ui/core/Button';
+import Switch from '@material-ui/core/Switch';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import FormGroup from '@material-ui/core/FormGroup';
+import DeleteIcon from '@material-ui/icons/Delete';
+>>>>>>> added bunch of album features
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import EditIcon from '@material-ui/icons/Edit';
@@ -16,7 +28,11 @@ import InfoIcon from '@material-ui/icons/Info';
 
 import { PhotosContext } from '../../contexts/photos-context';
 import Album from './Album';
+<<<<<<< HEAD
 import CreateOrEditAlbumModal from './CreateOrEditAlbumModal';
+=======
+import EditAlbumModal from './EditAlbumModal';
+>>>>>>> added bunch of album features
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -66,13 +82,20 @@ function AlbumRow (props) {
 
       {currentAlbum.title ?
       <>
+<<<<<<< HEAD
       <CreateOrEditAlbumModal
+=======
+      <EditAlbumModal
+>>>>>>> added bunch of album features
       open={showModal}
       onClose={handleClose}
       aria-labelledby="Edit album"
       aria-describedby="Modal to edit albums"
       album={currentAlbum}
+<<<<<<< HEAD
       isCreate={false}
+=======
+>>>>>>> added bunch of album features
       />
       <div style={{
         textAlign: 'start',

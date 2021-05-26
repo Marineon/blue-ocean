@@ -14,7 +14,10 @@ import { PhotosContext } from '../../contexts/photos-context';
 import EditPhotosModal from './EditPhotosModal'
 import PhotoModal from '../PhotoView/PhotoModal';
 import AlbumRow from '../albums/AlbumRow'
+<<<<<<< HEAD
 import CreateOrEditAlbumModal from '../albums/CreateOrEditAlbumModal';
+=======
+>>>>>>> added bunch of album features
 
 
 let styles = {
@@ -38,7 +41,10 @@ function Gallery(props) {
   const [onSelect, setOnSelect] = useState(false);
   const [selected, setSelected] = useState([]);
   const [shownPhotos, setShownPhotos] = useState(photos);
+<<<<<<< HEAD
   const [showAlbumModal, setShowAlbumModal] = useState(false);
+=======
+>>>>>>> added bunch of album features
 
   const { classes,
     // children, className, ...other
@@ -83,10 +89,18 @@ function Gallery(props) {
 
   return (
     <>
+<<<<<<< HEAD
     <AlbumRow setShownPhotos={setShownPhotos} handleSelectClick={handleSelectClick} onSelect={onSelect}/>
     <Paper id="wrapper">
     <div style={{ height: 50, display:'flex', justifyContent:'space-between', flexWrap: 'wrap' }}>
       <IconButton onClick={() => setShowAlbumModal(true)} aria-label="new-album">
+=======
+
+    <AlbumRow setShownPhotos={setShownPhotos} handleSelectClick={handleSelectClick} onSelect={onSelect}/>
+    <Paper id="wrapper">
+    <div style={{ height: 50, display:'flex', justifyContent:'space-between', flexWrap: 'wrap' }}>
+      <IconButton aria-label="new-album">
+>>>>>>> added bunch of album features
       {onSelect && selected.length > 0 ?
           <AddAlbumIcon /> : null }
        </IconButton>
@@ -149,6 +163,7 @@ function Gallery(props) {
         showModal={showPhotoModal}
         setShowModal={setShowPhotoModal}
       />
+<<<<<<< HEAD
     <CreateOrEditAlbumModal
       open={showAlbumModal}
       onClose={handleClose}
@@ -156,6 +171,8 @@ function Gallery(props) {
       aria-describedby="Modal to create albums"
       selected={selected}
       isCreate={true}/>
+=======
+>>>>>>> added bunch of album features
   </Paper>
   </>
 )
