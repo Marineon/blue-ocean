@@ -26,7 +26,6 @@ const Search = () => {
     // const matches = fakePhotos[0].photos.filter(photo => photo.tags.includes(searchTerm.toLowerCase()))
     const matches = photos.filter(photo => photo.tags.includes(searchTerm.toLowerCase()))
     setSearchResults(matches)
-
   }
 
   return (
