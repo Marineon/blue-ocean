@@ -12,6 +12,7 @@ import AddAlbumIcon from '@material-ui/icons/CreateNewFolder';
 import IconButton from '@material-ui/core/IconButton';
 import { PhotosContext } from '../../contexts/photos-context';
 import EditPhotosModal from './EditPhotosModal'
+<<<<<<< HEAD
 import PhotoModal from '../PhotoView/PhotoModal';
 import AlbumRow from '../albums/AlbumRow'
 <<<<<<< HEAD
@@ -22,6 +23,9 @@ import CreateOrEditAlbumModal from '../albums/CreateOrEditAlbumModal';
 =======
 import CreateOrEditAlbumModal from '../albums/CreateOrEditAlbumModal';
 >>>>>>> committing before push for Tony
+=======
+import AlbumRow from '../albums/AlbumRow'
+>>>>>>> added bunch of album features
 
 
 let styles = {
@@ -47,12 +51,15 @@ function Gallery(props) {
   const [shownPhotos, setShownPhotos] = useState(photos);
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   const [showAlbumModal, setShowAlbumModal] = useState(false);
 =======
 >>>>>>> added bunch of album features
 =======
   const [showAlbumModal, setShowAlbumModal] = useState(false);
 >>>>>>> committing before push for Tony
+=======
+>>>>>>> added bunch of album features
 
   const { classes,
     // children, className, ...other
@@ -102,16 +109,20 @@ function Gallery(props) {
     <>
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     <AlbumRow setShownPhotos={setShownPhotos} handleSelectClick={handleSelectClick} onSelect={onSelect}/>
     <Paper id="wrapper">
     <div style={{ height: 50, display:'flex', justifyContent:'space-between', flexWrap: 'wrap' }}>
       <IconButton onClick={() => setShowAlbumModal(true)} aria-label="new-album">
 =======
+=======
+>>>>>>> added bunch of album features
 
     <AlbumRow setShownPhotos={setShownPhotos} handleSelectClick={handleSelectClick} onSelect={onSelect}/>
     <Paper id="wrapper">
     <div style={{ height: 50, display:'flex', justifyContent:'space-between', flexWrap: 'wrap' }}>
       <IconButton aria-label="new-album">
+<<<<<<< HEAD
 >>>>>>> added bunch of album features
 =======
     <AlbumRow setShownPhotos={setShownPhotos} handleSelectClick={handleSelectClick} onSelect={onSelect}/>
@@ -119,6 +130,8 @@ function Gallery(props) {
     <div style={{ height: 50, display:'flex', justifyContent:'space-between', flexWrap: 'wrap' }}>
       <IconButton onClick={() => setShowAlbumModal(true)} aria-label="new-album">
 >>>>>>> committing before push for Tony
+=======
+>>>>>>> added bunch of album features
       {onSelect && selected.length > 0 ?
           <AddAlbumIcon /> : null }
        </IconButton>
@@ -175,6 +188,7 @@ function Gallery(props) {
         selected={selected}
     />
   </Paper>
+<<<<<<< HEAD
     <PhotoModal
         // alt={item.title}
         // srcSet={item.url}
@@ -198,6 +212,8 @@ function Gallery(props) {
 =======
 >>>>>>> committing before push for Tony
   </Paper>
+=======
+>>>>>>> added bunch of album features
   </>
 )
 }

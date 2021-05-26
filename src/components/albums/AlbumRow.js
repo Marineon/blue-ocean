@@ -1,6 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 <<<<<<< HEAD
+<<<<<<< HEAD
 // import GridList from '@material-ui/core/GridList';
 // import GridListTile from '@material-ui/core/GridListTile';
 // import { withStyles } from "@material-ui/core/styles";
@@ -11,6 +12,8 @@ import Button from '@material-ui/core/Button';
 // import FormGroup from '@material-ui/core/FormGroup';
 // import DeleteIcon from '@material-ui/icons/Delete';
 =======
+=======
+>>>>>>> added bunch of album features
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 import { withStyles } from "@material-ui/core/styles";
@@ -20,6 +23,9 @@ import Switch from '@material-ui/core/Switch';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormGroup from '@material-ui/core/FormGroup';
 import DeleteIcon from '@material-ui/icons/Delete';
+<<<<<<< HEAD
+>>>>>>> added bunch of album features
+=======
 >>>>>>> added bunch of album features
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
@@ -30,6 +36,7 @@ import { PhotosContext } from '../../contexts/photos-context';
 import Album from './Album';
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import CreateOrEditAlbumModal from './CreateOrEditAlbumModal';
 =======
 import EditAlbumModal from './EditAlbumModal';
@@ -37,6 +44,9 @@ import EditAlbumModal from './EditAlbumModal';
 =======
 import CreateOrEditAlbumModal from './CreateOrEditAlbumModal';
 >>>>>>> working on adding create feature on the edit modal
+=======
+import EditAlbumModal from './EditAlbumModal';
+>>>>>>> added bunch of album features
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -88,6 +98,7 @@ function AlbumRow (props) {
       <>
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
       <CreateOrEditAlbumModal
 =======
       <EditAlbumModal
@@ -95,11 +106,15 @@ function AlbumRow (props) {
 =======
       <CreateOrEditAlbumModal
 >>>>>>> working on adding create feature on the edit modal
+=======
+      <EditAlbumModal
+>>>>>>> added bunch of album features
       open={showModal}
       onClose={handleClose}
       aria-labelledby="Edit album"
       aria-describedby="Modal to edit albums"
       album={currentAlbum}
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
       isCreate={false}
@@ -108,6 +123,8 @@ function AlbumRow (props) {
 =======
       isCreate={false}
 >>>>>>> working on adding create feature on the edit modal
+=======
+>>>>>>> added bunch of album features
       />
       <div style={{
         textAlign: 'start',

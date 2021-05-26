@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> added bunch of album features
 // import GridList from '@material-ui/core/GridList';
@@ -18,6 +19,8 @@ import { makeStyles } from '@material-ui/core/styles';
 =======
 =======
 >>>>>>> added bunch of album features
+=======
+>>>>>>> added bunch of album features
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 import { withStyles } from "@material-ui/core/styles";
@@ -28,6 +31,9 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormGroup from '@material-ui/core/FormGroup';
 import DeleteIcon from '@material-ui/icons/Delete';
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> added bunch of album features
+=======
 >>>>>>> added bunch of album features
 =======
 >>>>>>> added bunch of album features
@@ -42,12 +48,16 @@ import CardContent from '@material-ui/core/CardContent';
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 // import CardMedia from '@material-ui/core/CardMedia';
 =======
 import CardMedia from '@material-ui/core/CardMedia';
 >>>>>>> added bunch of album features
 =======
 // import CardMedia from '@material-ui/core/CardMedia';
+>>>>>>> added bunch of album features
+=======
+import CardMedia from '@material-ui/core/CardMedia';
 >>>>>>> added bunch of album features
 =======
 import CardMedia from '@material-ui/core/CardMedia';
@@ -61,6 +71,7 @@ import { PhotosContext } from '../../contexts/photos-context';
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import CreateOrEditAlbumModal from './CreateOrEditAlbumModal';
 =======
 import EditAlbumModal from './EditAlbumModal';
@@ -74,6 +85,9 @@ import EditAlbumModal from './EditAlbumModal';
 =======
 import CreateOrEditAlbumModal from './CreateOrEditAlbumModal';
 >>>>>>> working on adding create feature on the edit modal
+=======
+import EditAlbumModal from './EditAlbumModal';
+>>>>>>> added bunch of album features
 
 const useStyles = makeStyles({
   root: {
@@ -82,6 +96,7 @@ const useStyles = makeStyles({
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     maxWidth: 100,
 =======
 >>>>>>> added bunch of album features
@@ -93,6 +108,8 @@ const useStyles = makeStyles({
 =======
     maxWidth: 100,
 >>>>>>> working on adding create feature on the edit modal
+=======
+>>>>>>> added bunch of album features
     padding: 0,
   },
   content: {
@@ -162,6 +179,7 @@ function Album (props) {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
       <CreateOrEditAlbumModal
 =======
       <EditAlbumModal
@@ -175,6 +193,9 @@ function Album (props) {
 =======
       <CreateOrEditAlbumModal
 >>>>>>> working on adding create feature on the edit modal
+=======
+      <EditAlbumModal
+>>>>>>> added bunch of album features
         open={showModal}
         onClose={handleClose}
         aria-labelledby="Edit album"
@@ -184,6 +205,7 @@ function Album (props) {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         isCreate={false}
 =======
 >>>>>>> added bunch of album features
@@ -195,6 +217,8 @@ function Album (props) {
 =======
         isCreate={false}
 >>>>>>> working on adding create feature on the edit modal
+=======
+>>>>>>> added bunch of album features
       />
     </Card>
   );
