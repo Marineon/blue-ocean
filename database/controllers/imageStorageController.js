@@ -1,14 +1,15 @@
 // import { S3Client, ListObjectsCommand } from "@aws-sdk/client-s3"; // ES Modules import
-import AWS from "@aws-sdk/client-s3"; // ES Modules import
+import aws from "@aws-sdk/client-s3"; // ES Modules import
+import config from './config.js';
 
 // const config = { region: "us-west-2" };
-// const input = { Bucket: "hrsea16blueocean" };
+// const input = { Bucket: "hrseablueocean" };
 
 
 const listObjects = async () => {
   try {
-    const client = new AWS.S3Client({ region: "us-west-2" });
-    const command = new AWS.ListObjectsCommand({ Bucket: "hrseablueocean" });
+    const client = new aws.S3Client({ region: "us-west-2" });
+    const command = new aws.ListObjectsCommand({ Bucket: "hrseablueocean" });
     const data = await client.send(command);
     console.log('data');
     console.log(data);
@@ -22,12 +23,12 @@ const listObjects = async () => {
 
 const getObject = async (key) => {
   try {
-    const input = { 
+    const input = {
       Bucket: 'hrseablueocean',
-      Key: key
+      Key: key,
     };
-    const client = new AWS.S3Client({ region: "us-west-2" });
-    const command = new AWS.GetObjectAclCommand(input);
+    const client = new aws.S3Client({ region: "us-west-2" });
+    const command = new aws.GetObjectAclCommand(input);
     const data = await client.send(command);
     console.log('data');
     console.log(JSON.stringify(data));
@@ -39,7 +40,29 @@ const getObject = async (key) => {
   }
 }
 
-// console.log(listObjects())
+(async function() {
+  try {
+    aws.config.setPromisesDependency();
+    aws.config.update({
+      accessKeyId: config.accessKey,
+      secretAccessKey: config.secretKey,
+      region: 'us-west-2'
+    });
+
+    const s3 = new aws.S3();
+    const response = await s3.listObjectsV2({
+      Bucket: 'hrseablueocean'
+    });
+
+    console.log(response);
+
+  } catch (e) {
+    console.error('error', e)
+  }
+
+})();
+
+console.log(listObjects())
 console.log(getObject('download.jpeg'))
 
 
