@@ -14,11 +14,6 @@ import { PhotosContext } from '../../contexts/photos-context';
 import EditPhotosModal from './EditPhotosModal'
 import PhotoModal from '../PhotoView/PhotoModal';
 import AlbumRow from '../albums/AlbumRow'
-<<<<<<< HEAD
-import CreateOrEditAlbumModal from '../albums/CreateOrEditAlbumModal';
-import RemoveCircleOutlineIcon from '@material-ui/icons/RemoveCircleOutline';
-=======
->>>>>>> added bunch of album features
 
 
 let styles = {
@@ -38,20 +33,10 @@ function Gallery(props) {
     // setPhotos,
     // updatePhoto
   } = useContext(PhotosContext);
-<<<<<<< HEAD
-  const [showPhotoModal, setShowPhotoModal] = useState(null);
-  const [showEditPhotosModal, setShowEditPhotosModal] = useState(false);
-  const [onSelect, setOnSelect] = useState(false);
-  const [selected, setSelected] = useState([]);
-  const [shownPhotos, setShownPhotos] = useState(photos);
-  const [showAlbumModal, setShowAlbumModal] = useState(false);
-  const [currentAlbum, setCurrentAlbum] = useState({});
-=======
   const [showModal, setShowModal] = useState(false);
   const [onSelect, setOnSelect] = useState(false);
   const [selected, setSelected] = useState([]);
   const [shownPhotos, setShownPhotos] = useState(photos);
->>>>>>> added bunch of album features
 
   const { classes,
     // children, className, ...other
@@ -92,40 +77,6 @@ function Gallery(props) {
 
   return (
     <>
-<<<<<<< HEAD
-    <AlbumRow
-      currentAlbum={currentAlbum}
-      setCurrentAlbum={setCurrentAlbum}
-      setShownPhotos={setShownPhotos}
-      handleSelectClick={handleSelectClick}
-      onSelect={onSelect}
-    />
-    <Paper id="wrapper" className={classes.paper}>
-    <div
-      style={{
-        height: 50,
-        display:'flex',
-        justifyContent:'space-between',
-        flexWrap: 'wrap'
-      }}
-    >
-      <div>
-      {onSelect && selected.length > 0 ?
-      currentAlbum.title
-      ? <IconButton
-          onClick={() => removePhotosFromAlbum()}
-          aria-label="new-album"
-        >
-          <RemoveCircleOutlineIcon />
-        </IconButton>
-      : <IconButton
-          onClick={() => setShowAlbumModal(true)}
-          aria-label="new-album"
-        >
-          <AddAlbumIcon />
-        </IconButton> : null }
-        </div>
-=======
 
     <AlbumRow setShownPhotos={setShownPhotos} handleSelectClick={handleSelectClick} onSelect={onSelect}/>
     <Paper id="wrapper">
@@ -134,7 +85,6 @@ function Gallery(props) {
       {onSelect && selected.length > 0 ?
           <AddAlbumIcon /> : null }
        </IconButton>
->>>>>>> added bunch of album features
       <FormGroup className={classes.formGroup} row>
         {onSelect && selected.length > 0 ?
         <>
@@ -153,18 +103,7 @@ function Gallery(props) {
         </>
           : null}
           <FormControlLabel
-<<<<<<< HEAD
-            control={
-              <Switch
-                size="small"
-                checked={onSelect}
-                onChange={handleSelectClick}
-                color="primary"
-              />
-            }
-=======
             control={<Switch size="small" checked={onSelect} onChange={handleSelectClick} color="primary" />}
->>>>>>> added bunch of album features
             label="Select"
           />
         </FormGroup>
@@ -205,17 +144,7 @@ function Gallery(props) {
         showModal={showPhotoModal}
         setShowModal={setShowPhotoModal}
       />
-<<<<<<< HEAD
-    <CreateOrEditAlbumModal
-      open={showAlbumModal}
-      onClose={handleClose}
-      aria-labelledby="Create album"
-      aria-describedby="Modal to create albums"
-      selected={selected}
-      isCreate={true}/>
-=======
   </Paper>
->>>>>>> added bunch of album features
   </>
 )
 }

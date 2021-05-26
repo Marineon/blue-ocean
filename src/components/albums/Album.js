@@ -38,18 +38,26 @@ import EditIcon from '@material-ui/icons/Edit'
 
 import { PhotosContext } from '../../contexts/photos-context';
 <<<<<<< HEAD
+<<<<<<< HEAD
 import CreateOrEditAlbumModal from './CreateOrEditAlbumModal';
 =======
 import EditAlbumModal from './EditAlbumModal';
 >>>>>>> added bunch of album features
+=======
+import CreateOrEditAlbumModal from './CreateOrEditAlbumModal';
+>>>>>>> working on adding create feature on the edit modal
 
 const useStyles = makeStyles({
   root: {
     maxHeight: 100,
 <<<<<<< HEAD
+<<<<<<< HEAD
     maxWidth: 100,
 =======
 >>>>>>> added bunch of album features
+=======
+    maxWidth: 100,
+>>>>>>> working on adding create feature on the edit modal
     padding: 0,
   },
   content: {
@@ -116,19 +124,27 @@ function Album (props) {
         </IconButton>
       </CardActions>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <CreateOrEditAlbumModal
 =======
       <EditAlbumModal
 >>>>>>> added bunch of album features
+=======
+      <CreateOrEditAlbumModal
+>>>>>>> working on adding create feature on the edit modal
         open={showModal}
         onClose={handleClose}
         aria-labelledby="Edit album"
         aria-describedby="Modal to edit albums"
         album={props.album}
 <<<<<<< HEAD
+<<<<<<< HEAD
         isCreate={false}
 =======
 >>>>>>> added bunch of album features
+=======
+        isCreate={false}
+>>>>>>> working on adding create feature on the edit modal
       />
     </Card>
   );
