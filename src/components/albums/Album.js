@@ -60,6 +60,7 @@ import { PhotosContext } from '../../contexts/photos-context';
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import CreateOrEditAlbumModal from './CreateOrEditAlbumModal';
 =======
 import EditAlbumModal from './EditAlbumModal';
@@ -70,6 +71,9 @@ import CreateOrEditAlbumModal from './CreateOrEditAlbumModal';
 =======
 import EditAlbumModal from './EditAlbumModal';
 >>>>>>> added bunch of album features
+=======
+import CreateOrEditAlbumModal from './CreateOrEditAlbumModal';
+>>>>>>> working on adding create feature on the edit modal
 
 const useStyles = makeStyles({
   root: {
@@ -77,6 +81,7 @@ const useStyles = makeStyles({
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     maxWidth: 100,
 =======
 >>>>>>> added bunch of album features
@@ -85,6 +90,9 @@ const useStyles = makeStyles({
 >>>>>>> working on adding create feature on the edit modal
 =======
 >>>>>>> added bunch of album features
+=======
+    maxWidth: 100,
+>>>>>>> working on adding create feature on the edit modal
     padding: 0,
   },
   content: {
@@ -153,6 +161,7 @@ function Album (props) {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
       <CreateOrEditAlbumModal
 =======
       <EditAlbumModal
@@ -163,6 +172,9 @@ function Album (props) {
 =======
       <EditAlbumModal
 >>>>>>> added bunch of album features
+=======
+      <CreateOrEditAlbumModal
+>>>>>>> working on adding create feature on the edit modal
         open={showModal}
         onClose={handleClose}
         aria-labelledby="Edit album"
@@ -171,6 +183,7 @@ function Album (props) {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         isCreate={false}
 =======
 >>>>>>> added bunch of album features
@@ -179,6 +192,9 @@ function Album (props) {
 >>>>>>> working on adding create feature on the edit modal
 =======
 >>>>>>> added bunch of album features
+=======
+        isCreate={false}
+>>>>>>> working on adding create feature on the edit modal
       />
     </Card>
   );

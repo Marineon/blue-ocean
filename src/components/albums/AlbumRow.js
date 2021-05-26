@@ -29,10 +29,14 @@ import InfoIcon from '@material-ui/icons/Info';
 import { PhotosContext } from '../../contexts/photos-context';
 import Album from './Album';
 <<<<<<< HEAD
+<<<<<<< HEAD
 import CreateOrEditAlbumModal from './CreateOrEditAlbumModal';
 =======
 import EditAlbumModal from './EditAlbumModal';
 >>>>>>> added bunch of album features
+=======
+import CreateOrEditAlbumModal from './CreateOrEditAlbumModal';
+>>>>>>> working on adding create feature on the edit modal
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -83,19 +87,27 @@ function AlbumRow (props) {
       {currentAlbum.title ?
       <>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <CreateOrEditAlbumModal
 =======
       <EditAlbumModal
 >>>>>>> added bunch of album features
+=======
+      <CreateOrEditAlbumModal
+>>>>>>> working on adding create feature on the edit modal
       open={showModal}
       onClose={handleClose}
       aria-labelledby="Edit album"
       aria-describedby="Modal to edit albums"
       album={currentAlbum}
 <<<<<<< HEAD
+<<<<<<< HEAD
       isCreate={false}
 =======
 >>>>>>> added bunch of album features
+=======
+      isCreate={false}
+>>>>>>> working on adding create feature on the edit modal
       />
       <div style={{
         textAlign: 'start',
