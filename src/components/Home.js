@@ -21,7 +21,10 @@ const Home = () => {
         <ContextTest />
         <FriendsList friends={friends} pending={pending} requested={requested}/>
       </Typography>
-      <Link to='/testpage' component={RouterLink}>Testing Purposes Only</Link>
+      <Link to='/testpage' component={RouterLink}>Testing TestPage</Link>
+      <br/>
+      <Link to='/createuser' component={RouterLink}>Testing Create User</Link>
+      <br/>
       <Link to='/login' component={RouterLink}>Testing Login</Link>
     </div>
   );
