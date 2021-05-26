@@ -1,6 +1,10 @@
-const mongoose = require('mongoose');
+// const mongoose = require('mongoose');
+import mongoose from 'mongoose';
+import fakeUser from '../dummyData/fakeUser.js';
+import fakePhotos from '../dummyData/fakePhotos.js';
+
 const { Schema, model } = mongoose;
-mongoose.connect('mongodb://localhost/db', {
+mongoose.connect('mongodb://localhost/blue', {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
@@ -32,6 +36,7 @@ const userSchema = new Schema({
 });
 
 const photoSchema = new Schema({
+  ownerName: String,
   photoId: Number,
   uploadDate: Date,
   description: String,
@@ -51,4 +56,75 @@ const User = model('User', userSchema);
 const Photo = model('Photo', photoSchema);
 const UserPhotos = model('UserPhotos', userPhotosSchema);
 
-export default db;
+/* for populating local mongodb collections:
+
+const onInsert = (err, docs) => {
+  console.log(docs);
+  if (err) {
+    console.log(err);
+  } else {
+    console.info('%d users were stored', docs.insertedCount);
+  }
+};
+
+User.collection.drop();
+UserPhotos.collection.drop();
+User.collection.insertMany(fakeUser, onInsert);
+UserPhotos.collection.insertMany(fakePhotos, onInsert);
+*/
+
+/*   Below is for testing purposes - to be deleted soon
+let userFriends = [];
+const findUserFriends = User.find({'userId': 2})
+  .select('friends');
+
+findUserFriends.exec((err, friends) => {
+  if (err) {
+    console.log(err);
+  } else {
+    friends.forEach(f => {
+      userFriends.push(f.friends);
+      console.log('userFriends', userFriends);
+    });
+  }
+});
+
+const selectedPhotos = [];
+const userFriends = [3,2]
+const findFriendsPhotos = UserPhotos.find({'ownerId': { $in: userFriends }})
+ findFriendsPhotos.exec((err, results) => {
+  if (err) {
+    console.log(err);
+  } else {
+    results.forEach(doc => {
+      doc.photos = doc.photos.filter(photo => {
+        return photo.accessLevel === 2;
+      });
+      doc.photos.forEach(doc => {
+        selectedPhotos.push(doc);
+      });
+      console.log('selectedPhotos', );
+    });
+  }
+})
+
+
+const findUserPhotos = UserPhotos.find({'ownerId': 2});
+findUserPhotos.exec((err, results) => {
+  if (err) {
+    console.log(err);
+  } else {
+    results.forEach(user => {
+      user.photos.forEach(photo => {
+        selectedPhotos.push(photo);
+        console.log('selectedPhotos', selectedPhotos)
+      });
+    });
+  }
+});
+
+*/
+
+module.exports = {
+  Friend, User, Photo, UserPhotos
+};
