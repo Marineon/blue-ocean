@@ -1,14 +1,14 @@
 import React, { useContext, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-// import GridList from '@material-ui/core/GridList';
-// import GridListTile from '@material-ui/core/GridListTile';
-// import { withStyles } from "@material-ui/core/styles";
+import GridList from '@material-ui/core/GridList';
+import GridListTile from '@material-ui/core/GridListTile';
+import { withStyles } from "@material-ui/core/styles";
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
-// import Switch from '@material-ui/core/Switch';
-// import FormControlLabel from '@material-ui/core/FormControlLabel';
-// import FormGroup from '@material-ui/core/FormGroup';
-// import DeleteIcon from '@material-ui/icons/Delete';
+import Switch from '@material-ui/core/Switch';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import FormGroup from '@material-ui/core/FormGroup';
+import DeleteIcon from '@material-ui/icons/Delete';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import EditIcon from '@material-ui/icons/Edit';
@@ -16,7 +16,7 @@ import InfoIcon from '@material-ui/icons/Info';
 
 import { PhotosContext } from '../../contexts/photos-context';
 import Album from './Album';
-import CreateOrEditAlbumModal from './CreateOrEditAlbumModal';
+import EditAlbumModal from './EditAlbumModal';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -46,7 +46,7 @@ function AlbumRow (props) {
     // setPhotos,
     // updatePhoto
   } = useContext(PhotosContext);
-  // const [currentAlbum, setCurrentAlbum] = useState({});
+  const [currentAlbum, setCurrentAlbum] = useState({});
   const [showModal, setShowModal] = useState(false);
 
   const handleClose = () => {
@@ -58,34 +58,33 @@ function AlbumRow (props) {
 
   const returnToAll = () => {
     props.setShownPhotos(photos);
-    props.setCurrentAlbum({});
+    setCurrentAlbum({});
   }
 
   return (
     <Paper className={classes.root}>
 
-      {props.currentAlbum.title ?
+      {currentAlbum.title ?
       <>
-      <CreateOrEditAlbumModal
+      <EditAlbumModal
       open={showModal}
       onClose={handleClose}
       aria-labelledby="Edit album"
       aria-describedby="Modal to edit albums"
-      album={props.currentAlbum}
-      isCreate={false}
+      album={currentAlbum}
       />
       <div style={{
         textAlign: 'start',
         width: '100%',
       }}>
       <Typography className={classes.title} gutterBottom component="h2">
-        {props.currentAlbum.title}
+        {currentAlbum.title}
       </Typography>
       <Typography variant="body2" component="p">
-            By&nbsp;{props.currentAlbum.description}
+            By&nbsp;{currentAlbum.description}
       </Typography>
       <Typography variant="body2" color="textSecondary" component="p">
-            By&nbsp;{props.currentAlbum.owner}
+            By&nbsp;{currentAlbum.owner}
       </Typography>
         <div style={{
           display: 'flex',
@@ -95,15 +94,7 @@ function AlbumRow (props) {
             {/* Add based on the my images vs shared images */}
             {true ? <EditIcon /> : <InfoIcon />}
           </IconButton>
-          <Button
-            size="small"
-            className={classes.button}
-            onClick={returnToAll}
-            variant="contained"
-            color="secondary"
-          >
-              Exit
-          </Button>
+          <Button size="small" className={classes.button} onClick={returnToAll} variant="contained" color="secondary">Exit</Button>
         </div>
       </div>
       </>
@@ -111,7 +102,7 @@ function AlbumRow (props) {
         <Album
           key={index}
           album={item}
-          setCurrentAlbum={props.setCurrentAlbum}
+          setCurrentAlbum={setCurrentAlbum}
           setShownPhotos={props.setShownPhotos}
           handleSelectClick={props.handleSelectClick}
           onSelect={props.onSelect}
