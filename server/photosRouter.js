@@ -39,7 +39,7 @@ photosRouter.get('/allPhotos', (req, res) => {
     }
   });
   // add user's photos
-  const findUserPhotos = UserPhotos.find({ 'ownerId': 2 });
+  const findUserPhotos = UserPhotos.find({ 'ownerId': `${userId}` });
   findUserPhotos.exec((err, results) => {
     if (err) {
       console.log(err);
@@ -58,7 +58,7 @@ photosRouter.get('/allPhotos', (req, res) => {
   });
 })
 
-
+// find one and update
 photosRouter.patch('/single', (req, res) => {
 
 });
