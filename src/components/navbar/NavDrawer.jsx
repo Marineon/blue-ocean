@@ -1,10 +1,8 @@
-
-import React, { useState, } from 'react';
-import { Drawer, Button } from '@material-ui/core';
+import React, { useState } from 'react';
+import { Drawer } from '@material-ui/core';
 import { List, ListItem } from '@material-ui/core';
 import { Link as RouterLink } from 'react-router-dom';
 import Search from './Search';
-
 import { AppBar, IconButton, Typography, Toolbar } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
@@ -97,67 +95,75 @@ export default function NavDrawer() {
         <ListItem button>Add Photo</ListItem>
         <ListItem button>Feed</ListItem>
         <ListItem button>Friends</ListItem>
-        <ListItem button>Gallery</ListItem>
+        <RouterLink to='/gallery'>
+          <ListItem button>Gallery</ListItem>
+        </RouterLink>
+        <RouterLink to='/testpage'>
+          <ListItem button>Testing Purposes Only</ListItem>
+        </RouterLink>
       </List>
     </div>
   )
 
   return (
     <React.Fragment>
-      <div className={classes.root}>
-        <AppBar
-          position="fixed"
-          className={clsx(classes.appBar, {
-            [classes.appBarShift]: showState,
-          })}
-        >
-          <Toolbar
-            style={{ display: "flex", justifyContent: "flex-start" }}
-          >
-            <Typography variant="h6" noWrap className={classes.title}>
-              Persistent drawer
+    <div className={classes.root}>
+      <AppBar
+        position="fixed"
+        className={clsx(classes.appBar, {
+          [classes.appBarShift]: showState,
+        })}
+      >
+      <Toolbar
+      style={{display:"flex", justifyContent: "flex-start"}}
+      >
+      <Typography variant="h6" noWrap className={classes.title}>
+        <RouterLink to='/'>
+          Marineon
+        </RouterLink>
       </Typography>
-            <div
-              style={{ display: "flex", justifyContent: "center", width: "88%" }}
-            >
-              <Search />
-            </div>
-            <IconButton
-              color="inherit"
-              aria-label="open drawer"
-              edge="end"
-              onClick={handleDrawerOpen}
-              className={clsx(showState && classes.hide)}
-            >
-              <MenuIcon />
-            </IconButton>
-          </Toolbar>
-        </AppBar>
-        <main
-          className={clsx(classes.content, {
-            [classes.contentShift]: showState,
-          })}
-        >
+      <div
+style={{display: "flex", justifyContent: "center", width: "88%"}}
+>
+<Search
+/>
+</div>
+      <IconButton
+        color="inherit"
+        aria-label="open drawer"
+        edge="end"
+        onClick={handleDrawerOpen}
+        className={clsx(showState && classes.hide)}
+      >
+        <MenuIcon />
+      </IconButton>
+    </Toolbar>
+  </AppBar>
+      <main
+        className={clsx(classes.content, {
+          [classes.contentShift]: showState,
+        })}
+      >
         </main>
         <Drawer
-          className={classes.drawer}
-          variant="persistent"
-          anchor="right"
-          open={showState}
-          onClose={toggleDrawer(false)}
-          classes={{
-            paper: classes.drawerPaper,
-          }}
-        >
-          <div className={classes.drawerHeader}>
-            <IconButton onClick={handleDrawerClose}>
-              {theme.direction === 'rtl' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
-            </IconButton>
-          </div>
-          <Divider />
-          {list()}
-        </Drawer>
-      </div>
+        className={classes.drawer}
+        variant="persistent"
+        anchor="right"
+        open={showState}
+        onClose={toggleDrawer(false)}
+        classes={{
+          paper: classes.drawerPaper,
+        }}
+      >
+        <div className={classes.drawerHeader}>
+          <IconButton onClick={handleDrawerClose}>
+            {theme.direction === 'rtl' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
+          </IconButton>
+        </div>
+        <Divider />
+        {list()}
+      </Drawer>
+    </div>
     </React.Fragment>
   )
 
@@ -167,3 +173,4 @@ export default function NavDrawer() {
         <div className={classes.drawerHeader} />
         <Typography paragraph></Typography>
 */
+

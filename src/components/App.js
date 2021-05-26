@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Switch, Route } from 'react-router-dom';
 import { BrowserRouter as Router } from 'react-router-dom';
@@ -15,8 +14,11 @@ import DarkModeSwitch from '../components/SharedComponents/DarkModeSwitch';
 import TestPage from './TestPage/TestPage';
 import UserContextProvider from '../contexts/user-context';
 import PhotosContextProvider from '../contexts/photos-context';
+import Login from './Login'
 import NavDrawer from './navbar/NavDrawer';
 import CreateUser from './Login/CreateUser'
+import AddPhotos from './AddPhotos/AddPhotos';
+
 
 function App() {
   const [darkMode, setDarkMode] = useState(false);
@@ -28,17 +30,19 @@ function App() {
       <React.Fragment>
         <ThemeProvider theme={appliedTheme}>
           <CssBaseline />
-          <Container className="App">
+          <Container className="App" >
             <DarkModeSwitch darkMode={darkMode} setDarkMode={setDarkMode} />
             <UserContextProvider>
               <PhotosContextProvider>
               <NavDrawer/>
               <Switch>
                   <Route exact path="/gallery" render={() => <Gallery />} />
+                  <Route exact path="/login" render={() => <Login />} />
                   <Route exact path="/" render={() => <Home />} />
                   <Route exact path="/testpage" render={() => <TestPage />} />
                   <Route exact path="/CreateUser" render={() => <CreateUser />} />
                 </Switch>
+                <AddPhotos />
               </PhotosContextProvider>
             </UserContextProvider>
           </Container>

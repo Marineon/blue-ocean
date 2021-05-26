@@ -5,6 +5,11 @@ import Typography from '@material-ui/core/Typography'
 import { Link as RouterLink } from 'react-router-dom';
 
 
+
+// import Search from './navbar/Search';
+// import NavDrawer from './navbar/NavDrawer'
+
+
 // import { UserContext } from '../contexts/user-context'
 // import { PhotosContext } from '../contexts/photos-context'
 import ContextTest from './ContextTest';
@@ -18,8 +23,11 @@ const Home = () => {
         <ContextTest />
       </Typography>
       <Link to='/testpage' component={RouterLink}>Testing Purposes Only</Link>
+
       <br/>
-      <Link to='/CreateUser' component={RouterLink}>Testing Purposes Only</Link>
+      <Link to='/CreateUser' component={RouterLink}>Testing Create User</Link>
+      <br/>
+      <Link to='/login' component={RouterLink}>Testing Login</Link>
     </div>
   );
 };
