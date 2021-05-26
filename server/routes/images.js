@@ -1,28 +1,21 @@
 // import Router from 'express-promise-router';
 import path from 'path';
-import { readdir } from 'fs/promises';
+// import { readdir } from 'fs/promises';
+import aws from "aws-sdk";
 import multer from 'multer';
+import multerS3 from 'multer-s3';
+import config from '../../config.js';
+
+import cloudStorage from '../../database/controllers/cloudStorage.js';
 
 const images = {};
 
 const folderPath = 'imageFolder/testImages/'
 const fullPath = path.join(path.resolve(), 'public/', folderPath);
 
-images.getImageList = async (req, res) => {
-  try {
-    const fileList = await readdir(fullPath);
-    res.status(200).send(fileList.map(file => {
-      return {
-        name: file,
-        url: folderPath + file,
-      }
-    }));
-  } catch (error) {
-    res.status(500).send(error);
-  }
-};
+const s3 = new aws.S3(config.aws);
 
-const storage = multer.diskStorage({
+const storageConfig = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, fullPath);
   },
@@ -33,17 +26,51 @@ const storage = multer.diskStorage({
   },
 });
 
-const uploadFile = multer({
-  storage,
+const multerUpload = multer({
+  storage: storageConfig,
   // limits: { fileSize: 2 * 1024 * 1024 }
-}).array('file');
+});
+
+// const multerS3Upload = multer({
+//   storage: multerS3({
+//     s3: s3,
+//     bucket: config.Bucket,
+//     metadata: function(req, file, cb) {
+//       cb(null, { fieldName: file.fieldname });
+//     },
+//     key: function(req, file, cb) {
+//       cb(null, Date.now().toString())
+//     }
+//   })
+// });
+
+images.getImageList = async (req, res) => {
+  try {
+    // const filenames = await readdir(fullPath);
+    // const imageUrls = filenames
+    //   .filter((filename) => filename !== '.DS_Store')
+    //   .map((filename) => folderPath + filename)
+    const imageUrls = await cloudStorage.getAllUrls();
+
+    const imageObjects = imageUrls.map(file => {
+      return { name: file, url: file, }
+    })
+
+    res.status(200).send(imageObjects);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+};
 
 images.upload = async (req, res, next) => {
   try {
-    await uploadFile(req, res, next);
+
+    await multerUpload.array('file')(req, res, next);
+
     if (req.files === undefined) {
       return res.status(400).send({ message: "Please upload a file!" });
     }
+    cloudStorage.uploadPhoto(req.file);
     console.log('success');
     res.status(200).send({
       message: "Uploaded the file successfully: " + req.files,

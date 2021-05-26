@@ -26,17 +26,16 @@ const AddPhotos = () => {
     }
 
     api.upload(formData)
-      .then((response) => {
-      })
+      .then((response) => {/* console.log(response) */})
       .catch((error) => console.error(error));
   };
 
   return (
     <Box
-      width="inherit"
+      // width="inherit"
       justifyContent="center"
       className={classes.fab}
-      // style={{ position: 'absolute' }}
+    // style={{ position: 'absolute' }}
     >
       <input
         multiple
