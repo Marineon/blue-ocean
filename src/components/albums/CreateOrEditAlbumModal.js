@@ -109,10 +109,14 @@ function CreateOrEditAlbumsModal(props) {
       }}
         className={classes.paper}>
 <<<<<<< HEAD
+<<<<<<< HEAD
         <h2 id="simple-modal-title">{props.isCreate ? 'Create New Album' : 'Editing Album'}</h2>
 =======
         <h2 id="simple-modal-title">Editing Album</h2>
 >>>>>>> working on adding create feature on the edit modal
+=======
+        <h2 id="simple-modal-title">{props.isCreate ? 'Create New Album' : 'Editing Album'}</h2>
+>>>>>>> committing before push for Tony
         <form onSubmit={handleSubmit} className={classes.root} noValidate autoComplete="off">
         <TextField id="title" label="Title" value={title} onChange={(e)=> {setTitle(e.target.value)}}/>
         <TextField id="description" label="Description" value={description} onChange={(e)=> {setDescription(e.target.value)}}/>

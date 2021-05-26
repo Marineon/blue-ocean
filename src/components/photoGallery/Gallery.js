@@ -15,9 +15,13 @@ import EditPhotosModal from './EditPhotosModal'
 import PhotoModal from '../PhotoView/PhotoModal';
 import AlbumRow from '../albums/AlbumRow'
 <<<<<<< HEAD
+<<<<<<< HEAD
 import CreateOrEditAlbumModal from '../albums/CreateOrEditAlbumModal';
 =======
 >>>>>>> added bunch of album features
+=======
+import CreateOrEditAlbumModal from '../albums/CreateOrEditAlbumModal';
+>>>>>>> committing before push for Tony
 
 
 let styles = {
@@ -42,9 +46,13 @@ function Gallery(props) {
   const [selected, setSelected] = useState([]);
   const [shownPhotos, setShownPhotos] = useState(photos);
 <<<<<<< HEAD
+<<<<<<< HEAD
   const [showAlbumModal, setShowAlbumModal] = useState(false);
 =======
 >>>>>>> added bunch of album features
+=======
+  const [showAlbumModal, setShowAlbumModal] = useState(false);
+>>>>>>> committing before push for Tony
 
   const { classes,
     // children, className, ...other
@@ -76,6 +84,9 @@ function Gallery(props) {
     setShowEditPhotosModal(false)
 =======
     setShowModal(false)
+<<<<<<< HEAD
+>>>>>>> committing before push for Tony
+=======
 >>>>>>> committing before push for Tony
     setShowAlbumModal(false)
   }
@@ -90,6 +101,7 @@ function Gallery(props) {
   return (
     <>
 <<<<<<< HEAD
+<<<<<<< HEAD
     <AlbumRow setShownPhotos={setShownPhotos} handleSelectClick={handleSelectClick} onSelect={onSelect}/>
     <Paper id="wrapper">
     <div style={{ height: 50, display:'flex', justifyContent:'space-between', flexWrap: 'wrap' }}>
@@ -101,6 +113,12 @@ function Gallery(props) {
     <div style={{ height: 50, display:'flex', justifyContent:'space-between', flexWrap: 'wrap' }}>
       <IconButton aria-label="new-album">
 >>>>>>> added bunch of album features
+=======
+    <AlbumRow setShownPhotos={setShownPhotos} handleSelectClick={handleSelectClick} onSelect={onSelect}/>
+    <Paper id="wrapper">
+    <div style={{ height: 50, display:'flex', justifyContent:'space-between', flexWrap: 'wrap' }}>
+      <IconButton onClick={() => setShowAlbumModal(true)} aria-label="new-album">
+>>>>>>> committing before push for Tony
       {onSelect && selected.length > 0 ?
           <AddAlbumIcon /> : null }
        </IconButton>
@@ -164,6 +182,9 @@ function Gallery(props) {
         setShowModal={setShowPhotoModal}
       />
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> committing before push for Tony
     <CreateOrEditAlbumModal
       open={showAlbumModal}
       onClose={handleClose}
@@ -171,8 +192,11 @@ function Gallery(props) {
       aria-describedby="Modal to create albums"
       selected={selected}
       isCreate={true}/>
+<<<<<<< HEAD
 =======
 >>>>>>> added bunch of album features
+=======
+>>>>>>> committing before push for Tony
   </Paper>
   </>
 )
