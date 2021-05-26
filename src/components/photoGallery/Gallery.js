@@ -57,9 +57,13 @@ function Gallery(props) {
 >>>>>>> added bunch of album features
 =======
   const [showAlbumModal, setShowAlbumModal] = useState(false);
+<<<<<<< HEAD
 >>>>>>> committing before push for Tony
 =======
 >>>>>>> added bunch of album features
+=======
+  const [currentAlbum, setCurrentAlbum] = useState({});
+>>>>>>> moved up currentAlbums to gallery for tony
 
   const { classes,
     // children, className, ...other
@@ -110,6 +114,7 @@ function Gallery(props) {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     <AlbumRow setShownPhotos={setShownPhotos} handleSelectClick={handleSelectClick} onSelect={onSelect}/>
     <Paper id="wrapper">
     <div style={{ height: 50, display:'flex', justifyContent:'space-between', flexWrap: 'wrap' }}>
@@ -126,6 +131,9 @@ function Gallery(props) {
 >>>>>>> added bunch of album features
 =======
     <AlbumRow setShownPhotos={setShownPhotos} handleSelectClick={handleSelectClick} onSelect={onSelect}/>
+=======
+    <AlbumRow currentAlbum={currentAlbum} setCurrentAlbum={setCurrentAlbum} setShownPhotos={setShownPhotos} handleSelectClick={handleSelectClick} onSelect={onSelect}/>
+>>>>>>> moved up currentAlbums to gallery for tony
     <Paper id="wrapper">
     <div style={{ height: 50, display:'flex', justifyContent:'space-between', flexWrap: 'wrap' }}>
       <IconButton onClick={() => setShowAlbumModal(true)} aria-label="new-album">
