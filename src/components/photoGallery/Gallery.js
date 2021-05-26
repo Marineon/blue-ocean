@@ -8,10 +8,12 @@ import Switch from '@material-ui/core/Switch';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormGroup from '@material-ui/core/FormGroup';
 import DeleteIcon from '@material-ui/icons/Delete';
+import AddAlbumIcon from '@material-ui/icons/CreateNewFolder';
 import IconButton from '@material-ui/core/IconButton';
 
 import { PhotosContext } from '../../contexts/photos-context';
 import EditPhotosModal from './EditPhotosModal'
+import AlbumRow from '../albums/AlbumRow'
 
 
 let styles = {
@@ -29,19 +31,19 @@ let styles = {
 };
 
 function Gallery(props) {
+  const { photos,
+    // setPhotos,
+    // updatePhoto
+  } = useContext(PhotosContext);
   const [showModal, setShowModal] = useState(false);
   const [onSelect, setOnSelect] = useState(false);
   const [selected, setSelected] = useState([]);
-
+  const [shownPhotos, setShownPhotos] = useState(photos);
 
   const { classes,
     // children, className, ...other
   } = props;
 
-  const { photos,
-    // setPhotos,
-    // updatePhoto
-  } = useContext(PhotosContext);
 
   const handleSelectClick = () => {
     setOnSelect(!onSelect);
@@ -69,8 +71,15 @@ function Gallery(props) {
   }
 
   return (
-  <Paper id="wrapper">
-    <div style={{ height: 50, display:'flex', justifyContent:'flex-end', flexWrap: 'wrap' }}>
+    <>
+
+    <AlbumRow setShownPhotos={setShownPhotos} handleSelectClick={handleSelectClick} onSelect={onSelect}/>
+    <Paper id="wrapper">
+    <div style={{ height: 50, display:'flex', justifyContent:'space-between', flexWrap: 'wrap' }}>
+      <IconButton aria-label="new-album">
+      {onSelect && selected.length > 0 ?
+          <AddAlbumIcon /> : null }
+       </IconButton>
       <FormGroup className={classes.formGroup} row>
         {onSelect && selected.length > 0 ?
         <>
@@ -84,13 +93,13 @@ function Gallery(props) {
             : null
           }
           <FormControlLabel
-            control={<Switch onClick={handleSelectClick} color="primary" />}
+            control={<Switch size="small" checked={onSelect} onChange={handleSelectClick} color="primary" />}
             label="Select"
           />
         </FormGroup>
       </div>
       <GridList cols={4} component="div">
-        {photos.map((item, index) => (
+        {shownPhotos.map((item, index) => (
           // add onclick open photoviewer modal pass in index
           //
           <GridListTile className={classes.gridListTile} onClick={() => handlePhotoClick(index)} key={index} >
@@ -110,6 +119,7 @@ function Gallery(props) {
         selected={selected}
     />
   </Paper>
+  </>
 )
 }
 

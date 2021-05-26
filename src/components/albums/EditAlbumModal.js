@@ -44,9 +44,11 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-function EditPhotosModal(props) {
+function EditAlbumsModal(props) {
+  const [title, setTitle] = useState(props.album.title);
+  const [description, setDescription] = useState(props.album.description);
   const [currentTag, setCurrentTag] = useState('');
-  const [tags, setTags] = useState([]);
+  const [tags, setTags] = useState(props.album.tags);
   const [permission, setPermission] = useState(0);
 
   const handleKeyPress = (event) => {
@@ -78,10 +80,10 @@ function EditPhotosModal(props) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    let output = props.selected.map((item) => {return {item: item, tags, permission}})
-    console.log(output);
-    props.onClose();
-    resetModalState();
+    // let output = props.selected.map((item) => {return {item: item, tags, permission}})
+    // console.log(output);
+    // props.onClose();
+    // resetModalState();
   }
 
   const classes = useStyles();
@@ -100,8 +102,10 @@ function EditPhotosModal(props) {
         maxHeight: '90vh',
       }}
         className={classes.paper}>
-        <h2 id="simple-modal-title">Editing {props.selected.length} Photo(s)</h2>
+        <h2 id="simple-modal-title">Editing Album</h2>
         <form onSubmit={handleSubmit} className={classes.root} noValidate autoComplete="off">
+        <TextField id="title" label="Title" value={title} onChange={(e)=> {setTitle(e.target.value)}}/>
+        <TextField id="description" label="Description" value={description} onChange={(e)=> {setDescription(e.target.value)}}/>
         <InputLabel id="demo-simple-select-label">Permission</InputLabel>
         <Select
           className={classes.select}
@@ -133,4 +137,4 @@ function EditPhotosModal(props) {
   )
 }
 
-export default EditPhotosModal
+export default EditAlbumsModal
