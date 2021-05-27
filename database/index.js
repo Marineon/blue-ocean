@@ -73,27 +73,40 @@ User.collection.insertMany(fakeUser, onInsert);
 UserPhotos.collection.insertMany(fakePhotos, onInsert);
 */
 /*
-const userId = 2;
-
-const selectAllImages = async (id) => {
-  const findUserFriends = (id) => User.find({ 'userId': id }).select('friends');
-  const findUserFriendPhotos = (friends) => UserPhotos.find({ 'ownerId': { $in: friends } });
-  const findUserPhotos = (id) => UserPhotos.find({ 'ownerId': id });
-
-  const userFriendsObj = await findUserFriends(2);
-  const userFriends = userFriendsObj[0].friends.map(u => u.userId);
-
-  const userFriendPhotos = await findUserFriendPhotos(userFriends);
-  const selectedPhotos = userFriendPhotos.map(user => user.photos.filter(p => p.accessLevel === 2)).flat();
-
-  const userPhotosObj = await findUserPhotos(userId);
-  const userPhotos = userPhotosObj.map(p => p.photos).flat();
-  userPhotos.forEach(p => selectedPhotos.push(p))
-  console.log(selectedPhotos.sort((a, b) => {
-    return a.uploadDate - b.uploadDate;
-  }))
+const req = {
+  body: {
+    userId: 3,
+    photoId: 1,
+    description: 'this is the description',
+    addTags: ['new', 'tag'],
+    removeTags: ['coachella', 'mmpr'],
+    accessLevel: 0
+  }
 }
+const {userId, photoId} = req.body;
+
+const updateOne = async (userId, photoId) => {
+  const findUserPhotosObj = (userId) => UserPhotos.find({ ownerId: userId});
+  const userPhotosObj = await findUserPhotosObj(userId);
+  console.log('userPhotosObj', userPhotosObj[0].photos);
+  const photoToUpdate = (photoId) => {
+    console.log('photoId:', photoId)
+    userPhotosObj[0].photos.forEach(photo => photo.photoId === photoId)
+  };
+  console.log('photoToUpdate', photoToUpdate(photoId))
+};
+
+updateOne(userId, photoId);
+// UserPhotos.find({ownerId: 3}).select('photos').
+// exec((err, res) => {
+//   if (err) {
+//     console.log(err);
+//   } else {
+//     console.log(res[0].photos[0]);
+//   }
+// })
 */
+
 module.exports = {
   Friend, User, Photo, UserPhotos
 };
