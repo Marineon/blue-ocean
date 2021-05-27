@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 import React, { useState, useEffect } from 'react';
-=======
-import React, { useState } from 'react';
->>>>>>> c976a2c3f813fad7b78e3b14c87f8b4f31244733
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 import Modal from '@material-ui/core/Modal';
@@ -29,12 +25,8 @@ const useStyles = makeStyles((theme) => ({
     marginRight: theme.spacing(1),
   },
   select: {
-<<<<<<< HEAD
     //padding: theme.spacing(0, 1)
     marginBottom:0,
-=======
-    padding: theme.spacing(0, 1)
->>>>>>> c976a2c3f813fad7b78e3b14c87f8b4f31244733
   },
   tag: {
     margin: theme.spacing(0.5),
@@ -54,7 +46,6 @@ const useStyles = makeStyles((theme) => ({
 
 
 function CreateOrEditAlbumsModal(props) {
-<<<<<<< HEAD
 
   // const [title, setTitle] = useState(album.title);
   // const [description, setDescription] = useState(album.description);
@@ -75,40 +66,20 @@ function CreateOrEditAlbumsModal(props) {
   // if (!props.isCreate) {
   //   album=props.album;
   // }
-=======
-  let album = {title: '', description: '', tags: [], permission: 0, photos: props.selected };
-  if (!props.isCreate) {
-    album=props.album;
-  }
-
-  const [title, setTitle] = useState(album.title);
-  const [description, setDescription] = useState(album.description);
-  const [currentTag, setCurrentTag] = useState('');
-  const [tags, setTags] = useState(album.tags);
-  const [permission, setPermission] = useState(album.permission);
->>>>>>> c976a2c3f813fad7b78e3b14c87f8b4f31244733
 
   const handleKeyPress = (event) => {
     if(event.key === 'Enter' && currentTag){
       event.preventDefault();
-<<<<<<< HEAD
       if (currentTag && !props.albumTags.includes(currentTag)) {
         let tempTags = props.albumTags.slice();
         tempTags.push(currentTag);
         props.setAlbumTags(tempTags);
       }
-=======
-      console.log(currentTag);
-      let tempTags = tags.slice();
-      tempTags.push(currentTag);
-      setTags(tempTags);
->>>>>>> c976a2c3f813fad7b78e3b14c87f8b4f31244733
       setCurrentTag('');
     }
   }
 
   const removeTag = (index) => {
-<<<<<<< HEAD
     let tempTags = props.albumTags.slice();
       tempTags.splice(index, 1);
       props.setAlbumTags(tempTags);
@@ -133,32 +104,6 @@ function CreateOrEditAlbumsModal(props) {
   //     setPermission(0);
   //   }
   // }
-=======
-    let tempTags = tags.slice();
-      tempTags.splice(index, 1);
-      setTags(tempTags);
-  }
-
-  const handlePermissionChange = (event) => {
-    setPermission(event.target.value);
-  };
-
-  const resetModalState = () => {
-    if(!props.isCreate) {
-      setTitle(album.title);
-      setDescription(album.description);
-      setCurrentTag(album.tags);
-      setTags(album.tags);
-      setPermission(album.permission);
-    } else {
-      setTitle('');
-      setDescription('');
-      setCurrentTag('');
-      setTags([]);
-      setPermission(0);
-    }
-  }
->>>>>>> c976a2c3f813fad7b78e3b14c87f8b4f31244733
 
   const handleSubmit = (e) => {
     e.preventDefault();
