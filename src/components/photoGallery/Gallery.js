@@ -31,7 +31,10 @@ import RemoveCircleOutlineIcon from '@material-ui/icons/RemoveCircleOutline';
 /*-------------------Context Imports-------------------*/
 import { PhotosContext } from '../../contexts/photos-context';
 import { UserContext } from '../../contexts/user-context';
+<<<<<<< HEAD
 >>>>>>> clean up code
+=======
+>>>>>>> 7fd7ee203048fd2383c0e4cb0290dd59caf76bd2
 
 let styles = {
   gridListTile: {
@@ -51,8 +54,11 @@ function Gallery(props) {
     // updatePhoto
   } = useContext(PhotosContext);
 <<<<<<< HEAD
+<<<<<<< HEAD
   const [showModal, setShowModal] = useState(false);
 =======
+=======
+>>>>>>> 7fd7ee203048fd2383c0e4cb0290dd59caf76bd2
   const user = useContext(UserContext); // user context
   const [showPhotoModal, setShowPhotoModal] = useState(null);
   const [showEditPhotosModal, setShowEditPhotosModal] = useState(false);
