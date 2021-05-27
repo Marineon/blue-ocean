@@ -79,17 +79,27 @@ api.updatePhotos = (editsObj) => {
 };
 
 api.getUserPhotos = (userId) => {
-  console.log('userId', userId);
+  const path = `${hostname}:${PORT}/api/photos/userPhotos`;
+  const query = `${new URLSearchParams({userId})}`;
+  console.log('fetching photos of userId:', userId);
   if (!userId) { return; }
-  axios.get(`${hostname}:${PORT}/api/photos/userPhotos`, { data: { userId } })
+  return axios.get(`${path}?${query}`)
     .then((res) => { console.log('put me in state or something', res.body) })
     .catch((err) => { console.log('error getting all photos', err) })
 }
 
-api.getUserPhotos = (userId) => {
-  console.log('fetching photos of userId:', userId);
+api.getFriendsPhotos = (userId) => {
+  const path = `${hostname}:${PORT}/api/photos/friendsPhotos`;
+  const query = `${new URLSearchParams({userId})}`;
   if (!userId) { return; }
-  axios.get(`${hostname}:${PORT}/api/photos/userphotos`, { data: { userId } })
+  return axios.get(`${path}?${query}`)
+    .then((res) => { console.log('put me in state or something', res.body) })
+    .catch((err) => { console.log('error getting all photos', err) })
+}
+
+api.getPublicPhotos = () => {
+  const path = `${hostname}:${PORT}/api/photos/getAllPhotos`;
+  return axios.get(path)
     .then((res) => { console.log('put me in state or something', res.body) })
     .catch((err) => { console.log('error getting all photos', err) })
 }

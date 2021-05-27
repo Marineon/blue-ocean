@@ -6,6 +6,7 @@ import Paper from '@material-ui/core/Paper';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
 import api from '../../api/api';
 
 const useStyles = makeStyles((theme) => ({
@@ -22,6 +23,7 @@ const useStyles = makeStyles((theme) => ({
 
 const TestPage = () => {
   const [images, setImages] = useState([]);
+  const [userId, setUserId] = useState('');
   const classes = useStyles();
 
   useEffect(() => {
@@ -37,20 +39,28 @@ const TestPage = () => {
         testpage
       </Typography>
 
-      <Button variant='contained' onClick={()=>{
-        const userId = '1';
+      <TextField
+        id="outlined-basic"
+        label="UserId"
+        variant="outlined"
+        onChange={(e) => setUserId(e.target.value)}
+      />
+      <Button variant='contained' onClick={() => {
         api.getUserPhotos(userId);
       }}>
-        Get Photos api
+        Get Users Photos api
       </Button>
-
-      <Button variant='contained' onClick={()=>{
-        const userId = '1';
-        api.getUserFriends(userId);
+      <Button variant='contained' onClick={() => {
+        api.getFriendsPhotos(userId);
       }}>
-        Get Friends api
+        Get Friends Photos api
       </Button>
-
+      <Button variant='contained' onClick={() => {
+        api.getPublicPhotos(userId);
+      }}>
+        Get All Photos api
+      </Button>
+  
       <GridList cols={3} >
         {images.map((tile) => (
           <GridListTile key={tile.name} >

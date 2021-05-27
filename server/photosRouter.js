@@ -5,10 +5,12 @@ const photosRouter = express.Router();
 
 // get current users photos + all photos shared with them
 photosRouter.get('/userPhotos', async (req, res) => {
-  const { userId } = req.body;
-  const findUserPhotos = (id) => database.UserPhotos.find({ 'ownerId': id });
+  const { userId } = req.query;
+  console.log(`querying db for ${userId}'s photos`)
+  const findUserPhotos = (userId) => database.UserPhotos.find({ 'ownerId': userId });
   try {
     const userPhotosObj = await findUserPhotos(userId);
+    console.log(userPhotosObj);
     const userPhotos = userPhotosObj.map(p => p.photos).flat();
     res.status(200).send(userPhotos.sort((a, b) => {
       return a.uploadDate - b.uploadDate;
@@ -18,16 +20,29 @@ photosRouter.get('/userPhotos', async (req, res) => {
   }
 });
 
+// get current users photos + all photos shared with them
 photosRouter.get('/friendsPhotos', async (req, res) => {
-  const { userId } = req.body;
-  const findUserFriends = (id) => database.User.find({ 'userId': id }).select('friends');
-  const findUserFriendPhotos = (friends) => database.UserPhotos.find({ 'ownerId': { $in: friends } });
+  const { userId } = req.query;
+  console.log(`querying db for ${userId}'s friends photos`)
+  const findFriendsPhotos = (userId) => database.FriendPhotos.find({ 'ownerId': userId });
   try {
-    const userFriendsObj = await findUserFriends(userId);
-    const userFriends = userFriendsObj[0].friends.map(u => u.userId);
-    const userFriendPhotos = await findUserFriendPhotos(userFriends);
-    const selectedPhotos = userFriendPhotos.map(user => user.photos.filter(p => p.accessLevel === 2)).flat();
-    res.status(200).send(selectedPhotos.sort((a, b) => {
+    const userPhotosObj = await findFriendsPhotos(userId);
+    console.log(userPhotosObj);
+    const userPhotos = userPhotosObj.map(p => p.photos).flat();
+    res.status(200).send(userPhotos.sort((a, b) => {
+      return a.uploadDate - b.uploadDate;
+    }));
+  } catch (error) {
+    res.status(500).send(error);
+  }
+});
+
+photosRouter.get('/getAllPhotos', async (req, res) => {
+  const findAllPhotos = () => database.Photos.find({});
+  try {
+    const allPhotos = await findAllPhotos();
+    const allPublicPhotos = allPhotos.filter(p => p.accessLevel === 2);
+    res.status(200).send(allPublicPhotos.sort((a, b) => {
       return a.uploadDate - b.uploadDate;
     }));
   } catch (error) {
