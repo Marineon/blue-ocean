@@ -40,8 +40,8 @@ images.multerS3Upload = multer({
     },
     key: function(req, file, cb) {
       const regex = /:|\./g;
-      const timedate = (new Date()).toISOString().replace(regex, '');;
-      cb(null, `${timedate}-${file.originalname}`);
+      const timedate = (new Date()).toISOString().replace(regex, '');
+      cb(null, `images/${timedate}-${file.originalname}`);
     }
   })
 });

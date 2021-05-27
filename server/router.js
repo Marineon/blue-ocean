@@ -10,7 +10,7 @@ const photos = express.Router();
 const routes = (app) => {
   router.get('/api/images/list', images.getImageList);
   router.post('/api/images/upload',
-    images.multerUpload.array('file'),
+    // images.multerUpload.array('file'),
     images.multerS3Upload.array('file')
   );
 
