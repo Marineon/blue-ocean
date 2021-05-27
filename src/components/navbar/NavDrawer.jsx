@@ -99,8 +99,14 @@ export default function NavDrawer(props) {
         <ListItem button>Add Photo</ListItem>
         <ListItem button>Feed</ListItem>
         <ListItem button>Friends</ListItem>
-        <RouterLink to='/gallery'>
-          <ListItem button>Gallery</ListItem>
+        <RouterLink to='/public'>
+          <ListItem button>Gallery: Public</ListItem>
+        </RouterLink>
+        <RouterLink to='/personal'>
+          <ListItem button>Gallery: Personal</ListItem>
+        </RouterLink>
+        <RouterLink to='/shared'>
+          <ListItem button>Gallery: Shared</ListItem>
         </RouterLink>
         <RouterLink to='/testpage'>
           <ListItem button>Testing Purposes Only</ListItem>
