@@ -31,19 +31,24 @@ const TestPage = () => {
     })();
   }, [])
 
-  const getPhotos = (event) => {
-    const userId = '1';
-    api.getUserPhotos(1)
-  }
-
   return (
     <Paper className={classes.root} >
       <Typography variant="h2">
         testpage
       </Typography>
 
-      <Button variant='contained' onClick={getPhotos}>
+      <Button variant='contained' onClick={()=>{
+        const userId = '1';
+        api.getUserPhotos(userId);
+      }}>
         Get Photos api
+      </Button>
+
+      <Button variant='contained' onClick={()=>{
+        const userId = '1';
+        api.getUserFriends(userId);
+      }}>
+        Get Friends api
       </Button>
 
       <GridList cols={3} >
