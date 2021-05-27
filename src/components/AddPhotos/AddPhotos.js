@@ -1,16 +1,17 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import AddIcon from '@material-ui/icons/Add';
 import Fab from '@material-ui/core/Fab';
 import Box from '@material-ui/core/Box';
 import api from '../../api/api';
+import { UserContext } from '../../contexts/user-context';
 
 const useStyles = makeStyles((theme) => ({
   fab: {
     // margin: theme.spacing.unit,
     bottom: theme.spacing(2),
     position: 'fixed',
-    left:0,
+    left: 0,
   },
 
 }));
@@ -18,15 +19,18 @@ const useStyles = makeStyles((theme) => ({
 const AddPhotos = () => {
   const classes = useStyles();
 
+  const { userName } = useContext(UserContext);
+
   const upload = (e) => {
     const selectedFiles = e.target.files;
     const formData = new FormData();
     for (const key of Object.keys(selectedFiles)) {
-      formData.append('file', selectedFiles[key])
+      formData.append('file', selectedFiles[key]);
+      formData.append('userName', userName || 'no user')
     }
 
     api.upload(formData)
-      .then((response) => {/* console.log(response) */})
+      .then((response) => {/* console.log(response) */ })
       .catch((error) => console.error(error));
   };
 
