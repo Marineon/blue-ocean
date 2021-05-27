@@ -1,5 +1,5 @@
 import express, { request } from 'express';
-import { Friend, User } from '../database/index.js';
+import database from '../database/index.js';
 
 const usersRouter = express.Router();
 
@@ -8,16 +8,16 @@ usersRouter.put('/friends/:action', async (req, res) => {
     const action = req.params.action;
 
     const errors = [];
-    const currUser = User.findById(currentUser);
-    const targUser = User.findById(targetUser);
+    const currUser = database.User.findById(currentUser);
+    const targUser = database.User.findById(targetUser);
 
 
     console.log('curr user test', )
-    const currUserObj = new Friend({
+    const currUserObj = new database.Friend({
         userId: currentUser,
         userName: currUser.fullName
     });
-    const targUserObj = new Friend({
+    const targUserObj = new database.Friend({
         userId: targetUser,
         userName: targUser.fullName
     });
@@ -141,7 +141,7 @@ usersRouter.put('/friends/:action', async (req, res) => {
 
 usersRouter.get('/login', (req, res) => {
     const { username, password } = req.body;
-    User.findOne(username)
+    database.User.findOne(username)
     .then((doc) => {
         if (doc.password === password) {
             res.status(200).send(doc)
@@ -167,7 +167,7 @@ usersRouter.post('/', (req, res) => {
         pending: [],
         requested: []
     });
-    const signUp = new User(newUserObj)
+    const signUp = new database.User(newUserObj)
     signUp.save()
     .then((doc) => {res.status(200).send(doc)})
     .catch((err) => {console.log('Something went wrong: ', err); res.status(500).send(err)})

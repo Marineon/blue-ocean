@@ -1,7 +1,7 @@
 // const mongoose = require('mongoose');
 import mongoose from 'mongoose';
-import fakeUser from '../dummyData/fakeUser.js';
-import fakePhotos from '../dummyData/fakePhotos.js';
+import fakeUser from '../src/dummyData/fakeUser.js';
+import fakePhotos from '../src/dummyData/fakePhotos.js';
 
 const { Schema, model } = mongoose;
 mongoose.connect('mongodb://localhost/blue', {
@@ -18,6 +18,8 @@ db.on('error', (error) => {
 db.once('open', () => {
   console.info('mongoose connected successfully');
 });
+
+const database = {}
 
 const friendSchema = new Schema({
   userId: String,
@@ -52,10 +54,10 @@ const userPhotosSchema = new Schema({
   photos: [photoSchema]
 });
 
-const Friend = model('Friend', friendSchema);
-const User = model('User', userSchema);
-const Photo = model('Photo', photoSchema);
-const UserPhotos = model('UserPhotos', userPhotosSchema);
+database.Friend = model('Friend', friendSchema);
+database.User = model('User', userSchema);
+database.Photo = model('Photo', photoSchema);
+database.UserPhotos = model('UserPhotos', userPhotosSchema);
 
 /* for populating local mongodb collections:
 
@@ -109,6 +111,4 @@ updateOne(userId, photoId);
 // })
 */
 
-module.exports = {
-  Friend, User, Photo, UserPhotos
-};
+export default database;

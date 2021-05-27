@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
-import Box from '@material-ui/core/Box';
+// import Box from '@material-ui/core/Box';
 import Paper from '@material-ui/core/Paper';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
@@ -30,7 +30,7 @@ const TestPage = () => {
   const getImageList = async () => {
     const imageList = await api.getImageList();
     setImages(imageList);
-    // console.log(images);
+    console.log(images);
   }
 
   return (
