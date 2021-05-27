@@ -1,7 +1,7 @@
 // const mongoose = require('mongoose');
 import mongoose from 'mongoose';
-import fakeUser from '../dummyData/fakeUser.js';
-import fakePhotos from '../dummyData/fakePhotos.js';
+import fakeUser from '../src/dummyData/fakeUser.js';
+import fakePhotos from '../src/dummyData/fakePhotos.js';
 
 const { Schema, model } = mongoose;
 mongoose.connect('mongodb://localhost/blue', {
@@ -25,7 +25,7 @@ const friendSchema = new Schema({
 });
 
 const userSchema = new Schema({
-  userId: Number,
+  userId: String,
   fullName: String,
   username: String,
   email: String,
@@ -36,26 +36,20 @@ const userSchema = new Schema({
   requested: [friendSchema]  /* incoming friend requests */
 });
 
-const photoSchema = new Schema({
-  ownerName: String,
+const photosSchema = new Schema({
+  userId: String,
+  username: String,
   photoId: Number,
   uploadDate: Date,
   description: String,
   tags: Array,
-  accessLevel: Number,  /* 0=private, [1=select friends(futureFeature)], 2=all friends, [3=global(futureFeature)] */
+  accessLevel: Number,  /* 0=private, 1=all friends, [2=global(futureFeature)] */
   url: String
-});
-
-const userPhotosSchema = new Schema({
-  ownerId: String,
-  ownerName: String,
-  photos: [photoSchema]
 });
 
 const Friend = model('Friend', friendSchema);
 const User = model('User', userSchema);
-const Photo = model('Photo', photoSchema);
-const UserPhotos = model('UserPhotos', userPhotosSchema);
+const Photos = model('Photos', photosSchema);
 
 /* for populating local mongodb collections:
 
@@ -68,47 +62,12 @@ const onInsert = (err, docs) => {
   }
 };
 
-User.collection.drop();
-UserPhotos.collection.drop();
-User.collection.insertMany(fakeUser, onInsert);
-UserPhotos.collection.insertMany(fakePhotos, onInsert);
-*/
-
-/*
-const req = {
-  body: {
-    userId: 3,
-    photoId: 1,
-    description: 'this is the description',
-    addTags: ['new', 'tag'],
-    removeTags: ['coachella', 'mmpr'],
-    accessLevel: 0
-  }
-}
-const {userId, photoId} = req.body;
-
-const updateOne = async (userId, photoId) => {
-  const findUserPhotosObj = (userId) => UserPhotos.find({ ownerId: userId});
-  const userPhotosObj = await findUserPhotosObj(userId);
-  console.log('userPhotosObj', userPhotosObj[0].photos);
-  const photoToUpdate = (photoId) => {
-    console.log('photoId:', photoId)
-    userPhotosObj[0].photos.forEach(photo => photo.photoId === photoId)
-  };
-  console.log('photoToUpdate', photoToUpdate(photoId))
-};
-
-updateOne(userId, photoId);
-// UserPhotos.find({ownerId: 3}).select('photos').
-// exec((err, res) => {
-//   if (err) {
-//     console.log(err);
-//   } else {
-//     console.log(res[0].photos[0]);
-//   }
-// })
+// User.collection.drop();
+Photos.collection.drop();
+// User.collection.insertMany(fakeUser, onInsert);
+Photos.collection.insertMany(fakePhotos, onInsert);
 */
 
 module.exports = {
-  Friend, User, Photo, UserPhotos
+  Friend, User, Photos
 };

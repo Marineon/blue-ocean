@@ -1,37 +1,57 @@
 // const express = require('express');
 import express from 'express';
-import { User, UserPhotos } from '../database'
+import { User, Photos } from '../database'
 const photosRouter = express.Router();
 
 // get current users photos + all photos shared with them
 photosRouter.get('/userPhotos', async (req, res) => {
   const { userId } = req.body;
-  const findUserPhotos = (id) => UserPhotos.find({ 'ownerId': id });
+  const findUserPhotos = (id) => UserPhotos.find({ 'userId': id });
   try {
-    const userPhotosObj = await findUserPhotos(userId);
-    const userPhotos = userPhotosObj.map(p => p.photos).flat();
+    const userPhotos = await findUserPhotos(userId);
     res.status(200).send(userPhotos.sort((a, b) => {
       return a.uploadDate - b.uploadDate;
     }));
-  } catch (error) {
-  res.status(500).send(error);
+  } catch (err) {
+  res.status(500).send(err);
   }
 });
 
 photosRouter.get('/friendsPhotos', async (req, res) => {
   const { userId } = req.body;
   const findUserFriends = (id) => User.find({ 'userId': id }).select('friends');
-  const findUserFriendPhotos = (friends) => UserPhotos.find({ 'ownerId': { $in: friends } });
+  const findUserFriendPhotos = (friends) => Photos.find({ 'userId': { $in: friends } });
   try {
     const userFriendsObj = await findUserFriends(userId);
     const userFriends = userFriendsObj[0].friends.map(u => u.userId);
     const userFriendPhotos = await findUserFriendPhotos(userFriends);
-    const selectedPhotos = userFriendPhotos.map(user => user.photos.filter(p => p.accessLevel === 2)).flat();
+    const selectedPhotos = userFriendPhotos.filter(photo => photo.accessLevel === 1);
     res.status(200).send(selectedPhotos.sort((a, b) => {
       return a.uploadDate - b.uploadDate;
     }));
-  } catch (error) {
-    res.status(500).send(error);
+  } catch (err) {
+    res.status(500).send(err);
+  }
+});
+
+// friends photos + public photos
+photosRouter.get('/photoFeed', async (req, res) => {
+  const { userId } = req.body;
+  const findUserFriends = (id) => User.find({ 'userId': id }).select('friends');
+  const findUserFriendPhotos = (friends) => Photos.find({ 'userId': { $in: friends }});
+  const findPublicPhotos = () => Photos.find({ 'accessLevel': 2 });
+  try {
+    const userFriendsObj = await findUserFriends(userId);
+    const userFriends = userFriendsObj[0].friends.map(u => u.userId);
+    const userFriendPhotos = await findUserFriendPhotos(userFriends);
+    const selectedPhotos = userFriendPhotos.filter(photo => photo.accessLevel === 1);
+    const publicPhotos = await findPublicPhotos()
+    publicPhotos.forEach(photo => selectedPhotos.push(photo))
+    res.status(200).send(selectedPhotos.sort((a, b) => {
+    return a.uploadDate - b.uploadDate;
+    }));
+  } catch (err) {
+    res.status(500).send(err);
   }
 });
 
