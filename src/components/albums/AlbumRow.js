@@ -95,7 +95,15 @@ function AlbumRow (props) {
             {/* Add based on the my images vs shared images */}
             {true ? <EditIcon /> : <InfoIcon />}
           </IconButton>
-          <Button size="small" className={classes.button} onClick={returnToAll} variant="contained" color="secondary">Exit</Button>
+          <Button
+            size="small"
+            className={classes.button}
+            onClick={returnToAll}
+            variant="contained"
+            color="secondary"
+          >
+              Exit
+          </Button>
         </div>
       </div>
       </>

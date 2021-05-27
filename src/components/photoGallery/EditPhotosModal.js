@@ -1,19 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
-// import Switch from '@material-ui/core/Switch';
-// import FormControlLabel from '@material-ui/core/FormControlLabel';
-// import FormGroup from '@material-ui/core/FormGroup';
-// import DeleteIcon from '@material-ui/icons/Delete';
-// import IconButton from '@material-ui/core/IconButton';
 import Modal from '@material-ui/core/Modal';
 import InputLabel from '@material-ui/core/InputLabel';
-// import Input from '@material-ui/core/Input';
 import { makeStyles } from "@material-ui/core/styles";
 import TextField from '@material-ui/core/TextField';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import CloseIcon from '@material-ui/icons/CloseRounded';
+import { PhotosContext } from '../../contexts/photos-context';
+import GridList from "@material-ui/core/GridList";
+import GridListTile from "@material-ui/core/GridListTile";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -24,7 +21,8 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.background.paper,
     border: "2px solid #000",
     boxShadow: theme.shadows[5],
-    padding: theme.spacing(2, 4, 3)
+    padding: theme.spacing(2, 4, 3),
+    overflow: 'auto',
   },
   button: {
     marginTop: theme.spacing(2),
@@ -40,7 +38,15 @@ const useStyles = makeStyles((theme) => ({
     width: "max-content",
     alignContent:'center',
     justifyContent: 'center',
-  }
+  },
+  image: {
+    maxHeight: window.innerWidth / 4,
+  },
+  extra: {
+    maxHeight: window.innerWidth / 4,
+    display: 'flex',
+    justifyContent: 'center',
+  },
 }));
 
 
@@ -49,13 +55,20 @@ function EditPhotosModal(props) {
   const [tags, setTags] = useState([]);
   const [permission, setPermission] = useState(0);
 
+  const { photos,
+    // setPhotos,
+    // updatePhoto
+  } = useContext(PhotosContext);
+
   const handleKeyPress = (event) => {
-    if(event.key === 'Enter' && currentTag){
+    if(event.key === 'Enter'){
       event.preventDefault();
+      if (currentTag && !tags.includes(currentTag)) {
       console.log(currentTag);
       let tempTags = tags.slice();
       tempTags.push(currentTag);
       setTags(tempTags);
+      }
       setCurrentTag('');
     }
   }
@@ -100,7 +113,43 @@ function EditPhotosModal(props) {
         maxHeight: '90vh',
       }}
         className={classes.paper}>
-        <h2 id="simple-modal-title">Editing {props.selected.length} Photo(s)</h2>
+        <h2 id="Edit Photos">Editing {props.selected.length} Photo(s)</h2>
+        <div style={{marginBottom:10}}>
+        <GridList cols={3} component="div" className={classes.gridList}>
+        {props.selected.map((item, index) => {
+          if(index < 5) {
+            return (
+              <GridListTile className={classes.image}>
+              <img
+                srcSet={photos[item].url}
+                alt={photos[item].title}
+                loading="lazy"
+              />
+              </GridListTile>
+            )
+          }
+          if (index === 5 && props.selected.length === 6){
+            return (
+              <GridListTile className={classes.image}>
+              <img
+                srcSet={photos[item].url}
+                alt={photos[item].title}
+                loading="lazy"
+              />
+              </GridListTile>
+            )
+          }
+          if (index === props.selected.length-1) {
+            return (
+              <GridListTile className={classes.extra}>
+              <h1>+{props.selected.length-5}</h1>
+              </GridListTile>
+            )
+          }
+          return null;
+        })}
+        </GridList>
+        </div>
         <form onSubmit={handleSubmit} className={classes.root} noValidate autoComplete="off">
         <InputLabel id="demo-simple-select-label">Permission</InputLabel>
         <Select
