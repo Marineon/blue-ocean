@@ -47,7 +47,7 @@ const AddPhotos = () => {
       />
       <label htmlFor="iadd-images-button" >
         <Fab
-          color="primary"
+          color="secondary"
           aria-label="upload photos"
           component="span">
           <AddIcon />

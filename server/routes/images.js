@@ -35,6 +35,7 @@ images.multerS3Upload = multer({
   storage: multerS3({
     s3: s3,
     bucket: config.aws.Bucket,
+    contentType: multerS3.AUTO_CONTENT_TYPE,
     metadata: function(req, file, cb) {
       cb(null, { fieldName: file.fieldname });
     },
@@ -67,7 +68,7 @@ images.getImageList = async (req, res) => {
 images.upload = async (req, res, next) => {
 
   try {
-    await images.multerUpload.array('file')(req, res, next);
+    // await images.multerUpload.array('file')(req, res, next);
     await images.multerS3Upload.array('file')(req, res, next);
 
     if (req.files === undefined) {
