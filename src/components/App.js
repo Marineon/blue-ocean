@@ -50,7 +50,7 @@ function App() {
                     <Route exact path="/public" render={() => <Gallery view={'public'} />} />
                     <Route exact path="/personal" render={() => <Gallery view={'personal'} />} />
                     <Route exact path="/shared" render={() => <Gallery view={'shared'} />} />
-                    <Route exact path="/search" render={() => <SearchResults />} />
+                    {/* <Route exact path="/search" render={() => <SearchResults />} /> */}
                   </Switch>
                   <AddPhotos />
                 </SearchContextProvider>

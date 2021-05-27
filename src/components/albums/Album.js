@@ -70,7 +70,8 @@ function Album (props) {
   const showAlbum = () => {
     let shownAlbum = [];
     props.album.photos.forEach((item)=>{shownAlbum.push(photos[item])});
-    props.setShownPhotos(shownAlbum);
+    // props.setShownPhotos(shownAlbum);
+    props.setCurrentAlbumPhotos(shownAlbum);
     if (props.onSelect) {
       props.handleSelectClick();
     }
