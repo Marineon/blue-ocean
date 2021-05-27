@@ -19,6 +19,8 @@ db.once('open', () => {
   console.info('mongoose connected successfully');
 });
 
+const database = {}
+
 const friendSchema = new Schema({
   userId: String,
   userName: String
@@ -47,9 +49,10 @@ const photosSchema = new Schema({
   url: String
 });
 
-const Friend = model('Friend', friendSchema);
-const User = model('User', userSchema);
-const Photos = model('Photos', photosSchema);
+database.Friend = model('Friend', friendSchema);
+database.User = model('User', userSchema);
+database.Photo = model('Photo', photoSchema);
+database.UserPhotos = model('UserPhotos', userPhotosSchema);
 
 /* for populating local mongodb collections:
 
@@ -68,6 +71,4 @@ Photos.collection.drop();
 Photos.collection.insertMany(fakePhotos, onInsert);
 */
 
-module.exports = {
-  Friend, User, Photos
-};
+export default database;

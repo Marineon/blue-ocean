@@ -21,7 +21,11 @@ const users = [
   },
     /* general users */
   {
+<<<<<<< HEAD
     userId: '2',
+=======
+    userId: 2,
+>>>>>>> 7c0dff214ec292c48327b7f6254c90fa646979dc
     fullName: 'Scrub User',
     email: 'scrub.adubdub@rubberduck.com',
     password: "PW$420blazers",
@@ -36,7 +40,11 @@ const users = [
     requested: []
   },
   {
+<<<<<<< HEAD
     userId: '3',
+=======
+    userId: 3,
+>>>>>>> 7c0dff214ec292c48327b7f6254c90fa646979dc
     fullName: 'Beta Tester',
     email: 'test.icicles@testes.com',
     password: "73$7@CUL4R",

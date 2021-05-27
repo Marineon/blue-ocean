@@ -17,6 +17,7 @@ photosRouter.get('/userPhotos', async (req, res) => {
   }
 });
 
+// get current users photos + all photos shared with them
 photosRouter.get('/friendsPhotos', async (req, res) => {
   const { userId } = req.body;
   const findUserFriends = (id) => User.find({ 'userId': id }).select('friends');
