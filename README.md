@@ -8,47 +8,63 @@ Git Workflow
 ------------
 
 
-## do this once to set upstream
-git remote add upstream https://github.com/Marineon/blue-ocean.git
+Do this once to set upstream. (not required but makes it easier)
 
-## update your master branch
-git checkout main
-git pull --rebase upstream main
-git push origin master
+    git remote add upstream https://github.com/Marineon/blue-ocean.git
 
-## start work on a feature
-git checkout -b feature-branch
+Update your master branch
 
-## write code, commit, repeat
-git add .
-git commit 
+    git checkout main
+    git pull --rebase upstream main
 
-## rebase before pull request
-git pull --rebase upstream main
+Start work on a feature
 
-## push to a feature branch on YOUR fork
-git push origin feature-branch
+    git checkout -b feature-branch
 
-## make a pull request on GitHub
+If you've already created a branch, just switch to it
 
-## if pull request is rejected
-## fix bugs, commit
-git add .
-git commit
-git pull --rebase upstream main
-git push origin feature-branch
+    git checkout feature-branch
 
-## make a pull request on GitHub
+Write code, commit, repeat
 
-## if pull request is accepted
-git checkout main
-git pull --rebase upstream main
-git branch -d feature-branch
+    git add .
+    git commit -m "clever message"
 
+Rebase before pull request. First update main.
 
----------------------------------------
----------------------------------------
+    get checkout main
+    git pull --rebase upstream
 
+Incorporate the changes from main into your feature branch.
+
+    git checkout feature-branch
+    git pull --rebase upstream main
+
+Fix any merge conflicts then do:
+
+    git add .
+    git commit
+    git rebase --continue
+
+Push the feature branch.
+
+    git push origin feature-branch
+
+If you get warnings about it being rejected, try:
+
+    git push origin feature-branch -f
+
+Make a pull request on GitHub
+
+After the pull request is merged,
+
+    git checkout main
+    git pull --rebase upstream main
+    git branch -d feature-branch
+
+git branch -d feature-branch just cleans up branches. You don't have to do this if you want to keep adding features to that branch (not recommended) and if git doesn't permit you to delete the branch because it think's it hasn't been merged yet, you can force it with `-D` instead of `-d`.
+
+---
 
 ## Team Members
 

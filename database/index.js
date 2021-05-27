@@ -20,13 +20,14 @@ db.once('open', () => {
 });
 
 const friendSchema = new Schema({
-  userId: Number,
+  userId: String,
   userName: String
 });
 
 const userSchema = new Schema({
   userId: Number,
   fullName: String,
+  username: String,
   email: String,
   password: String,
   userLevel: Number,  /* 1=general user, 2='super user', 3=admin  */
@@ -46,7 +47,7 @@ const photoSchema = new Schema({
 });
 
 const userPhotosSchema = new Schema({
-  ownerId: Number,
+  ownerId: String,
   ownerName: String,
   photos: [photoSchema]
 });

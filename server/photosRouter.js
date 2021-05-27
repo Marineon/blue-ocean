@@ -1,3 +1,4 @@
+// const express = require('express');
 import express from 'express';
 import { User, UserPhotos } from '../database'
 const photosRouter = express.Router();
