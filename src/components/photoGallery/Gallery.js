@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import GridList from "@material-ui/core/GridList";
 import GridListTile from "@material-ui/core/GridListTile";
 import { withStyles } from "@material-ui/core/styles";
@@ -10,7 +10,9 @@ import FormGroup from '@material-ui/core/FormGroup';
 import DeleteIcon from '@material-ui/icons/Delete';
 import AddAlbumIcon from '@material-ui/icons/CreateNewFolder';
 import IconButton from '@material-ui/core/IconButton';
+/*-------------------Context Imports-------------------*/
 import { PhotosContext } from '../../contexts/photos-context';
+import { UserContext } from '../../contexts/user-context';
 import EditPhotosModal from './EditPhotosModal'
 <<<<<<< HEAD
 import PhotoModal from '../PhotoView/PhotoModal';
@@ -26,7 +28,6 @@ import CreateOrEditAlbumModal from '../albums/CreateOrEditAlbumModal';
 =======
 import AlbumRow from '../albums/AlbumRow'
 >>>>>>> added bunch of album features
-
 
 let styles = {
   gridListTile: {
@@ -45,7 +46,13 @@ function Gallery(props) {
     // setPhotos,
     // updatePhoto
   } = useContext(PhotosContext);
+<<<<<<< HEAD
   const [showModal, setShowModal] = useState(false);
+=======
+  const user = useContext(UserContext); // user context
+  const [showPhotoModal, setShowPhotoModal] = useState(null);
+  const [showEditPhotosModal, setShowEditPhotosModal] = useState(false);
+>>>>>>> filter photos to public/personal/shared
   const [onSelect, setOnSelect] = useState(false);
   const [selected, setSelected] = useState([]);
   const [shownPhotos, setShownPhotos] = useState(photos);
@@ -66,9 +73,29 @@ function Gallery(props) {
 >>>>>>> moved up currentAlbums to gallery for tony
 
   const { classes,
+    view, // render gallery view as = 'public', 'personal', 'shared'
     // children, className, ...other
   } = props;
 
+  // FILTER PHOTOS BY VIEW
+  useEffect(() => {
+    if (view === 'public') {
+      setShownPhotos(photos);
+    } else if (view === 'personal') {
+      // const personalPhotos = photos.filter(photo => photo.ownerId === user.userId) // PROPER code, when userId 1 exists
+      const personalPhotos = photos.filter(photo => photo.ownerId === 2)
+      console.log(personalPhotos);
+      setShownPhotos(personalPhotos);
+    } else if (view === 'shared') {
+      const friendIds = user.friends.map(friend => friend.userId); // map friend userIds to array
+      const sharedPhotos = photos.filter(photo => {
+        /* filter shared photos to user and friends Ids */
+        // return friendIds.concat([user.userId]).includes(photo.ownerId); // PROPER CODE, when valid friend userId's exist
+        return friendIds.concat([3]).includes(photo.ownerId); // filter shared photos to user and friends Ids
+      })
+      setShownPhotos(sharedPhotos);
+    }
+  }, [view]) // update 'shownPhotos' when 'view' changes
 
   const handleSelectClick = () => {
     setOnSelect(!onSelect);
