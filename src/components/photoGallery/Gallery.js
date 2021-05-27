@@ -10,9 +10,6 @@ import FormGroup from '@material-ui/core/FormGroup';
 import DeleteIcon from '@material-ui/icons/Delete';
 import AddAlbumIcon from '@material-ui/icons/CreateNewFolder';
 import IconButton from '@material-ui/core/IconButton';
-/*-------------------Context Imports-------------------*/
-import { PhotosContext } from '../../contexts/photos-context';
-import { UserContext } from '../../contexts/user-context';
 import EditPhotosModal from './EditPhotosModal'
 <<<<<<< HEAD
 import PhotoModal from '../PhotoView/PhotoModal';
@@ -20,6 +17,7 @@ import AlbumRow from '../albums/AlbumRow'
 <<<<<<< HEAD
 <<<<<<< HEAD
 import CreateOrEditAlbumModal from '../albums/CreateOrEditAlbumModal';
+<<<<<<< HEAD
 =======
 >>>>>>> added bunch of album features
 =======
@@ -28,6 +26,12 @@ import CreateOrEditAlbumModal from '../albums/CreateOrEditAlbumModal';
 =======
 import AlbumRow from '../albums/AlbumRow'
 >>>>>>> added bunch of album features
+=======
+import RemoveCircleOutlineIcon from '@material-ui/icons/RemoveCircleOutline';
+/*-------------------Context Imports-------------------*/
+import { PhotosContext } from '../../contexts/photos-context';
+import { UserContext } from '../../contexts/user-context';
+>>>>>>> clean up code
 
 let styles = {
   gridListTile: {
