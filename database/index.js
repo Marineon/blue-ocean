@@ -72,6 +72,7 @@ UserPhotos.collection.drop();
 User.collection.insertMany(fakeUser, onInsert);
 UserPhotos.collection.insertMany(fakePhotos, onInsert);
 */
+
 /*
 const req = {
   body: {
