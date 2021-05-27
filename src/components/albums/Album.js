@@ -45,7 +45,7 @@ const useStyles = makeStyles({
 
 function Album (props) {
   const classes = useStyles();
-  const [showModal, setShowModal] = useState(false);
+  // const [showModal, setShowModal] = useState(false);
 
 
   const { photos,

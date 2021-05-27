@@ -34,7 +34,7 @@ function Gallery(props) {
   const hasPrivilege = false;
 
   const { photos,
-    albums,
+    //albums,
     // setPhotos,
     // updatePhoto
   } = useContext(PhotosContext);
