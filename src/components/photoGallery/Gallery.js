@@ -26,9 +26,7 @@ let styles = {
     margin: "10px 5px",
   },
   paper: {
-    position: 'absolute',
-    width: 400,
-    border: '2px solid #000',
+    maxHeight: 'max-content'
   },
 };
 
@@ -91,7 +89,7 @@ function Gallery(props) {
       handleSelectClick={handleSelectClick}
       onSelect={onSelect}
     />
-    <Paper id="wrapper">
+    <Paper id="wrapper" className={classes.paper}>
     <div
       style={{
         height: 50,
@@ -175,6 +173,7 @@ function Gallery(props) {
         aria-describedby="Modal to edit photos"
         selected={selected}
     />
+  </Paper>
     <PhotoModal
         // alt={item.title}
         // srcSet={item.url}
@@ -188,7 +187,6 @@ function Gallery(props) {
       aria-describedby="Modal to create albums"
       selected={selected}
       isCreate={true}/>
-  </Paper>
   </>
 )
 }
