@@ -10,12 +10,12 @@ import FormGroup from '@material-ui/core/FormGroup';
 import DeleteIcon from '@material-ui/icons/Delete';
 import AddAlbumIcon from '@material-ui/icons/CreateNewFolder';
 import IconButton from '@material-ui/core/IconButton';
-
 import { PhotosContext } from '../../contexts/photos-context';
 import EditPhotosModal from './EditPhotosModal'
 import PhotoModal from '../PhotoView/PhotoModal';
 import AlbumRow from '../albums/AlbumRow'
 import CreateOrEditAlbumModal from '../albums/CreateOrEditAlbumModal';
+import RemoveCircleOutlineIcon from '@material-ui/icons/RemoveCircleOutline';
 
 
 let styles = {
@@ -37,7 +37,8 @@ function Gallery(props) {
     // setPhotos,
     // updatePhoto
   } = useContext(PhotosContext);
-  const [showModal, setShowModal] = useState(false);
+  const [showPhotoModal, setShowPhotoModal] = useState(null);
+  const [showEditPhotosModal, setShowEditPhotosModal] = useState(false);
   const [onSelect, setOnSelect] = useState(false);
   const [selected, setSelected] = useState([]);
   const [shownPhotos, setShownPhotos] = useState(photos);
@@ -65,31 +66,66 @@ function Gallery(props) {
       setSelected(newArr);
     } else {
       // console.log('set modal photo as', photos[index])
-      setShowModal(photos[index]);
+      setShowPhotoModal(photos[index]);
     }
   };
 
   const handleClose = () => {
-    setShowModal(false)
+    setShowEditPhotosModal(false)
     setShowAlbumModal(false)
   }
   const handleOpen = () => {
-    setShowModal(true)
+    setShowEditPhotosModal(true)
+  }
+
+  const removePhotosFromAlbum = () => {
+    console.log('Deleting ' + JSON.stringify(selected) + ' from ' + currentAlbum.title);
   }
 
   return (
     <>
-    <AlbumRow currentAlbum={currentAlbum} setCurrentAlbum={setCurrentAlbum} setShownPhotos={setShownPhotos} handleSelectClick={handleSelectClick} onSelect={onSelect}/>
+    <AlbumRow
+      currentAlbum={currentAlbum}
+      setCurrentAlbum={setCurrentAlbum}
+      setShownPhotos={setShownPhotos}
+      handleSelectClick={handleSelectClick}
+      onSelect={onSelect}
+    />
     <Paper id="wrapper">
-    <div style={{ height: 50, display:'flex', justifyContent:'space-between', flexWrap: 'wrap' }}>
-      <IconButton onClick={() => setShowAlbumModal(true)} aria-label="new-album">
+    <div
+      style={{
+        height: 50,
+        display:'flex',
+        justifyContent:'space-between',
+        flexWrap: 'wrap'
+      }}
+    >
+      <div>
       {onSelect && selected.length > 0 ?
-          <AddAlbumIcon /> : null }
-       </IconButton>
+      currentAlbum.title
+      ? <IconButton
+          onClick={() => removePhotosFromAlbum()}
+          aria-label="new-album"
+        >
+          <RemoveCircleOutlineIcon />
+        </IconButton>
+      : <IconButton
+          onClick={() => setShowAlbumModal(true)}
+          aria-label="new-album"
+        >
+          <AddAlbumIcon />
+        </IconButton> : null }
+        </div>
       <FormGroup className={classes.formGroup} row>
         {onSelect && selected.length > 0 ?
         <>
-          <Button onClick={handleOpen} size="small" className={classes.button} variant="contained" color="primary">
+          <Button
+            onClick={handleOpen}
+            size="small"
+            className={classes.button}
+            variant="contained"
+            color="primary"
+          >
             Edit
           </Button>
           <IconButton aria-label="delete">
@@ -98,7 +134,14 @@ function Gallery(props) {
         </>
           : null}
           <FormControlLabel
-            control={<Switch size="small" checked={onSelect} onChange={handleSelectClick} color="primary" />}
+            control={
+              <Switch
+                size="small"
+                checked={onSelect}
+                onChange={handleSelectClick}
+                color="primary"
+              />
+            }
             label="Select"
           />
         </FormGroup>
@@ -126,7 +169,7 @@ function Gallery(props) {
       ))}
     </GridList>
     <EditPhotosModal
-        open={showModal}
+        open={showEditPhotosModal}
         onClose={handleClose}
         aria-labelledby="Edit Photos"
         aria-describedby="Modal to edit photos"
@@ -135,8 +178,8 @@ function Gallery(props) {
     <PhotoModal
         // alt={item.title}
         // srcSet={item.url}
-        showModal={showModal}
-        setShowModal={setShowModal}
+        showModal={showPhotoModal}
+        setShowModal={setShowPhotoModal}
       />
     <CreateOrEditAlbumModal
       open={showAlbumModal}

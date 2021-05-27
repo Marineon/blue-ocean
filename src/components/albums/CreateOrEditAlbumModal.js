@@ -1,14 +1,8 @@
 import React, { useState } from 'react';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
-// import Switch from '@material-ui/core/Switch';
-// import FormControlLabel from '@material-ui/core/FormControlLabel';
-// import FormGroup from '@material-ui/core/FormGroup';
-// import DeleteIcon from '@material-ui/icons/Delete';
-// import IconButton from '@material-ui/core/IconButton';
 import Modal from '@material-ui/core/Modal';
 import InputLabel from '@material-ui/core/InputLabel';
-// import Input from '@material-ui/core/Input';
 import { makeStyles } from "@material-ui/core/styles";
 import TextField from '@material-ui/core/TextField';
 import Select from '@material-ui/core/Select';
@@ -40,6 +34,12 @@ const useStyles = makeStyles((theme) => ({
     width: "max-content",
     alignContent:'center',
     justifyContent: 'center',
+  },
+  title: {
+    minWidth: '100%',
+  },
+  description: {
+    minWidth: '100%',
   }
 }));
 
@@ -54,7 +54,7 @@ function CreateOrEditAlbumsModal(props) {
   const [description, setDescription] = useState(album.description);
   const [currentTag, setCurrentTag] = useState('');
   const [tags, setTags] = useState(album.tags);
-  const [permission, setPermission] = useState(0);
+  const [permission, setPermission] = useState(album.permission);
 
   const handleKeyPress = (event) => {
     if(event.key === 'Enter' && currentTag){
@@ -78,9 +78,19 @@ function CreateOrEditAlbumsModal(props) {
   };
 
   const resetModalState = () => {
-    setCurrentTag('');
-    setTags([]);
-    setPermission(0);
+    if(!props.isCreate) {
+      setTitle(album.title);
+      setDescription(album.description);
+      setCurrentTag(album.tags);
+      setTags(album.tags);
+      setPermission(album.permission);
+    } else {
+      setTitle('');
+      setDescription('');
+      setCurrentTag('');
+      setTags([]);
+      setPermission(0);
+    }
   }
 
   const handleSubmit = (e) => {
@@ -108,10 +118,29 @@ function CreateOrEditAlbumsModal(props) {
         maxHeight: '90vh',
       }}
         className={classes.paper}>
-        <h2 id="simple-modal-title">{props.isCreate ? 'Create New Album' : 'Editing Album'}</h2>
-        <form onSubmit={handleSubmit} className={classes.root} noValidate autoComplete="off">
-        <TextField id="title" label="Title" value={title} onChange={(e)=> {setTitle(e.target.value)}}/>
-        <TextField id="description" label="Description" value={description} onChange={(e)=> {setDescription(e.target.value)}}/>
+        <h2 id="simple-modal-title">
+          {props.isCreate ? 'Create New Album' : 'Editing Album'}
+        </h2>
+        <form
+          onSubmit={handleSubmit}
+          className={classes.root}
+          noValidate autoComplete="off"
+        >
+        <TextField
+          className={classes.title}
+          id="title"
+          label="Title"
+          value={title}
+          onChange={(e) => {setTitle(e.target.value)}}/>
+        <TextField
+          className={classes.description}
+          id="description"
+          label="Description"
+          multiline
+          value={description}
+
+          onChange={(e)=> {setDescription(e.target.value)}}
+        />
         <InputLabel id="demo-simple-select-label">Permission</InputLabel>
         <Select
           className={classes.select}
