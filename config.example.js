@@ -1,8 +1,10 @@
 const config = {
-  accessKey: "ABCDEFGHIJKLMNOPQRST",
-  secretKey: "/123456789012345678901234567890123456789",
-  region: 'region',
-  Bucket: 'bucket',
+  aws: {
+    region: 'region',
+    Bucket: 'mybucket',
+    accessKeyId: "myaccesskey",
+    secretAccessKey: "mysecretaccesskey",
+  },
 }
 
 // LoginURL: "https://720624184403.signin.aws.amazon.com/console",

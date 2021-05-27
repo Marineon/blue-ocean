@@ -26,23 +26,25 @@ const storageConfig = multer.diskStorage({
   },
 });
 
-const multerUpload = multer({
+images.multerUpload = multer({
   storage: storageConfig,
   // limits: { fileSize: 2 * 1024 * 1024 }
 });
 
-// const multerS3Upload = multer({
-//   storage: multerS3({
-//     s3: s3,
-//     bucket: config.Bucket,
-//     metadata: function(req, file, cb) {
-//       cb(null, { fieldName: file.fieldname });
-//     },
-//     key: function(req, file, cb) {
-//       cb(null, Date.now().toString())
-//     }
-//   })
-// });
+images.multerS3Upload = multer({
+  storage: multerS3({
+    s3: s3,
+    bucket: config.aws.Bucket,
+    metadata: function(req, file, cb) {
+      cb(null, { fieldName: file.fieldname });
+    },
+    key: function(req, file, cb) {
+      const regex = /:|\./g;
+      const timedate = (new Date()).toISOString().replace(regex, '');;
+      cb(null, `${timedate}-${file.originalname}`);
+    }
+  })
+});
 
 images.getImageList = async (req, res) => {
   try {
@@ -63,14 +65,15 @@ images.getImageList = async (req, res) => {
 };
 
 images.upload = async (req, res, next) => {
-  try {
 
-    await multerUpload.array('file')(req, res, next);
+  try {
+    await images.multerUpload.array('file')(req, res, next);
+    await images.multerS3Upload.array('file')(req, res, next);
 
     if (req.files === undefined) {
       return res.status(400).send({ message: "Please upload a file!" });
     }
-    cloudStorage.uploadPhoto(req.file);
+    // cloudStorage.uploadPhoto(req.file);
     console.log('success');
     res.status(200).send({
       message: "Uploaded the file successfully: " + req.files,
@@ -81,5 +84,6 @@ images.upload = async (req, res, next) => {
     });
   }
 };
+
 
 export default images;
