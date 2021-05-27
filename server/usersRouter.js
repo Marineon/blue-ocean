@@ -1,4 +1,6 @@
-import express, { request } from 'express';
+import express, { 
+    // request
+ } from 'express';
 import database from '../database/index.js';
 
 const usersRouter = express.Router();
@@ -7,7 +9,7 @@ usersRouter.put('/friends/:action', async (req, res) => {
     const { currentUser, targetUser } = req.body;
     const action = req.params.action;
 
-    const errors = [];
+    // const errors = [];
     const currUser = database.User.findById(currentUser);
     const targUser = database.User.findById(targetUser);
 
@@ -157,7 +159,7 @@ usersRouter.get('/login', (req, res) => {
 usersRouter.post('/', (req, res) => {
     const formData = req.body;
     console.log(formData);
-    const newUserObj = new User({
+    const newUserObj = new database.User({
         fullName: `${formData.first_name} ${formData.last_name}`,
         username: formData.username,
         email: formData.email,

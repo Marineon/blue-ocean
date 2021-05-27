@@ -80,8 +80,9 @@ api.updatePhotos = (editsObj) => {
 
 
 api.getUserPhotos = (userId) => {
+  console.log('userId', userId);
   if (!userId) { return; }
-  axios.get(`${hostname}:${PORT}/api/photos/allPhotos`, { data: { userId } })
+  axios.get(`${hostname}:${PORT}/api/photos/userPhotos`, { data: { userId } })
     .then((res) => { console.log('put me in state or something', res.body) })
     .catch((err) => { console.log('error getting all photos', err) })
 }

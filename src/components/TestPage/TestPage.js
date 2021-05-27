@@ -5,13 +5,14 @@ import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
-// import Button from '@material-ui/core/Button';
+import Button from '@material-ui/core/Button';
 import api from '../../api/api';
 
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
-    flexWrap: 'wrap',
+    flexDirection: 'column',
+    // flexWrap: 'wrap',
     margin: theme.spacing(1),
   },
   tile: {
@@ -24,13 +25,15 @@ const TestPage = () => {
   const classes = useStyles();
 
   useEffect(() => {
-    getImageList();
-  }, [images.length])
+    (async () => {
+      const imageList = await api.getImageList();
+      setImages(imageList);
+    })();
+  }, [])
 
-  const getImageList = async () => {
-    const imageList = await api.getImageList();
-    setImages(imageList);
-    console.log(images);
+  const getPhotos = (event) => {
+    const userId = '1';
+    api.getUserPhotos(1)
   }
 
   return (
@@ -38,6 +41,11 @@ const TestPage = () => {
       <Typography variant="h2">
         testpage
       </Typography>
+
+      <Button variant='contained' onClick={getPhotos}>
+        Get Photos api
+      </Button>
+
       <GridList cols={3} >
         {images.map((tile) => (
           <GridListTile key={tile.name} >

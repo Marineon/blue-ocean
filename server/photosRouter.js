@@ -1,12 +1,12 @@
 // const express = require('express');
 import express from 'express';
-import { User, UserPhotos } from '../database'
+import database  from '../database/index.js'
 const photosRouter = express.Router();
 
 // get current users photos + all photos shared with them
 photosRouter.get('/userPhotos', async (req, res) => {
   const { userId } = req.body;
-  const findUserPhotos = (id) => UserPhotos.find({ 'ownerId': id });
+  const findUserPhotos = (id) => database.UserPhotos.find({ 'ownerId': id });
   try {
     const userPhotosObj = await findUserPhotos(userId);
     const userPhotos = userPhotosObj.map(p => p.photos).flat();
@@ -14,14 +14,14 @@ photosRouter.get('/userPhotos', async (req, res) => {
       return a.uploadDate - b.uploadDate;
     }));
   } catch (error) {
-  res.status(500).send(error);
+    res.status(500).send(error);
   }
 });
 
 photosRouter.get('/friendsPhotos', async (req, res) => {
   const { userId } = req.body;
-  const findUserFriends = (id) => User.find({ 'userId': id }).select('friends');
-  const findUserFriendPhotos = (friends) => UserPhotos.find({ 'ownerId': { $in: friends } });
+  const findUserFriends = (id) => database.User.find({ 'userId': id }).select('friends');
+  const findUserFriendPhotos = (friends) => database.UserPhotos.find({ 'ownerId': { $in: friends } });
   try {
     const userFriendsObj = await findUserFriends(userId);
     const userFriends = userFriendsObj[0].friends.map(u => u.userId);
