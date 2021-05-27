@@ -72,59 +72,28 @@ UserPhotos.collection.drop();
 User.collection.insertMany(fakeUser, onInsert);
 UserPhotos.collection.insertMany(fakePhotos, onInsert);
 */
+/*
+const userId = 2;
 
-/*   Below is for testing purposes - to be deleted soon
-let userFriends = [];
-const findUserFriends = User.find({'userId': 2})
-  .select('friends');
+const selectAllImages = async (id) => {
+  const findUserFriends = (id) => User.find({ 'userId': id }).select('friends');
+  const findUserFriendPhotos = (friends) => UserPhotos.find({ 'ownerId': { $in: friends } });
+  const findUserPhotos = (id) => UserPhotos.find({ 'ownerId': id });
 
-findUserFriends.exec((err, friends) => {
-  if (err) {
-    console.log(err);
-  } else {
-    friends.forEach(f => {
-      userFriends.push(f.friends);
-      console.log('userFriends', userFriends);
-    });
-  }
-});
+  const userFriendsObj = await findUserFriends(2);
+  const userFriends = userFriendsObj[0].friends.map(u => u.userId);
 
-const selectedPhotos = [];
-const userFriends = [3,2]
-const findFriendsPhotos = UserPhotos.find({'ownerId': { $in: userFriends }})
- findFriendsPhotos.exec((err, results) => {
-  if (err) {
-    console.log(err);
-  } else {
-    results.forEach(doc => {
-      doc.photos = doc.photos.filter(photo => {
-        return photo.accessLevel === 2;
-      });
-      doc.photos.forEach(doc => {
-        selectedPhotos.push(doc);
-      });
-      console.log('selectedPhotos', );
-    });
-  }
-})
+  const userFriendPhotos = await findUserFriendPhotos(userFriends);
+  const selectedPhotos = userFriendPhotos.map(user => user.photos.filter(p => p.accessLevel === 2)).flat();
 
-
-const findUserPhotos = UserPhotos.find({'ownerId': 2});
-findUserPhotos.exec((err, results) => {
-  if (err) {
-    console.log(err);
-  } else {
-    results.forEach(user => {
-      user.photos.forEach(photo => {
-        selectedPhotos.push(photo);
-        console.log('selectedPhotos', selectedPhotos)
-      });
-    });
-  }
-});
-
+  const userPhotosObj = await findUserPhotos(userId);
+  const userPhotos = userPhotosObj.map(p => p.photos).flat();
+  userPhotos.forEach(p => selectedPhotos.push(p))
+  console.log(selectedPhotos.sort((a, b) => {
+    return a.uploadDate - b.uploadDate;
+  }))
+}
 */
-
 module.exports = {
   Friend, User, Photo, UserPhotos
 };
