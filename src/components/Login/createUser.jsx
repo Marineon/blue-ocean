@@ -64,7 +64,7 @@ export default function CreateUser() {
     first_name: '',
     last_name: '',
     email: '',
-    userLevel: selectedValue,
+    userLevel: 'a',
     selected: 'a',
     username: '',
     password: '',
@@ -73,9 +73,7 @@ export default function CreateUser() {
     showConfirm: false
   });
 
-console.log(values.showConfirm)
-
-const handleChange = (prop) => (event) => {
+  const handleChange = (prop) => (event) => {
     setValues({ ...values, [prop]: event.target.value });
   };
 
@@ -95,12 +93,9 @@ const handleChange = (prop) => (event) => {
     event.preventDefault();
   };
 
-
-    const handleChangeSelected = (event) => {
-      setSelectedValue(event.target.value);
-      handleChange('userLevel');
-      console.log(values.userLevel)
-    };
+  const handleChangeSelected = (event) => {
+    setSelectedValue(event.target.value);
+  };
 
   const addUser = (userObj) => {
     axios.post('/api/users', userObj)
@@ -215,22 +210,22 @@ const handleChange = (prop) => (event) => {
           <br />
           Access
           <Radio
-            checked={selectedValue === 'a'}
-            onChange={handleChangeSelected}
+            checked={values.userLevel === 'a'}
+            onChange={handleChange('userLevel')}
             value="a"
             name="radio-button-demo"
             inputProps={{ 'aria-label': 'A' }}
           />1
           <Radio
-            checked={selectedValue === 'b'}
-            onChange={handleChangeSelected}
+            checked={values.userLevel === 'b'}
+            onChange={handleChange('userLevel')}
             value="b"
             name="radio-button-demo"
             inputProps={{ 'aria-label': 'B' }}
           />2
           <Radio
-            checked={selectedValue === 'c'}
-            onChange={handleChangeSelected}
+            checked={values.userLevel === 'c'}
+            onChange={handleChange('userLevel')}
             value="c"
             name="radio-button-demo"
             inputProps={{ 'aria-label': 'C' }}
