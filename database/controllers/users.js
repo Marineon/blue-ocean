@@ -23,10 +23,8 @@ users.getFriends = async (userId) => {
 users.friendRequest = async (currentUser, targetUser) => {
 
   try {
-    const [currUser] = await User.find({'userId': currentUser}).exec();
-    console.log("🚀 ~ file: users.js ~ line 27 ~ users.friendRequest= ~ currUser", currUser)
-    const [targUser] = await User.find({'userId': targetUser}).exec();
-    console.log("🚀 ~ file: users.js ~ line 29 ~ users.friendRequest= ~ targUser", targUser)
+    const [currUser] = await User.find({ 'userId': currentUser }).exec();
+    const [targUser] = await User.find({ 'userId': targetUser }).exec();
 
     targUser.requested.push(currUser.userId);
     await targUser.save();
@@ -41,24 +39,16 @@ users.friendRequest = async (currentUser, targetUser) => {
 
 users.cancelRequest = async (currentUser, targetUser) => {
   try {
-    const currUser = await User.findById(currentUser).exec();
-    const targUser = await User.findById(targetUser).exec();
+    const [currUser] = await User.find({ 'userId': currentUser }).exec();
+    const [targUser] = await User.find({ 'userId': targetUser }).exec();
 
     //remove target user from current user's pending array
-    currUser.pending.forEach((friend, index) => {
-      if (friend.userName === targUser.userName) {
-        currUser.pending.splice(index, 1);
-      }
-    })
-    let currSaveUser = await currUser.save()
+    currUser.pending.pull(targUser.userId);
+    let currSaveUser = await currUser.save();
 
     //remove current user from target user's requested array
-    targUser.requested.forEach((friend, index) => {
-      if (friend.userName === currUser.userName) {
-        targUser.requested.splice(index, 1);
-        targUser.save();
-      }
-    })
+    targUser.requested.pull(currUser.userId);
+    targUser.save();
 
     //reply with saved current user
     return currSaveUser;

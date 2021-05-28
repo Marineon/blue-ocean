@@ -96,6 +96,13 @@ const TestPage = () => {
         Request Friend
       </Button>
 
+      <Button variant='contained' onClick={async () => {
+        const result = await api.friendAction(userId, secondaryUserId, 'cancelRequest');
+        console.log(result);
+      }}>
+        Cancel Request
+      </Button>
+
       {/* <Button variant='contained' onClick={async () => {
         const result = await api.getUserInfo(userId);
         console.log(JSON.stringify(result, null, 2));

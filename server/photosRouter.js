@@ -52,7 +52,7 @@ photosRouter.patch('/single', async (req, res) => {
 });
 
 // add tags and change accessLevel for multiple
-photosRouter.patch('/multiple', (req, res) => {
+photosRouter.patch('/multiple', async (req, res) => {
   const { photoIds } = req.body;
   try {
     photos.updateMany(photoIds)

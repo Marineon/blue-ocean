@@ -15,7 +15,6 @@ photos.getPublic = async () => {
 
 // get feed (public and shared by friends)
 photos.getFeed = async (userId) => {
-
   try {
     const publicPhotos = await photos.getPublic();
     const friendPhotos = await photos.getFromFriends(userId);
