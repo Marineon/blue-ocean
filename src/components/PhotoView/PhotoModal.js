@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import {
+  Chip,
   Container,
   Paper,
   GridListTileBar,
@@ -92,8 +93,7 @@ const PhotoModal = ({ showModal, setShowModal, hasPrivilege, photoToShow }) => {
   const [showEditModal, setShowEditModal] = useState(false);
   const classes = useStyles();
 
-
-  const randOwner = "BlueOceaner22";
+  // const randOwner = "BlueOceaner22";
   const randDescription = [
     "Me and friends at a concert",
     "The best show ever",

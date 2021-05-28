@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { UserContext } from '../contexts/user-context'
 // import { PhotosContext } from '../contexts/photos-context'
 
-const ContextTest = () => {
+const UserInfoContext = () => {
 
   const { userName, setUserName } = useContext(UserContext)
   console.log(userName)
@@ -17,4 +17,4 @@ const ContextTest = () => {
   )
 }
 
-export default ContextTest;
+export default UserInfoContext;
