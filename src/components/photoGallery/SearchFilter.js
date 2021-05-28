@@ -6,7 +6,7 @@ function SearchFilter(props) {
   // const { photos, albums } = useContext(PhotosContext);
   const { searchTerm } = useContext(SearchContext);
   const { setShownPhotos, setShownAlbums, currentAlbumPhotos, masterPhotos, masterAlbums } = props;
-  const { myPhotos, friendsPhotos, publicPhotos, myAlbums, friendsAlbums, publicAlbums } = useContext(PhotosContext)
+  // const { myPhotos, friendsPhotos, publicPhotos, myAlbums, friendsAlbums, publicAlbums } = useContext(PhotosContext)
 
   useEffect(() => {
     filterLists(searchTerm)
@@ -23,9 +23,9 @@ function SearchFilter(props) {
     if (currentAlbumPhotos.length > 0) {
       unfilteredPhotoList = currentAlbumPhotos;
     } else {
-      unfilteredPhotoList = masterPhotos
+      unfilteredPhotoList = masterPhotos;
     }
-    unfilteredAlbumList = masterAlbums
+    unfilteredAlbumList = masterAlbums;
 
     if (!string) {
       setShownPhotos(unfilteredPhotoList);

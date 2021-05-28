@@ -92,6 +92,10 @@ function EditPhotosModal(props) {
     e.preventDefault();
     let output = props.selected.map((item) => {return {item: item, tags, permission}})
     console.log(output);
+    // API CALL HERE!!!
+    // EDIT MULTIPLE photo call, in a shape that backend expects
+
+
     props.onClose();
     resetModalState();
   }

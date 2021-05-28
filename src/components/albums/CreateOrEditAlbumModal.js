@@ -73,7 +73,7 @@ function CreateOrEditAlbumsModal(props) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if(isAlbumCreate) {
+    if (props.isAlbumCreate) {
       //{title: props.albumtitle, descrption: props.albumDescription...}
       //call api to create album
     } else {

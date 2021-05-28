@@ -191,6 +191,14 @@ function Gallery(props) {
     console.log('Deleting ' + JSON.stringify(selected) + ' from ' + currentAlbum.title);
   }
 
+  const deleteSelected = () => {
+
+    // API HERE!!!
+    //api delete photos and pass in selected
+
+    handleSelectClick()
+  }
+
   return (
     <>
       <div style={{display: 'flex'}}>
@@ -264,7 +272,7 @@ function Gallery(props) {
                 >
                   Edit
                 </Button>
-                <IconButton aria-label="delete">
+                <IconButton onClick={deleteSelected} aria-label="delete">
                   <DeleteIcon />
                 </IconButton>
               </>
