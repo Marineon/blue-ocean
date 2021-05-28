@@ -7,7 +7,9 @@ const photos = {};
 photos.getPublic = async () => {
   try {
     const publicPhotos = await Photo.find({ 'accessLevel': 2 })
-    return publicPhotos;
+    return publicPhotos.sort((a, b) => {
+      return a.uploadDate - b.uploadDate;
+    });
   } catch (err) {
     throw err;
   }
@@ -67,7 +69,7 @@ photos.updateOne = async (photoId) => {
 };
 
 // update multiple photos
-photos.updateMany = (photoIds) => {
+photos.updateMany = async (photoIds) => {
   const updatableProps = ['tags', 'accessLevel'];
   try {
     photoIds.forEach(async (id) => {
@@ -85,17 +87,16 @@ photos.updateMany = (photoIds) => {
 };
 
 // delete single photo
-photos.deleteOne = (userId, photoId) => {
+photos.deleteOne = async (userId, photoId) => {
   try {
     return Photo.deleteOne({ ownerId: userId, _id: photoId }).exec()
   } catch (err) {
     throw err
   }
-
 };
 
 // delete multiple photos
-photos.deleteMany = (userId, photoIds) => {
+photos.deleteMany = async (userId, photoIds) => {
   try {
     return Photo.deleteMany({ ownerId: userId, _id: { $in: photoIds } }).exec()
   } catch (err) {

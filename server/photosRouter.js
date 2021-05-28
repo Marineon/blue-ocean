@@ -52,7 +52,7 @@ photosRouter.patch('/single', async (req, res) => {
 });
 
 // add tags and change accessLevel for multiple
-photosRouter.patch('/multiple', (req, res) => {
+photosRouter.patch('/multiple', async (req, res) => {
   const { photoIds } = req.body;
   try {
     photos.updateMany(photoIds)
@@ -82,7 +82,7 @@ photosRouter.delete('/single', async (req, res) => {
     .catch((err) => { res.status(400).send(err) });
 });
 
-photosRouter.delete('/multi', (req, res) => {
+photosRouter.delete('/multi', async (req, res) => {
   const { userId, photoIds } = req.body;
   photos.deleteMany(userId, photoIds)
     .then((confirmations) => {
