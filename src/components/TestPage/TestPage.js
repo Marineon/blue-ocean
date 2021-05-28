@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 // import Box from '@material-ui/core/Box';
@@ -8,6 +8,8 @@ import GridListTile from '@material-ui/core/GridListTile';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import api from '../../api/api';
+
+import { PhotosContext } from '../../contexts/photos-context.js';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -21,19 +23,26 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
+
 const TestPage = () => {
-  const [images, setImages] = useState([]);
-  const [userId, setUserId] = useState('');
+  // const [photos, setPhotos] = useState([]);
+  const [userId, setUserId] = useState('00001');
   const classes = useStyles();
 
-  useEffect(() => {
-    getImageList();
-  }, [images.length])
+  const { photos, setPhotos, } = useContext(PhotosContext);
 
-  const getImageList = async () => {
-    const imageList = await api.getImageList();
-    setImages(imageList);
+
+  const updatePhotos = async (fetchedPhotos) => {
+    const imageList = await fetchedPhotos;
+    // console.log('imageList', imageList);
+    // const imageUrls = imageList ? imageList.map((image) => image.url) : [];
+    setPhotos(imageList || []);
   }
+
+  useEffect(() => {
+    const fetchedPhotos = api.getFeed(userId);
+    updatePhotos(fetchedPhotos);
+  }, [photos && photos.length])
 
   return (
     <Paper className={classes.root} >
@@ -42,31 +51,55 @@ const TestPage = () => {
       </Typography>
 
       <TextField
+        value={userId}
         id="outlined-basic"
         label="UserId"
         variant="outlined"
         onChange={(e) => setUserId(e.target.value)}
       />
-      <Button variant='contained' onClick={() => {
-        api.getUserPhotos(userId);
+
+      <Button variant='contained' onClick={async () => {
+        const result = await api.getFeed(userId);
+        console.log(result);
+        updatePhotos(result);
       }}>
-        Get Users Photos api
+        Get Feed
       </Button>
-      <Button variant='contained' onClick={() => {
-        api.getFriendsPhotos(userId);
+
+
+      <Button variant='contained' onClick={async () => {
+        const result = await api.friendAction('00001', '00002', 'request');
+        console.log(result);
       }}>
-        Get Friends Photos api
+        Friend Action
       </Button>
-      <Button variant='contained' onClick={() => {
-        api.getPublicPhotos(userId);
+
+      <Button variant='contained' onClick={async () => {
+        const result = await api.getUserPhotos(userId);
+        console.log(result);
+        updatePhotos(result);
       }}>
-        Get All Photos api
+        Get Users Photos
       </Button>
-  
+
+      <Button variant='contained' onClick={async () => {
+        const result = await api.getUserInfo(userId);
+        console.log(result);
+      }}>
+        Get User info
+      </Button>
+
+      <Button variant='contained' onClick={async () => {
+        const result = await api.getUserInfo(userId);
+        console.log(result);
+      }}>
+        Get User info
+      </Button>
+
       <GridList cols={3} >
-        {images.map((tile) => (
-          <GridListTile key={tile.name} >
-            <img src={`${tile.url}`} alt={tile} />
+        {photos.map((tile) => (
+          <GridListTile key={tile.url} >
+            <img src={`${tile.url}`} alt={tile.url} />
           </GridListTile>
         ))}
       </GridList >

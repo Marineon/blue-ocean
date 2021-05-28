@@ -1,57 +1,41 @@
 // const express = require('express');
 import express from 'express';
-import database from '../database/index.js';
-const { User, Photos } = database;
+import Photo from '../database/models/Photo.js';
+import photos from '../database/controllers/photos.js';
+
+// import User from '../database/models/User.js';
+// import users from '../database/controllers/users.js';
+// import albums from '../database/controllers/albums.js';
+
 const photosRouter = express.Router();
+
 
 // get current users photos
 photosRouter.get('/userPhotos', async (req, res) => {
-  const { userId } = req.body;
-  const findUserPhotos = (id) => Photos.find({ 'userId': id });
+  console.log('userphotos');
   try {
-    const userPhotos = await findUserPhotos(userId);
-    res.status(200).send(userPhotos.sort((a, b) => {
-      return a.uploadDate - b.uploadDate;
-    }));
+    const userPhotos = await photos.getUserPhotos(req.query.userId);
+    res.status(200).send(userPhotos);
   } catch (err) {
-  res.status(500).send(err);
+    res.status(500).send(err);
   }
 });
 
 // get current users friends photos
 photosRouter.get('/friendsPhotos', async (req, res) => {
-  const { userId } = req.body;
-  const findUserFriends = (id) => User.find({ 'userId': id }).select('friends');
-  const findUserFriendPhotos = (friends) => Photos.find({ 'userId': { $in: friends } });
   try {
-    const userFriendsObj = await findUserFriends(userId);
-    const userFriends = userFriendsObj[0].friends.map(u => u.userId);
-    const userFriendPhotos = await findUserFriendPhotos(userFriends);
-    const selectedPhotos = userFriendPhotos.filter(photo => photo.accessLevel === 1);
-    res.status(200).send(selectedPhotos.sort((a, b) => {
-      return a.uploadDate - b.uploadDate;
-    }));
+    const friendPhotos = await photos.getFromFriends(req.body.userId);
+    res.status(200).send(friendPhotos);
   } catch (err) {
     res.status(500).send(err);
   }
 });
 
 // friends photos + public photos
-photosRouter.get('/photoFeed', async (req, res) => {
-  const { userId } = req.body;
-  const findUserFriends = (id) => User.find({ 'userId': id }).select('friends');
-  const findUserFriendPhotos = (friends) => Photos.find({ 'userId': { $in: friends }});
-  const findPublicPhotos = () => Photos.find({ 'accessLevel': 2 });
+photosRouter.get('/feed', async (req, res) => {
   try {
-    const userFriendsObj = await findUserFriends(userId);
-    const userFriends = userFriendsObj[0].friends.map(u => u.userId);
-    const userFriendPhotos = await findUserFriendPhotos(userFriends);
-    const selectedPhotos = userFriendPhotos.filter(photo => photo.accessLevel === 1);
-    const publicPhotos = await findPublicPhotos()
-    publicPhotos.forEach(photo => selectedPhotos.push(photo))
-    res.status(200).send(selectedPhotos.sort((a, b) => {
-    return a.uploadDate - b.uploadDate;
-    }));
+    const feedPhotos = await photos.getFeed(req.query.userId);
+    res.status(200).send(feedPhotos);
   } catch (err) {
     res.status(500).send(err);
   }
@@ -59,17 +43,9 @@ photosRouter.get('/photoFeed', async (req, res) => {
 
 // find one and update
 photosRouter.patch('/single', async (req, res) => {
-  const { photoId } = req.body;
-  const updatableProps = ['description', 'tags', 'accessLevel'];
   try {
-    for (const key in req.Body) {
-      if (updatableProps.includes(key)) {
-        let update = { [key]: req.Body[key] };
-        let updatePhotoQuery = (photoId, update) => Photos.updateOne({ 'photoId': photoId }, update);
-        await updatePhotoQuery(photoId, update);
-        res.sendstatus(200);
-      }
-    }
+    await photos.updateOne(req.body.photoId);
+    res.sendstatus(200);
   } catch (err) {
     res.status(500).send(err);
   }
@@ -78,23 +54,12 @@ photosRouter.patch('/single', async (req, res) => {
 // add tags and change accessLevel for multiple
 photosRouter.patch('/multiple', (req, res) => {
   const { photoIds } = req.body;
-  const updatableProps = ['tags', 'accessLevel'];
-  try{
-    photoIds.forEach(async(id) => {
-      for (const key in req.body) {
-        if (updatableProps.includes(key)) {
-          let update = { [key]: req.body[key] };
-          let updatePhotoQuery = (photoId, update) => Photos.updateOne({ photoId: photoId }, update);
-          await updatePhotoQuery(id, update);
-        }
-      }
-    });
+  try {
+    photos.updateMany(photoIds)
     res.sendStatus(200);
   } catch (err) {
     res.status(500).send(err);
   }
-
-
 });
 
 photosRouter.put('/', (req, res) => {
@@ -106,34 +71,33 @@ photosRouter.put('/', (req, res) => {
 
 photosRouter.delete('/single', async (req, res) => {
   const { userId, photoId } = req.body;
-  Photo.deleteOne({ownerId: userId, _id: photoId}).exec()
-  .then((confirmation) => {
-    if (confirmation.deletedCount === 1) {
-      res.status(200).send(confirmation);
-    } else {
-      res.status(400).send(confirmation);
-    }
-  })
-  .catch((err) => {res.status(400).send(err)});
+  photos.deleteOne(userId, photoId)
+    .then((confirmation) => {
+      if (confirmation.deletedCount === 1) {
+        res.status(200).send(confirmation);
+      } else {
+        res.status(400).send(confirmation);
+      }
+    })
+    .catch((err) => { res.status(400).send(err) });
 });
 
 photosRouter.delete('/multi', (req, res) => {
   const { userId, photoIds } = req.body;
-
-  Photo.deleteMany({ ownerId: userId, _id: { $in: photoIds}}).exec()
-  .then((confirmations) => {
-    res.status(200).send(confirmations);
-  })
-  .catch((err) => {
-    res.status(400).send(err);
-  })
+  photos.deleteMany(userId, photoIds)
+    .then((confirmations) => {
+      res.status(200).send(confirmations);
+    })
+    .catch((err) => {
+      res.status(400).send(err);
+    })
 });
 
 //just for testing
 photosRouter.post('/', (req, res) => {
   const testPhoto = new Photo(req.body).save()
-  .then((photo) => {res.status(200).send(photo)})
-  .catch((err) => {res.status(400).send(err)});
+    .then((photo) => { res.status(200).send(photo) })
+    .catch((err) => { res.status(400).send(err) });
 })
 
 export default photosRouter;

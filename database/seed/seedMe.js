@@ -1,6 +1,7 @@
 import dummy from './dummy.js';
 import mongoose from 'mongoose';
-import { User, Photo } from '../index.js';
+import User from '../models/User.js';
+import Photo from '../models/Photo.js';
 
 mongoose.connect('mongodb://localhost/blueocean', {
   useNewUrlParser: true,
@@ -27,7 +28,7 @@ const randFriends = (upTo, userCount) => {
 const fillNames = () => {
   dummy.names.slice(-userCount).forEach((name, i) => {
     try {
-      const userName = pad(i, 5);
+      const userId = pad(i, 5);
       const fullName = name;
       const email = name.replace(' ', '').concat('@email.com');
       const password = 'qwerty';
@@ -68,17 +69,19 @@ const randTags = (upTo) => {
 const fillPhotos = () => {
   dummy.photos.forEach((photo, i) => {
     try {
+      const userId = pad(Math.floor(Math.random() * userCount), 5);
+      const username = dummy.names[Math.floor(Math.random() * dummy.names.length)]
       const photoId = pad(i, 5);
-      const ownerId = pad(Math.floor(Math.random() * userCount), 5);
       const uploadDate = photo.split('images/')[1].split('Z')[0].concat('Z');
       //2021-05-27T082635378Z
       const description = dummy.descriptions[Math.floor(Math.random() * dummy.descriptions.length)];
       const tags = Array.from(new Set(randTags(5)));
-      const accessLevel = 0
+      const accessLevel = Math.floor(Math.random() * 3);
       const url = photo;
       const newPhotoData = {
         photoId,
-        ownerId,
+        username,
+        userId,
         uploadDate,
         description,
         tags,
