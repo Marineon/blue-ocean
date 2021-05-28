@@ -1,6 +1,7 @@
 import express, { request } from 'express';
 import { Friend, User } from '../database/index.js';
 
+
 const usersRouter = express.Router();
 
 //------------------------------------------------------------------------//
@@ -241,15 +242,17 @@ usersRouter.get('/all', (req, res) => {
     })
 });
 
-usersRouter.get('/login', (req, res) => {
+usersRouter.post('/login', (req, res) => {
     const { username, password } = req.body;
-    User.findOne(username)
+    User.findOne({userName: username}).exec()
     .then((doc) => {
-        if (doc.password === password) {
+        // if (doc.password === password) {
+            console.log('this is the doc found', doc);
+            console.log('username from backedn', username)
             res.status(200).send(doc)
-        } else {
-            res.send('Invalid Password')
-        }
+        // } else {
+        //     res.send('Invalid Password')
+        // }
     })
     .catch((err) => {
         res.status(500).send(err)
@@ -257,12 +260,12 @@ usersRouter.get('/login', (req, res) => {
 })
 
 //CREATE NEW USER
-usersRouter.post('/', (req, res) => {
+usersRouter.get('/', (req, res) => {
     const formData = req.body;
     console.log(formData);
     const newUserObj = new User({
         fullName: `${formData.first_name} ${formData.last_name}`,
-        userName: formData.usernaralme,
+        userName: formData.username,
         email: formData.email,
         password: formData.password,
         userLevel: 1,
