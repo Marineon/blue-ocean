@@ -33,9 +33,9 @@ const userSchema = new Schema({
   email: String,
   password: String,
   userLevel: Number,  /* 1=general user, 2='super user', 3=admin  */
-  friends: [friendSchema],
-  pending: [friendSchema], /* friend requests sent */
-  requested: [friendSchema]  /* incoming friend requests */
+  friends: [String],
+  pending: [String], /* friend requests sent */
+  requested: [String]  /* incoming friend requests */
 });
 
 const photosSchema = new Schema({
@@ -71,7 +71,3 @@ database.Photos.collection.insertMany(fakePhotos, onInsert);
 */
 
 export default database;
-
-/*
-
-  */

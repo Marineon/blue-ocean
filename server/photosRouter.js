@@ -1,13 +1,13 @@
 // const express = require('express');
 import express from 'express';
-import database from '../database';
+import database from '../database/index.js';
 const { User, Photos } = database;
 const photosRouter = express.Router();
 
 // get current users photos
 photosRouter.get('/userPhotos', async (req, res) => {
   const { userId } = req.body;
-  const findUserPhotos = (id) => UserPhotos.find({ 'userId': id });
+  const findUserPhotos = (id) => Photos.find({ 'userId': id });
   try {
     const userPhotos = await findUserPhotos(userId);
     res.status(200).send(userPhotos.sort((a, b) => {
@@ -78,7 +78,7 @@ photosRouter.patch('/single', async (req, res) => {
 // add tags and change accessLevel for multiple
 photosRouter.patch('/multiple', (req, res) => {
   const { photoIds } = req.body;
-  const updatableProps = ['tags' 'accessLevel'];
+  const updatableProps = ['tags', 'accessLevel'];
   try{
     photoIds.forEach(async(id) => {
       for (const key in req.body) {

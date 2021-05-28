@@ -28,7 +28,8 @@ const TestPage = () => {
 
   useEffect(() => {
     (async () => {
-      const imageList = await api.getImageList();
+      // const imageList = await api.getImageList();
+      const imageList = await api.getPublicPhotos();
       setImages(imageList);
     })();
   }, [])
