@@ -47,7 +47,6 @@ users.friendRequest = async (currentUser, targetUser) => {
 
 users.cancelRequest = async (currentUser, targetUser) => {
   try {
-    const { currentUser, targetUser } = req.body;
     const currUser = await User.findById(currentUser).exec();
     const targUser = await User.findById(targetUser).exec();
 
@@ -115,7 +114,6 @@ users.acceptFriend = async (currentUser, targetUser) => {
 
 users.rejectFriend = async (currentUser, targetUser) => {
   try {
-    const { currentUser, targetUser } = req.body;
     const currUser = await User.findById(currentUser).exec();
     const targUser = await User.findById(targetUser).exec();
 
