@@ -1,7 +1,7 @@
-import express, { 
+import express, {
     // request
- } from 'express';
-import database from '../database/index.js';
+} from 'express';
+import { User, Photo } from '../database/index.js';
 
 
 const usersRouter = express.Router();
@@ -10,30 +10,30 @@ const usersRouter = express.Router();
 //------------     Friends API's -----------------------------------------//
 //========================================================================//
 usersRouter.put('/friends/request', async (req, res) => {
-  try {
-    const { currentUser, targetUser } = req.body;
-    const currUser = await User.findById(currentUser.toString()).exec();
-    const targUser = await User.findById(targetUser.toString()).exec();
+    try {
+        const { currentUser, targetUser } = req.body;
+        const currUser = await User.findById(currentUser.toString()).exec();
+        const targUser = await User.findById(targetUser.toString()).exec();
 
-    const currUserObj = {
-        userId: currentUser,
-        userName: currUser.userName
-    };
-    const targUserObj = {
-        userId: targetUser,
-        userName: targUser.userName
-    };
+        const currUserObj = {
+            userId: currentUser,
+            userName: currUser.userName
+        };
+        const targUserObj = {
+            userId: targetUser,
+            userName: targUser.userName
+        };
 
-    targUser.requested.push(currUserObj);
-    await targUser.save();
-    currUser.pending.push(targUserObj);
-    let currSaveUser = await currUser.save()
-    res.status(200).send(currSaveUser);
-  }
-  catch (err) {
-    console.log(err);
-    res.status(400).send(err);
-  }
+        targUser.requested.push(currUserObj);
+        await targUser.save();
+        currUser.pending.push(targUserObj);
+        let currSaveUser = await currUser.save()
+        res.status(200).send(currSaveUser);
+    }
+    catch (err) {
+        console.log(err);
+        res.status(400).send(err);
+    }
 });
 
 
@@ -42,7 +42,7 @@ usersRouter.put('/friends/cancelRequest', async (req, res) => {
         const { currentUser, targetUser } = req.body;
         const currUser = await User.findById(currentUser).exec();
         const targUser = await User.findById(targetUser).exec();
-    
+
         //remove target user from current user's pending array
         currUser.pending.forEach((friend, index) => {
             if (friend.userName === targUser.userName) {
@@ -50,7 +50,7 @@ usersRouter.put('/friends/cancelRequest', async (req, res) => {
             }
         })
         let currSaveUser = await currUser.save()
-        
+
         //remove current user from target user's requested array
         targUser.requested.forEach((friend, index) => {
             if (friend.userName === currUser.userName) {
@@ -58,7 +58,7 @@ usersRouter.put('/friends/cancelRequest', async (req, res) => {
                 targUser.save();
             }
         })
-        
+
         //reply with saved current user
         res.status(200).send(currSaveUser);
     }
@@ -73,7 +73,7 @@ usersRouter.put('/friends/accept', async (req, res) => {
         const { currentUser, targetUser } = req.body;
         const currUser = await User.findById(currentUser).exec();
         const targUser = await User.findById(targetUser).exec();
-    
+
         const currUserObj = {
             userId: currentUser,
             userName: currUser.userName
@@ -82,7 +82,7 @@ usersRouter.put('/friends/accept', async (req, res) => {
             userId: targetUser,
             userName: targUser.userName
         };
-    
+
         //remove curr user from target users pending array
         targUser.pending.forEach((friend, index) => {
             if (friend.userName === currUser.userName) {
@@ -97,9 +97,9 @@ usersRouter.put('/friends/accept', async (req, res) => {
                 currUser.requested.splice(index, 1);
             }
         })
-        
 
-        
+
+
 
         //add each user to each other's friends arrays
         currUser.friends.push(targUserObj);
@@ -115,9 +115,9 @@ usersRouter.put('/friends/accept', async (req, res) => {
         console.log(err);
         res.status(400).send(err);
     }
-    
 
-    
+
+
 })
 
 usersRouter.put('/friends/reject', async (req, res) => {
@@ -125,7 +125,7 @@ usersRouter.put('/friends/reject', async (req, res) => {
         const { currentUser, targetUser } = req.body;
         const currUser = await User.findById(currentUser).exec();
         const targUser = await User.findById(targetUser).exec();
-    
+
         const currUserObj = {
             userId: currentUser,
             userName: currUser.userName
@@ -134,7 +134,7 @@ usersRouter.put('/friends/reject', async (req, res) => {
             userId: targetUser,
             userName: targUser.userName
         };
-    
+
         //remove target user from current user's requested array
         currUser.requested.forEach((friend, index) => {
             if (friend.userName === targUser.userName) {
@@ -155,12 +155,12 @@ usersRouter.put('/friends/reject', async (req, res) => {
         res.status(200).send(currSaveUser);
 
 
-      }
-      catch (err) {
+    }
+    catch (err) {
         console.log(err);
         res.status(400).send(err);
-      }
-    
+    }
+
 })
 
 
@@ -170,8 +170,8 @@ usersRouter.put('/friends/remove', async (req, res) => {
         const { currentUser, targetUser } = req.body;
         const currUser = await User.findById(currentUser).exec();
         const targUser = await User.findById(targetUser).exec();
-    
-    
+
+
         //remove current user from target user's friends array
         targUser.friends.forEach((friend, index) => {
             if (friend.userName === currUser.userName) {
@@ -191,27 +191,27 @@ usersRouter.put('/friends/remove', async (req, res) => {
         let currSaveUser = await currUser.save();
         res.status(200).send(currSaveUser);
 
-      }
-      catch (err) {
+    }
+    catch (err) {
         console.log(err);
         res.status(400).send(err);
-      }
+    }
 
 })
 
 usersRouter.get('/login', (req, res) => {
     const { username, password } = req.body;
     database.User.findOne(username)
-    .then((doc) => {
-        if (doc.password === password) {
-            res.status(200).send(doc)
-        } else {
-            res.send('Invalid Password')
-        }
-    })
-    .catch((err) => {
-        res.status(500).send(err)
-    });
+        .then((doc) => {
+            if (doc.password === password) {
+                res.status(200).send(doc)
+            } else {
+                res.send('Invalid Password')
+            }
+        })
+        .catch((err) => {
+            res.status(500).send(err)
+        });
 })
 
 //------------------------------------------------------------------------//
@@ -220,45 +220,45 @@ usersRouter.get('/login', (req, res) => {
 
 usersRouter.get('/', (req, res) => {
     User.findById(req.body.userId).exec()
-    .then((doc) => {res.status(200).send(doc)})
-    .catch((err) => {res.status(400).send(err)})
+        .then((doc) => { res.status(200).send(doc) })
+        .catch((err) => { res.status(400).send(err) })
 })
 
 usersRouter.get('/all', (req, res) => {
     const allUsers = [];
     User.find({}).exec()
-    .then((allUserDocs) => {
-        allUserDocs.forEach((user) => {
-            const userObj = {
-                userName: user.userName,
-                userId: user._id
-            };
-            allUsers.push(userObj)
+        .then((allUserDocs) => {
+            allUserDocs.forEach((user) => {
+                const userObj = {
+                    userName: user.userName,
+                    userId: user._id
+                };
+                allUsers.push(userObj)
+            })
         })
-    })
-    .then(()=>{
-        res.status(200).send(allUsers);
-    })
-    .catch((err) => {
-        res.status(400).send(err);
-    })
+        .then(() => {
+            res.status(200).send(allUsers);
+        })
+        .catch((err) => {
+            res.status(400).send(err);
+        })
 });
 
 usersRouter.post('/login', (req, res) => {
     const { username, password } = req.body;
-    User.findOne({userName: username}).exec()
-    .then((doc) => {
-        // if (doc.password === password) {
+    User.findOne({ userName: username }).exec()
+        .then((doc) => {
+            // if (doc.password === password) {
             console.log('this is the doc found', doc);
             console.log('username from backedn', username)
             res.status(200).send(doc)
-        // } else {
-        //     res.send('Invalid Password')
-        // }
-    })
-    .catch((err) => {
-        res.status(500).send(err)
-    });
+            // } else {
+            //     res.send('Invalid Password')
+            // }
+        })
+        .catch((err) => {
+            res.status(500).send(err)
+        });
 })
 
 //CREATE NEW USER
@@ -277,8 +277,8 @@ usersRouter.get('/', (req, res) => {
     });
     const signUp = new database.User(newUserObj)
     signUp.save()
-    .then((doc) => {res.status(200).send(doc)})
-    .catch((err) => {console.log('Something went wrong: ', err); res.status(500).send(err)})
+        .then((doc) => { res.status(200).send(doc) })
+        .catch((err) => { console.log('Something went wrong: ', err); res.status(500).send(err) })
 })
 
 usersRouter.delete('/users', (req, res) => {
