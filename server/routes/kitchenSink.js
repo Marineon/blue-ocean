@@ -20,7 +20,7 @@ kitchenSinkRouter.get('/', async (req, res) => {
       photos.getSharedPhotos(userId),
       photos.getPublic(),
       albums.getAll(userId),
-      albums.getFriendsAlbums(userId), // TODO:
+      albums.getFriendsAlbums(userId),
       albums.getPublicAlbums(),
       users.getFriends(userId),
       users.getAll()
