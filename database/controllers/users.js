@@ -21,22 +21,16 @@ users.getFriends = async (userId) => {
 
 // friend request
 users.friendRequest = async (currentUser, targetUser) => {
+
   try {
-    const currUser = await User.find({'userId': currentUser}).exec();
-    const targUser = await User.find({'userId': targetUser}).exec();
+    const [currUser] = await User.find({'userId': currentUser}).exec();
+    console.log("🚀 ~ file: users.js ~ line 27 ~ users.friendRequest= ~ currUser", currUser)
+    const [targUser] = await User.find({'userId': targetUser}).exec();
+    console.log("🚀 ~ file: users.js ~ line 29 ~ users.friendRequest= ~ targUser", targUser)
 
-    const currUserObj = {
-      userId: currentUser,
-      userName: currUser.userName
-    };
-    const targUserObj = {
-      userId: targetUser,
-      userName: targUser.userName
-    };
-
-    targUser.requested.push(currUserObj);
+    targUser.requested.push(currUser.userId);
     await targUser.save();
-    currUser.pending.push(targUserObj);
+    currUser.pending.push(targUser.userId);
     let currSaveUser = await currUser.save()
     return currSaveUser;
   }

@@ -84,7 +84,7 @@ const TestPage = () => {
 
       <Button variant='contained' onClick={async () => {
         const result = await api.getUserInfo(userId);
-        console.log(JSON.stringify(result, null, 2));
+        console.log(result);
       }}>
         Get User info
       </Button>
