@@ -152,7 +152,7 @@ const TestPage = () => {
           }}>
             Kitchen Sink
       </Button>
-        </ButtonGroup>
+
 
       <Button variant='contained' onClick={async () => {
         const result = await api.getFeed(userId);
