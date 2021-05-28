@@ -32,6 +32,7 @@ function SearchFilter(props) {
       filteredAlbumList = albums.filter((album) => (
         album.tags.includes(searchTerm)
         // TODO: add filter by user
+        || album.owner.toLowerCase() === searchTerm.toLowerCase()
       ))
       setShownAlbums(filteredAlbumList)
     }

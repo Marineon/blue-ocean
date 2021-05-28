@@ -42,6 +42,7 @@ function Gallery(props) {
     // updatePhoto
   } = useContext(PhotosContext);
   const user = useContext(UserContext); // user context
+  const { setSearchTerm } = useContext(SearchContext); // user context
 
   const [showPhotoModal, setShowPhotoModal] = useState(null);
   const [showEditPhotosModal, setShowEditPhotosModal] = useState(false);
@@ -65,6 +66,10 @@ function Gallery(props) {
     view, // render gallery view as = 'public', 'personal', 'shared'
     // children, className, ...other
   } = props;
+
+  useEffect(() => {
+    setSearchTerm('');
+  }, [])
 
   // FILTER PHOTOS BY VIEW
   useEffect(() => {
