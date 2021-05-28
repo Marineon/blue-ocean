@@ -120,8 +120,8 @@ function EditPhotosModal(props) {
             return (
               <GridListTile className={classes.image}>
               <img
-                srcSet={photos[item].url}
-                alt={photos[item].title}
+                srcSet={props.shownPhotos[item].url}
+                alt={props.shownPhotos[item].title}
                 loading="lazy"
               />
               </GridListTile>
@@ -131,8 +131,8 @@ function EditPhotosModal(props) {
             return (
               <GridListTile className={classes.image}>
               <img
-                srcSet={photos[item].url}
-                alt={photos[item].title}
+                srcSet={props.shownPhotos[item].url}
+                alt={props.shownPhotos[item].title}
                 loading="lazy"
               />
               </GridListTile>

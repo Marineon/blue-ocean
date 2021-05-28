@@ -49,11 +49,7 @@ function Album (props) {
   // const [showModal, setShowModal] = useState(false);
 
 
-  const { photos,
-    //albums
-    // setPhotos,
-    // updatePhoto
-  } = useContext(PhotosContext);
+
   const { setSearchTerm } = useContext(SearchContext);
 
   // const handleClose = () => {
@@ -70,14 +66,14 @@ function Album (props) {
 
 
   const showAlbum = () => {
+    setSearchTerm('');
     let shownAlbum = [];
-    props.album.photos.forEach((item)=>{shownAlbum.push(photos[item])});
+    props.album.photos.forEach((item)=>{shownAlbum.push(props.masterPhotos[item])});
     // props.setShownPhotos(shownAlbum);
     props.setCurrentAlbumPhotos(shownAlbum);
     if (props.onSelect) {
       props.handleSelectClick(); // turns off select when album is clicked
     }
-    setSearchTerm('');
   }
 
   return (
