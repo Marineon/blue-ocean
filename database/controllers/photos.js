@@ -29,7 +29,7 @@ photos.getFeed = async (userId) => {
 // get photos from specific user
 photos.getUserPhotos = async (userId) => {
   try {
-    const userPhotos = await Photo.find()
+    const userPhotos = await Photo.find({})
     return userPhotos.sort((a, b) => {
       return a.uploadDate - b.uploadDate;
     })
