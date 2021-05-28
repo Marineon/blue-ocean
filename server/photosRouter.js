@@ -1,9 +1,10 @@
 // const express = require('express');
 import express from 'express';
-import { User, Photos } from '../database'
+import database from '../database';
+const { User, Photos } = database;
 const photosRouter = express.Router();
 
-// get current users photos + all photos shared with them
+// get current users photos
 photosRouter.get('/userPhotos', async (req, res) => {
   const { userId } = req.body;
   const findUserPhotos = (id) => UserPhotos.find({ 'userId': id });
@@ -17,7 +18,7 @@ photosRouter.get('/userPhotos', async (req, res) => {
   }
 });
 
-// get current users photos + all photos shared with them
+// get current users friends photos
 photosRouter.get('/friendsPhotos', async (req, res) => {
   const { userId } = req.body;
   const findUserFriends = (id) => User.find({ 'userId': id }).select('friends');
@@ -57,14 +58,41 @@ photosRouter.get('/photoFeed', async (req, res) => {
 });
 
 // find one and update
-photosRouter.patch('/single', (req, res) => {
-  // what fields need to be updated?
-
-
+photosRouter.patch('/single', async (req, res) => {
+  const { photoId } = req.body;
+  const updatableProps = ['description', 'tags', 'accessLevel'];
+  try {
+    for (const key in req.Body) {
+      if (updatableProps.includes(key)) {
+        let update = { [key]: req.Body[key] };
+        let updatePhotoQuery = (photoId, update) => Photos.updateOne({ 'photoId': photoId }, update);
+        await updatePhotoQuery(photoId, update);
+        res.sendstatus(200);
+      }
+    }
+  } catch (err) {
+    res.status(500).send(err);
+  }
 });
-// find many and update man002y
+
+// add tags and change accessLevel for multiple
 photosRouter.patch('/multiple', (req, res) => {
-  //update specified information on specified photo(s)
+  const { photoIds } = req.body;
+  const updatableProps = ['tags' 'accessLevel'];
+  try{
+    photoIds.forEach(async(id) => {
+      for (const key in req.body) {
+        if (updatableProps.includes(key)) {
+          let update = { [key]: req.body[key] };
+          let updatePhotoQuery = (photoId, update) => Photos.updateOne({ photoId: photoId }, update);
+          await updatePhotoQuery(id, update);
+        }
+      }
+    });
+    res.sendStatus(200);
+  } catch (err) {
+    res.status(500).send(err);
+  }
 
 
 });

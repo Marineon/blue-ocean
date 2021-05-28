@@ -51,8 +51,7 @@ const photosSchema = new Schema({
 
 database.Friend = model('Friend', friendSchema);
 database.User = model('User', userSchema);
-database.Photo = model('Photo', photoSchema);
-database.UserPhotos = model('UserPhotos', userPhotosSchema);
+database.Photos = model('Photos', photosSchema);
 
 /* for populating local mongodb collections:
 
@@ -66,9 +65,13 @@ const onInsert = (err, docs) => {
 };
 
 // User.collection.drop();
-Photos.collection.drop();
+database.Photos.collection.drop();
 // User.collection.insertMany(fakeUser, onInsert);
-Photos.collection.insertMany(fakePhotos, onInsert);
+database.Photos.collection.insertMany(fakePhotos, onInsert);
 */
 
 export default database;
+
+/*
+
+  */
