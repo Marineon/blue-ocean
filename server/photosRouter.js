@@ -104,5 +104,36 @@ photosRouter.put('/', (req, res) => {
   //^^^Brenton has the upload stuff figured out, so may need to coordinate with him briefly
 })
 
+photosRouter.delete('/single', async (req, res) => {
+  const { userId, photoId } = req.body;
+  Photo.deleteOne({ownerId: userId, _id: photoId}).exec()
+  .then((confirmation) => {
+    if (confirmation.deletedCount === 1) {
+      res.status(200).send(confirmation);
+    } else {
+      res.status(400).send(confirmation);
+    }
+  })
+  .catch((err) => {res.status(400).send(err)});
+});
+
+photosRouter.delete('/multi', (req, res) => {
+  const { userId, photoIds } = req.body;
+
+  Photo.deleteMany({ ownerId: userId, _id: { $in: photoIds}}).exec()
+  .then((confirmations) => {
+    res.status(200).send(confirmations);
+  })
+  .catch((err) => {
+    res.status(400).send(err);
+  })
+});
+
+//just for testing
+photosRouter.post('/', (req, res) => {
+  const testPhoto = new Photo(req.body).save()
+  .then((photo) => {res.status(200).send(photo)})
+  .catch((err) => {res.status(400).send(err)});
+})
 
 export default photosRouter;

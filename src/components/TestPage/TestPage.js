@@ -27,12 +27,13 @@ const TestPage = () => {
   const classes = useStyles();
 
   useEffect(() => {
-    (async () => {
-      // const imageList = await api.getImageList();
-      const imageList = await api.getPublicPhotos();
-      setImages(imageList);
-    })();
-  }, [])
+    getImageList();
+  }, [images.length])
+
+  const getImageList = async () => {
+    const imageList = await api.getImageList();
+    setImages(imageList);
+  }
 
   return (
     <Paper className={classes.root} >

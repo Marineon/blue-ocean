@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 // import GridList from '@material-ui/core/GridList';
 // import GridListTile from '@material-ui/core/GridListTile';
@@ -21,7 +21,7 @@ import EditIcon from '@material-ui/icons/Edit'
 
 
 import { PhotosContext } from '../../contexts/photos-context';
-import CreateOrEditAlbumModal from './CreateOrEditAlbumModal';
+import { SearchContext } from '../../contexts/search-context';
 
 const useStyles = makeStyles({
   root: {
@@ -46,7 +46,7 @@ const useStyles = makeStyles({
 
 function Album (props) {
   const classes = useStyles();
-  const [showModal, setShowModal] = useState(false);
+  // const [showModal, setShowModal] = useState(false);
 
 
   const { photos,
@@ -54,21 +54,30 @@ function Album (props) {
     // setPhotos,
     // updatePhoto
   } = useContext(PhotosContext);
+  const { setSearchTerm } = useContext(SearchContext);
 
-  const handleClose = () => {
-    setShowModal(false)
+  // const handleClose = () => {
+  //   setShowModal(false)
+  // }
+  const handleEditAlbumOpen = () => {
+    props.setIsAlbumCreate(false);
+    props.setAlbumTitle(props.album.title);
+    props.setAlbumDescription(props.album.description);
+    props.setAlbumPermission(props.album.permission);
+    props.setAlbumTags(props.album.tags);
+    props.setShowAlbumModal(true)
   }
-  const handleOpen = () => {
-    setShowModal(true)
-  }
+
 
   const showAlbum = () => {
     let shownAlbum = [];
     props.album.photos.forEach((item)=>{shownAlbum.push(photos[item])});
-    props.setShownPhotos(shownAlbum);
+    // props.setShownPhotos(shownAlbum);
+    props.setCurrentAlbumPhotos(shownAlbum);
     if (props.onSelect) {
-      props.handleSelectClick();
+      props.handleSelectClick(); // turns off select when album is clicked
     }
+    setSearchTerm('');
   }
 
   return (
@@ -87,19 +96,15 @@ function Album (props) {
         </CardContent>
       </CardActionArea>
       <CardActions className={classes.actions}>
-        <IconButton onClick={handleOpen} size="small" aria-label="delete">
-          {/* Add based on the my images vs shared images */}
-          {true ? <EditIcon /> : <InfoIcon />}
-        </IconButton>
+        {props.hasPrivilege
+        ?  <IconButton onClick={handleEditAlbumOpen} size="small" aria-label="delete">
+            <EditIcon />
+          </IconButton>
+        :  <IconButton onClick={handleEditAlbumOpen} size="small" aria-label="delete">
+            <InfoIcon />
+          </IconButton>
+        }
       </CardActions>
-      <CreateOrEditAlbumModal
-        open={showModal}
-        onClose={handleClose}
-        aria-labelledby="Edit album"
-        aria-describedby="Modal to edit albums"
-        album={props.album}
-        isCreate={false}
-      />
     </Card>
   );
 

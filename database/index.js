@@ -9,7 +9,9 @@ mongoose.connect('mongodb://localhost/blue', {
   useUnifiedTopology: true,
 });
 
+
 const db = mongoose.connection;
+
 
 db.on('error', (error) => {
   console.error('mongoose connection error', error);
@@ -29,7 +31,7 @@ const friendSchema = new Schema({
 const userSchema = new Schema({
   userId: String,
   fullName: String,
-  username: String,
+  userName: String,
   email: String,
   password: String,
   userLevel: Number,  /* 1=general user, 2='super user', 3=admin  */
@@ -64,10 +66,22 @@ const onInsert = (err, docs) => {
   }
 };
 
-// User.collection.drop();
-database.Photos.collection.drop();
-// User.collection.insertMany(fakeUser, onInsert);
-database.Photos.collection.insertMany(fakePhotos, onInsert);
-*/
+const albumSchema = new Schema({
+  ownerId: String,
+  userName: String,
+  uploadDate: String,
+  title: String,
+  description: String,
+  tags: Array,
+  accessLevel: Number,  /* 0=private,  1=all friends, 2=global */
+  photoIds: Array
+})
 
-export default database;
+const Friend = model('Friend', friendSchema);
+const User = model('User', userSchema);
+const Photo = model('Photo', photoSchema);
+const UserPhotos = model('UserPhotos', userPhotosSchema);
+const Album = model('Album', albumSchema);
+
+export { Friend, User, Photo, UserPhotos, Album }
+export default db;

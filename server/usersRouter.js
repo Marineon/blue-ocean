@@ -3,143 +3,201 @@ import express, {
  } from 'express';
 import database from '../database/index.js';
 
+
 const usersRouter = express.Router();
 
-usersRouter.put('/friends/:action', async (req, res) => {
+//------------------------------------------------------------------------//
+//------------     Friends API's -----------------------------------------//
+//========================================================================//
+usersRouter.put('/friends/request', async (req, res) => {
+  try {
     const { currentUser, targetUser } = req.body;
-    const action = req.params.action;
+    const currUser = await User.findById(currentUser.toString()).exec();
+    const targUser = await User.findById(targetUser.toString()).exec();
 
-    // const errors = [];
-    const currUser = database.User.findById(currentUser);
-    const targUser = database.User.findById(targetUser);
-
-
-    console.log('curr user test', )
-    const currUserObj = new database.Friend({
+    const currUserObj = {
         userId: currentUser,
-        userName: currUser.fullName
-    });
-    const targUserObj = new database.Friend({
+        userName: currUser.userName
+    };
+    const targUserObj = {
         userId: targetUser,
-        userName: targUser.fullName
-    });
-
-
-
-    const removeRequest = (reqUser, pendUser) => {
-        pendUser.exec()
-        .then((doc) => {
-            doc.pending.forEach((friend, index) => {
-                if (friend.userName === reqUser.fullName) {
-                    doc.pending.splice(index, 1);
-                    doc.save();
-                }
-            })
-        })
-        .catch((err) => {console.log(err)})
-        reqUser.exec()
-        .then((doc) => {
-            doc.requested.forEach((friend, index) => {
-                if (friend.userName === pendUser.fullName) {
-                    doc.requested.splice(index, 1);
-                    doc.save();
-                }
-            })
-        })
-        .catch((err) => {
-            console.log(err);
-        })
+        userName: targUser.userName
     };
 
-    const sendUserUpdate = () => {
-        currUser.exec()
-        .then((doc) => {
-            console.log('THE RESULT', doc);
-            res.status(200).send(doc);
-        })
-        .catch((err) => {
-            res.status(400).send(err);
-        })
-    };
+    targUser.requested.push(currUserObj);
+    await targUser.save();
+    currUser.pending.push(targUserObj);
+    let currSaveUser = await currUser.save()
+    res.status(200).send(currSaveUser);
+  }
+  catch (err) {
+    console.log(err);
+    res.status(400).send(err);
+  }
+});
 
 
-
-    if (action === 'request') {
-        await currUser.exec()
-        .then((doc) => {
-            console.log('found this from request', doc)
-            doc.pending.push(targUserObj);
-            doc.save();
+usersRouter.put('/friends/cancelRequest', async (req, res) => {
+    try {
+        const { currentUser, targetUser } = req.body;
+        const currUser = await User.findById(currentUser).exec();
+        const targUser = await User.findById(targetUser).exec();
+    
+        //remove target user from current user's pending array
+        currUser.pending.forEach((friend, index) => {
+            if (friend.userName === targUser.userName) {
+                currUser.pending.splice(index, 1);
+            }
         })
-        .catch((err) => {
-            console.log(err);
+        let currSaveUser = await currUser.save()
+        
+        //remove current user from target user's requested array
+        targUser.requested.forEach((friend, index) => {
+            if (friend.userName === currUser.userName) {
+                targUser.requested.splice(index, 1);
+                targUser.save();
+            }
         })
-        await targUser.exec()
-        .then((doc) => {
-            doc.requested.push(currUserObj);
-            doc.save();
-        })
-        .catch((err) => {
-            console.log(err);
-        })
-        sendUserUpdate();
+        
+        //reply with saved current user
+        res.status(200).send(currSaveUser);
     }
-
-    if (action === 'cancelRequest') {
-        await removeRequest(targUser, currUser);
-        sendUserUpdate();
-    }
-
-    if (action === 'accept') {
-        await currUser.exec()
-        .then((doc) => {
-            doc.friends.push(targUserObj);
-            doc.save();
-        })
-
-       await targUser.exec()
-        .then((doc) => {
-            doc.friends.push(currUserObj);
-            doc.save();
-        })
-        await removeRequest(currUser, targUser);
-        sendUserUpdate();
-    }
-
-    if (action === 'reject') {
-       await removeRequest(currUser, targUser);
-    }
-
-    if (action === 'remove') {
-       await currUser.exec()
-        .then((doc) => {
-            doc.friends.forEach((friend, index) => {
-                if (friend.userName === targUser.fullName) {
-                    doc.pending.splice(index, 1);
-                    doc.save();
-                }
-            })
-        })
-        .catch((err) => {
-            console.log(err);
-        })
-
-        await targUser.exec()
-        .then((doc) => {
-            doc.friends.forEach((friend, index) => {
-                if (friend.userName === currUser.fullName) {
-                    doc.pending.splice(index, 1);
-                    doc.save();
-                }
-            })
-        })
-        .catch((err) => {
-            console.log(err);
-        })
-
-        sendUserUpdate();
+    catch (err) {
+        console.log(err);
+        res.status(400).send(err);
     }
 });
+
+usersRouter.put('/friends/accept', async (req, res) => {
+    try {
+        const { currentUser, targetUser } = req.body;
+        const currUser = await User.findById(currentUser).exec();
+        const targUser = await User.findById(targetUser).exec();
+    
+        const currUserObj = {
+            userId: currentUser,
+            userName: currUser.userName
+        };
+        const targUserObj = {
+            userId: targetUser,
+            userName: targUser.userName
+        };
+    
+        //remove curr user from target users pending array
+        targUser.pending.forEach((friend, index) => {
+            if (friend.userName === currUser.userName) {
+                targUser.pending.splice(index, 1);
+            }
+        })
+
+
+        //remove target user from current user's requested array
+        currUser.requested.forEach((friend, index) => {
+            if (friend.userName === targUser.userName) {
+                currUser.requested.splice(index, 1);
+            }
+        })
+        
+
+        
+
+        //add each user to each other's friends arrays
+        currUser.friends.push(targUserObj);
+        targUser.friends.push(currUserObj);
+
+        //reply with saved curr user
+        targUser.save();
+        let currSaveUser = await currUser.save();
+        res.status(200).send(currSaveUser);
+
+    }
+    catch (err) {
+        console.log(err);
+        res.status(400).send(err);
+    }
+    
+
+    
+})
+
+usersRouter.put('/friends/reject', async (req, res) => {
+    try {
+        const { currentUser, targetUser } = req.body;
+        const currUser = await User.findById(currentUser).exec();
+        const targUser = await User.findById(targetUser).exec();
+    
+        const currUserObj = {
+            userId: currentUser,
+            userName: currUser.userName
+        };
+        const targUserObj = {
+            userId: targetUser,
+            userName: targUser.userName
+        };
+    
+        //remove target user from current user's requested array
+        currUser.requested.forEach((friend, index) => {
+            if (friend.userName === targUser.userName) {
+                currUser.requested.splice(index, 1);
+            }
+        })
+
+        //remove current user from target user's pending array
+        targUser.pending.forEach((friend, index) => {
+            if (friend.userName === currUser.userName) {
+                targUser.pending.splice(index, 1);
+            }
+        })
+
+        //send back saved current user
+        targUser.save();
+        let currSaveUser = await currUser.save();
+        res.status(200).send(currSaveUser);
+
+
+      }
+      catch (err) {
+        console.log(err);
+        res.status(400).send(err);
+      }
+    
+})
+
+
+//removeFriend 
+usersRouter.put('/friends/remove', async (req, res) => {
+    try {
+        const { currentUser, targetUser } = req.body;
+        const currUser = await User.findById(currentUser).exec();
+        const targUser = await User.findById(targetUser).exec();
+    
+    
+        //remove current user from target user's friends array
+        targUser.friends.forEach((friend, index) => {
+            if (friend.userName === currUser.userName) {
+                targUser.friends.splice(index, 1);
+            }
+        });
+
+        //remove target user from current user's friends array
+        currUser.friends.forEach((friend, index) => {
+            if (friend.userName === targUser.userName) {
+                currUser.friends.splice(index, 1);
+            }
+        });
+
+        //send back saved current user
+        targUser.save();
+        let currSaveUser = await currUser.save();
+        res.status(200).send(currSaveUser);
+
+      }
+      catch (err) {
+        console.log(err);
+        res.status(400).send(err);
+      }
+
+})
 
 usersRouter.get('/login', (req, res) => {
     const { username, password } = req.body;
@@ -156,12 +214,60 @@ usersRouter.get('/login', (req, res) => {
     });
 })
 
-usersRouter.post('/', (req, res) => {
+//------------------------------------------------------------------------//
+//------------     User's API's -----------------------------------------//
+//========================================================================//
+
+usersRouter.get('/', (req, res) => {
+    User.findById(req.body.userId).exec()
+    .then((doc) => {res.status(200).send(doc)})
+    .catch((err) => {res.status(400).send(err)})
+})
+
+usersRouter.get('/all', (req, res) => {
+    const allUsers = [];
+    User.find({}).exec()
+    .then((allUserDocs) => {
+        allUserDocs.forEach((user) => {
+            const userObj = {
+                userName: user.userName,
+                userId: user._id
+            };
+            allUsers.push(userObj)
+        })
+    })
+    .then(()=>{
+        res.status(200).send(allUsers);
+    })
+    .catch((err) => {
+        res.status(400).send(err);
+    })
+});
+
+usersRouter.post('/login', (req, res) => {
+    const { username, password } = req.body;
+    User.findOne({userName: username}).exec()
+    .then((doc) => {
+        // if (doc.password === password) {
+            console.log('this is the doc found', doc);
+            console.log('username from backedn', username)
+            res.status(200).send(doc)
+        // } else {
+        //     res.send('Invalid Password')
+        // }
+    })
+    .catch((err) => {
+        res.status(500).send(err)
+    });
+})
+
+//CREATE NEW USER
+usersRouter.get('/', (req, res) => {
     const formData = req.body;
     console.log(formData);
     const newUserObj = new database.User({
         fullName: `${formData.first_name} ${formData.last_name}`,
-        username: formData.username,
+        userName: formData.username,
         email: formData.email,
         password: formData.password,
         userLevel: 1,
@@ -177,7 +283,8 @@ usersRouter.post('/', (req, res) => {
 
 usersRouter.delete('/users', (req, res) => {
     //this is future feature for superusers, providing option to delete a user account
-    //don't need to worry about it for Monday
+    //need to setup some sort of authentication to verify not just anyone can delete user account
+    res.send('sorry, my planning skills weren\'t good enough to get this functionality implemented yet');
 })
 
 export default usersRouter;

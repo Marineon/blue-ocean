@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 // import GridList from '@material-ui/core/GridList';
 // import GridListTile from '@material-ui/core/GridListTile';
@@ -16,7 +16,6 @@ import InfoIcon from '@material-ui/icons/Info';
 
 import { PhotosContext } from '../../contexts/photos-context';
 import Album from './Album';
-import CreateOrEditAlbumModal from './CreateOrEditAlbumModal';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -41,24 +40,31 @@ const useStyles = makeStyles((theme) => ({
 function AlbumRow (props) {
   const classes = useStyles();
 
+  // eslint-disable-next-line no-unused-vars
   const { photos,
-    albums
+    // albums
     // setPhotos,
     // updatePhoto
   } = useContext(PhotosContext);
   // const [currentAlbum, setCurrentAlbum] = useState({});
-  const [showModal, setShowModal] = useState(false);
+  // const [showModal, setShowModal] = useState(false);
 
-  const handleClose = () => {
-    setShowModal(false)
-  }
-  const handleOpen = () => {
-    setShowModal(true)
+  // const handleClose = () => {
+  //   setShowAlbumModal(false)
+  // }
+  const handleEditAlbumOpen = () => {
+    props.setIsAlbumCreate(false);
+    props.setAlbumTitle(props.currentAlbum.title);
+    props.setAlbumDescription(props.currentAlbum.description);
+    props.setAlbumPermission(props.currentAlbum.permission);
+    props.setAlbumTags(props.currentAlbum.tags);
+    props.setShowAlbumModal(true)
   }
 
   const returnToAll = () => {
-    props.setShownPhotos(photos);
+    // props.setShownPhotos(photos);
     props.setCurrentAlbum({});
+    props.setCurrentAlbumPhotos([]);
   }
 
   return (
@@ -66,14 +72,6 @@ function AlbumRow (props) {
 
       {props.currentAlbum.title ?
       <>
-      <CreateOrEditAlbumModal
-      open={showModal}
-      onClose={handleClose}
-      aria-labelledby="Edit album"
-      aria-describedby="Modal to edit albums"
-      album={props.currentAlbum}
-      isCreate={false}
-      />
       <div style={{
         textAlign: 'start',
         width: '100%',
@@ -82,7 +80,7 @@ function AlbumRow (props) {
         {props.currentAlbum.title}
       </Typography>
       <Typography variant="body2" component="p">
-            By&nbsp;{props.currentAlbum.description}
+            {props.currentAlbum.description}
       </Typography>
       <Typography variant="body2" color="textSecondary" component="p">
             By&nbsp;{props.currentAlbum.owner}
@@ -91,10 +89,14 @@ function AlbumRow (props) {
           display: 'flex',
           justifyContent: 'space-between'
         }}>
-          <IconButton onClick={handleOpen} size="small" aria-label="delete">
-            {/* Add based on the my images vs shared images */}
-            {true ? <EditIcon /> : <InfoIcon />}
+        {props.hasPrivilege
+        ?  <IconButton onClick={handleEditAlbumOpen} size="small" aria-label="delete">
+            <EditIcon />
           </IconButton>
+        :  <IconButton onClick={handleEditAlbumOpen} size="small" aria-label="delete">
+            <InfoIcon />
+          </IconButton>
+        }
           <Button
             size="small"
             className={classes.button}
@@ -107,7 +109,7 @@ function AlbumRow (props) {
         </div>
       </div>
       </>
-      : albums.map((item, index) => (
+      : props.shownAlbums.map((item, index) => (
         <Album
           key={index}
           album={item}
@@ -115,9 +117,17 @@ function AlbumRow (props) {
           setShownPhotos={props.setShownPhotos}
           handleSelectClick={props.handleSelectClick}
           onSelect={props.onSelect}
+          hasPrivilege={props.hasPrivilege}
+
+          setShowAlbumModal={props.setShowAlbumModal}
+          setAlbumTitle={props.setAlbumTitle}
+          setAlbumDescription={props.setAlbumDescription}
+          setAlbumPermission={props.setAlbumPermission}
+          setAlbumTags={props.setAlbumTags}
+          setIsAlbumCreate={props.setIsAlbumCreate}
+          setCurrentAlbumPhotos={props.setCurrentAlbumPhotos}
         />
       ))}
-
     </Paper>
   );
 

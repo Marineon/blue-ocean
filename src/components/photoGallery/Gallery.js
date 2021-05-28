@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import GridList from "@material-ui/core/GridList";
 import GridListTile from "@material-ui/core/GridListTile";
 import { withStyles } from "@material-ui/core/styles";
@@ -10,13 +10,16 @@ import FormGroup from '@material-ui/core/FormGroup';
 import DeleteIcon from '@material-ui/icons/Delete';
 import AddAlbumIcon from '@material-ui/icons/CreateNewFolder';
 import IconButton from '@material-ui/core/IconButton';
-import { PhotosContext } from '../../contexts/photos-context';
 import EditPhotosModal from './EditPhotosModal'
 import PhotoModal from '../PhotoView/PhotoModal';
 import AlbumRow from '../albums/AlbumRow'
 import CreateOrEditAlbumModal from '../albums/CreateOrEditAlbumModal';
 import RemoveCircleOutlineIcon from '@material-ui/icons/RemoveCircleOutline';
-
+import SearchFilter from './SearchFilter';
+/*-------------------Context Imports-------------------*/
+import { PhotosContext } from '../../contexts/photos-context';
+import { UserContext } from '../../contexts/user-context';
+import { SearchContext } from '../../contexts/search-context';
 
 let styles = {
   gridListTile: {
@@ -31,22 +34,71 @@ let styles = {
 };
 
 function Gallery(props) {
+  const hasPrivilege = false;
+
   const { photos,
+    albums,
     // setPhotos,
     // updatePhoto
   } = useContext(PhotosContext);
+  const user = useContext(UserContext); // user context
+  const { setSearchTerm } = useContext(SearchContext); // user context
+
   const [showPhotoModal, setShowPhotoModal] = useState(null);
   const [showEditPhotosModal, setShowEditPhotosModal] = useState(false);
   const [onSelect, setOnSelect] = useState(false);
   const [selected, setSelected] = useState([]);
   const [shownPhotos, setShownPhotos] = useState(photos);
+  const [shownAlbums, setShownAlbums] = useState(albums);
   const [showAlbumModal, setShowAlbumModal] = useState(false);
   const [currentAlbum, setCurrentAlbum] = useState({});
+  const [currentAlbumPhotos, setCurrentAlbumPhotos] = useState([]);
+
+  //states for create/edit album modal
+  const [albumTitle, setAlbumTitle] = useState('');
+  const [albumDescription, setAlbumDescription] = useState('');
+  const [albumPermision, setAlbumPermission] = useState(0);
+  const [albumTags, setAlbumTags] = useState([]);
+  const [albumSelected, setAlbumSelected] = useState([]);
+  const [isAlbumCreate, setIsAlbumCreate] = useState(false);
 
   const { classes,
+    view, // render gallery view as = 'public', 'personal', 'shared'
     // children, className, ...other
   } = props;
 
+  useEffect(() => {
+    setSearchTerm('');
+  }, [setSearchTerm])
+
+  // FILTER PHOTOS BY VIEW
+  useEffect(() => {
+    if (view === 'public') {
+      setShownPhotos(photos);
+    } else if (view === 'personal') {
+      // const personalPhotos = photos.filter(photo => photo.ownerId === user.userId) // PROPER code, when userId 1 exists
+      const personalPhotos = photos.filter(photo => photo.ownerId === 2)
+      console.log(personalPhotos);
+      setShownPhotos(personalPhotos);
+    } else if (view === 'shared') {
+      const friendIds = user.friends.map(friend => friend.userId); // map friend userIds to array
+      const sharedPhotos = photos.filter(photo => {
+        /* filter shared photos to user and friends Ids */
+        // return friendIds.concat([user.userId]).includes(photo.ownerId); // PROPER CODE, when valid friend userId's exist
+        return friendIds.concat([3]).includes(photo.ownerId); // filter shared photos to user and friends Ids
+      })
+      setShownPhotos(sharedPhotos);
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [view]) // update 'shownPhotos' when 'view' changes
+
+  // useEffect(() => {
+  //   if (currentAlbumPhotos.length > 0) {
+  //     setShownPhotos(currentAlbumPhotos)
+  //   } else {
+  //     setShownPhotos(photos)
+  //   }
+  // }, [currentAlbumPhotos])
 
   const handleSelectClick = () => {
     setOnSelect(!onSelect);
@@ -72,8 +124,18 @@ function Gallery(props) {
     setShowEditPhotosModal(false)
     setShowAlbumModal(false)
   }
-  const handleOpen = () => {
+  const handleEidtPhotosOpen = () => {
     setShowEditPhotosModal(true)
+  }
+
+  const handleCreateAlbumOpen = () => {
+    setAlbumTitle('')
+    setAlbumDescription('')
+    setAlbumPermission(0)
+    setAlbumTags([])
+    setAlbumSelected([])
+    setIsAlbumCreate(true)
+    setShowAlbumModal(true)
   }
 
   const removePhotosFromAlbum = () => {
@@ -82,68 +144,86 @@ function Gallery(props) {
 
   return (
     <>
-    <AlbumRow
-      currentAlbum={currentAlbum}
-      setCurrentAlbum={setCurrentAlbum}
-      setShownPhotos={setShownPhotos}
-      handleSelectClick={handleSelectClick}
-      onSelect={onSelect}
-    />
-    <Paper id="wrapper" className={classes.paper}>
-    <div
-      style={{
-        height: 50,
-        display:'flex',
-        justifyContent:'space-between',
-        flexWrap: 'wrap'
-      }}
-    >
-      <div>
-      {onSelect && selected.length > 0 ?
-      currentAlbum.title
-      ? <IconButton
-          onClick={() => removePhotosFromAlbum()}
-          aria-label="new-album"
+      <SearchFilter
+        setShownPhotos={setShownPhotos}
+        setShownAlbums={setShownAlbums}
+        currentAlbumPhotos={currentAlbumPhotos}
+      />
+      <AlbumRow
+        currentAlbum={currentAlbum}
+        setCurrentAlbum={setCurrentAlbum}
+        setShownPhotos={setShownPhotos}
+        handleSelectClick={handleSelectClick}
+        onSelect={onSelect}
+        hasPrivilege={hasPrivilege}
+
+        setShowAlbumModal={setShowAlbumModal}
+        setAlbumTitle={setAlbumTitle}
+        setAlbumDescription={setAlbumDescription}
+        setAlbumPermission={setAlbumPermission}
+        setAlbumTags={setAlbumTags}
+        setIsAlbumCreate={setIsAlbumCreate}
+        shownAlbums={shownAlbums}
+        setCurrentAlbumPhotos={setCurrentAlbumPhotos}
+      />
+      <Paper id="wrapper" className={classes.paper}>
+      {hasPrivilege ?
+        <div
+          style={{
+            height: 50,
+            display:'flex',
+            justifyContent:'space-between',
+            flexWrap: 'wrap'
+          }}
         >
-          <RemoveCircleOutlineIcon />
-        </IconButton>
-      : <IconButton
-          onClick={() => setShowAlbumModal(true)}
-          aria-label="new-album"
-        >
-          <AddAlbumIcon />
-        </IconButton> : null }
-        </div>
-      <FormGroup className={classes.formGroup} row>
-        {onSelect && selected.length > 0 ?
-        <>
-          <Button
-            onClick={handleOpen}
-            size="small"
-            className={classes.button}
-            variant="contained"
-            color="primary"
-          >
-            Edit
-          </Button>
-          <IconButton aria-label="delete">
-            <DeleteIcon />
-          </IconButton>
-        </>
-          : null}
+          <div>
+            {onSelect && selected.length > 0
+            ? currentAlbum.title
+              ? <IconButton
+                  onClick={() => removePhotosFromAlbum()}
+                aria-label="new-album"
+                >
+                  <RemoveCircleOutlineIcon />
+                </IconButton>
+              : <IconButton
+                  onClick={handleCreateAlbumOpen}
+                  aria-label="new-album"
+                >
+                  <AddAlbumIcon />
+                </IconButton>
+            : null }
+          </div>
+          <FormGroup className={classes.formGroup} row>
+            {onSelect && selected.length > 0
+            ? <>
+                <Button
+                  onClick={handleEidtPhotosOpen}
+                  size="small"
+                  className={classes.button}
+                  variant="contained"
+                  color="primary"
+                >
+                  Edit
+                </Button>
+                <IconButton aria-label="delete">
+                  <DeleteIcon />
+                </IconButton>
+              </>
+            : null}
           <FormControlLabel
             control={
               <Switch
-                size="small"
-                checked={onSelect}
-                onChange={handleSelectClick}
-                color="primary"
+              size="small"
+              checked={onSelect}
+              onChange={handleSelectClick}
+              color="primary"
               />
             }
             label="Select"
-          />
-        </FormGroup>
-      </div>
+            />
+          </FormGroup>
+        </div>
+      : null }
       <GridList cols={4} component="div">
         {shownPhotos.map((item, index) => (
           // add onclick open photoviewer modal pass in index
@@ -183,12 +263,23 @@ function Gallery(props) {
     <CreateOrEditAlbumModal
       open={showAlbumModal}
       onClose={handleClose}
-      aria-labelledby="Create album"
+      aria-labelledby="Create or edit album"
       aria-describedby="Modal to create albums"
-      selected={selected}
-      isCreate={true}/>
+      albumTitle={albumTitle}
+      albumDescription={albumDescription}
+      albumPermision={albumPermision}
+      albumTags={albumTags}
+      albumSelected={albumSelected}
+      isAlbumCreate={isAlbumCreate}
+
+      setAlbumTitle={setAlbumTitle}
+      setAlbumDescription={setAlbumDescription}
+      setAlbumPermission={setAlbumPermission}
+      setAlbumTags={setAlbumTags}
+
+      hasPrivilege={hasPrivilege}
+    />
   </>
 )
 }
-
 export default withStyles(styles)(Gallery);
