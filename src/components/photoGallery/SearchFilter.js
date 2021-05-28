@@ -23,13 +23,13 @@ function SearchFilter(props) {
       setShownAlbums(albums);
     } else {
       filteredPhotoList = unfilteredPhotoList.filter((photo) => (
-        photo.tags.includes(searchTerm)
+        photo.tags.includes(searchTerm.toLowerCase())
         // TODO: add filter by user
       ))
       setShownPhotos(filteredPhotoList)
 
       filteredAlbumList = albums.filter((album) => (
-        album.tags.includes(searchTerm)
+        album.tags.includes(searchTerm.toLowerCase())
         // TODO: add filter by user
         || album.owner.toLowerCase() === searchTerm.toLowerCase()
       ))
