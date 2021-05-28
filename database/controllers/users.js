@@ -110,7 +110,7 @@ users.rejectFriend = async (currentUser, targetUser) => {
 }
 
 
-//removeFriend 
+//removeFriend
 users.removeFriend = async (currentUser, targetUser) => {
   try {
     const currUser = await User.findById(currentUser).exec();
