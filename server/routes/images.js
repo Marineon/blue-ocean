@@ -37,10 +37,9 @@ images.multerS3Upload = multer({
     bucket: config.aws.Bucket,
     contentType: multerS3.AUTO_CONTENT_TYPE,
     metadata: function(req, file, cb) {
-      cb(null, { 
+      cb(null, {
         fieldName: file.fieldname,
-        userName: 'not real user',
-       });
+      });
     },
     key: function(req, file, cb) {
       const regex = /:|\./g;

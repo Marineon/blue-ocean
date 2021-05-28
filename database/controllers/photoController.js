@@ -3,27 +3,25 @@ import { Photo } from '../index.js';
 const photoController = {};
 
 photoController.savePhotoData = (req, res, next) => {
-  console.log("🚀 ~ file: photoController.js")
+  const userId = req.body.userId.toString();
 
-  console.log('req from savePhotoData', req.files.length)
-  const userName = req.files[0].metadata.userName;
 
   req.files.forEach((photo) => {
-    new Photo({
-      photoId: photo.key,
-      ownerId: photo.metadata.userName,
-      uploadDate: new Date().toISOString(),
-      description: '',
-      tags: [],
-      accessLevel: 0,  /* 0=private, [1=select friends(futureFeature)], 2=all friends, [3=global(futureFeature)] */
-      url: photo.location,
-    }).save((err) => {
-      throw err
-    });
+    try {
+
+      new Photo({
+        photoId: photo.key,
+        ownerId: userId,
+        uploadDate: new Date().toISOString(),
+        description: '',
+        tags: [],
+        accessLevel: 0,  /* 0=private, [1=select friends(futureFeature)], 2=all friends, [3=global(futureFeature)] */
+        url: photo.location,
+      }).save();
+    } catch (error) {
+      throw error;
+    }
   })
-
-  console.log('userName:', userName);
-
 
   if (req.files === undefined) {
     res.status(400).send({ message: "Please upload a file!" });

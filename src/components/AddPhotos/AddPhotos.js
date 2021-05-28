@@ -19,17 +19,17 @@ const useStyles = makeStyles((theme) => ({
 const AddPhotos = () => {
   const classes = useStyles();
 
-  const { userName } = useContext(UserContext);
+  const { userId } = useContext(UserContext);
 
   const upload = (e) => {
     const selectedFiles = e.target.files;
     const formData = new FormData();
+    formData.append('userId', userId)
     for (const key of Object.keys(selectedFiles)) {
       formData.append('file', selectedFiles[key]);
-      formData.append('userName', userName || 'no user')
     }
 
-    api.upload(formData)
+    api.upload(formData, userId)
       .then((response) => {/* console.log(response) */ })
       .catch((error) => console.error(error));
   };
