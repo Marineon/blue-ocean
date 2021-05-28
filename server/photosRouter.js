@@ -102,7 +102,7 @@ photosRouter.delete('/single', async (req, res) => {
     .catch((err) => { res.status(400).send(err) });
 });
 
-photosRouter.delete('/multi', (req, res) => {
+photosRouter.delete('/multi', async (req, res) => {
   const { userId, photoIds } = req.body;
   photos.deleteMany(userId, photoIds)
     .then((confirmations) => {
@@ -114,7 +114,7 @@ photosRouter.delete('/multi', (req, res) => {
 });
 
 //just for testing
-photosRouter.post('/', (req, res) => {
+photosRouter.post('/', async (req, res) => {
   const testPhoto = new Photo(req.body).save()
     .then((photo) => { res.status(200).send(photo) })
     .catch((err) => { res.status(400).send(err) });
