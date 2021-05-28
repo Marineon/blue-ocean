@@ -26,10 +26,10 @@ kitchenSinkRouter.get('/', async (req, res) => {
       users.getAll() // add username to his
     ]).then((resolved) => {
       keys.forEach((k, i) => {
-        resolvedObj[k] = resolved[i];
+        resolvedObj[k] = resolved[i] || [];
       });
       console.log(resolvedObj);
-      res.status(200).send(resolvedObj);
+      res.status(200).send(resolvedObj || {});
     })
   } catch (err) {
     console.error(err);

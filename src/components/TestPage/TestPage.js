@@ -162,7 +162,7 @@ const TestPage = () => {
       </Button> */}
 
       <GridList cols={3} >
-        {photos.map((tile) => (
+\//        {photos && photos.map((tile) => (
           <GridListTile key={tile.url} >
             <img src={`${tile.url}`} alt={tile.url} />
           </GridListTile>
