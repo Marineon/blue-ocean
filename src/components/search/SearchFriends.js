@@ -9,7 +9,6 @@ function SearchFriends(props) {
 
   useEffect(() => {
     filterLists(searchTerm);
-
   }, [searchTerm]);
 
 
