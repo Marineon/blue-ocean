@@ -20,7 +20,7 @@ import Typography from '@material-ui/core/Typography';
 import EditIcon from '@material-ui/icons/Edit'
 
 
-import { PhotosContext } from '../../contexts/photos-context';
+// import { PhotosContext } from '../../contexts/photos-context';
 import { SearchContext } from '../../contexts/search-context';
 
 const useStyles = makeStyles({
@@ -68,7 +68,12 @@ function Album (props) {
   const showAlbum = () => {
     setSearchTerm('');
     let shownAlbum = [];
-    props.album.photos.forEach((item)=>{shownAlbum.push(props.masterPhotos[item])});
+    props.album.photoIds.forEach((id)=>{
+      props.masterPhotos.forEach(photo => {
+        if(photo.photoId === id) {
+          shownAlbum.push(photo)};
+      })
+    })
     // props.setShownPhotos(shownAlbum);
     props.setCurrentAlbumPhotos(shownAlbum);
     if (props.onSelect) {

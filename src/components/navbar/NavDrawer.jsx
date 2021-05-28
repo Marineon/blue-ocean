@@ -47,25 +47,32 @@ const useStyles = makeStyles((theme) => ({
 export default function NavDrawer(props) {
   const [showState, setShowState] = useState(false)
 
-  const { userName, setUser } = useContext(UserContext);
-  const { myPhotos, friendsPhotos, publicPhotos, myAlbums, friendsAlbums, publicAlbums } = useContext(PhotosContext)
+  const { userName, userType, userId, setUser } = useContext(UserContext);
+  const { myPhotos,
+    friendsPhotos,
+    publicPhotos,
+    myAlbums,
+    friendsAlbums,
+    publicAlbums,
+    setPhotos,
+    setAlbums
+  } = useContext(PhotosContext);
 
   // api photos shape
   // { personalPhotos, sharedPhotos, publicPhotos, personalAlbums, sharedAlbums, publicAlbums, friendsList, allUsers }
   useEffect(() => {
     // user context
-    api.getUserInfo();
+    if (userId) {
+      let response = api.kitchenSink(userId);
+      response.then((result) => {
+        setPhotos(result.personalPhotos, result.sharedPhotos, result.publicPhotos);
+        setAlbums(result.personalAlbums, result.sharedAlbums, result.publicAlbums);
+        console.log(result);
+      })
+    }
 
 
-    // public photos
-    // publicPhotos
-    // api.getPhotos()
-
-    // user photos
-    // personalPhotos
-
-
-  }, [userName])
+  }, [userId])
 
   const toggleDrawer = (open) => (event) => {
     setShowState(open)

@@ -6,7 +6,7 @@ class UserContextProvider extends Component {
   state = {
     userName: 'TestUser',
     userType: 'user',
-    userId: 1,
+    userId: '00001',
     friends: [
       { username: 'cereal', userId: 10 },
       { username: 'before', userId: 11 },

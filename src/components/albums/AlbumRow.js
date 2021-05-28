@@ -14,7 +14,7 @@ import Typography from '@material-ui/core/Typography';
 import EditIcon from '@material-ui/icons/Edit';
 import InfoIcon from '@material-ui/icons/Info';
 
-import { PhotosContext } from '../../contexts/photos-context';
+// import { PhotosContext } from '../../contexts/photos-context';
 import { SearchContext } from '../../contexts/search-context';
 import Album from './Album';
 

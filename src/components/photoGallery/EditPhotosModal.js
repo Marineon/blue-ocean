@@ -94,7 +94,7 @@ function EditPhotosModal(props) {
     console.log(output);
     // API CALL HERE!!!
     // EDIT MULTIPLE photo call, in a shape that backend expects
-
+    // api.updatePhotos();
 
     props.onClose();
     resetModalState();
