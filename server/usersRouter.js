@@ -138,13 +138,25 @@ usersRouter.get('/', async (req, res) => {
     }
 })
 
-usersRouter.delete('/users', (req, res) => {
+// get user info
+usersRouter.get('/info', async (req, res) => {
     try {
-        users.delete(req.body.userId)
-        res.send();
+        const info = await users.getInfo(req.query.userId)
+        res.send(info);
     } catch (err) {
         res.status(500).send(err);
     }
 })
+
+usersRouter.delete('/users', async (req, res) => {
+    try {
+        const result = await users.delete(req.body.userId)
+        res.send(result);
+    } catch (err) {
+        res.status(500).send(err);
+    }
+})
+
+
 
 export default usersRouter;

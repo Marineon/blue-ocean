@@ -27,6 +27,7 @@ const useStyles = makeStyles((theme) => ({
 const TestPage = () => {
   // const [photos, setPhotos] = useState([]);
   const [userId, setUserId] = useState('00001');
+  const [secondaryUserId, setSecondaryUserId] = useState('00002');
   const classes = useStyles();
 
   const { photos, setPhotos, } = useContext(PhotosContext);
@@ -53,9 +54,16 @@ const TestPage = () => {
       <TextField
         value={userId}
         id="outlined-basic"
-        label="UserId"
+        label="PrimaryUserId"
         variant="outlined"
         onChange={(e) => setUserId(e.target.value)}
+      />
+      <TextField
+        value={secondaryUserId}
+        id="outlined-basic"
+        label="SecondaryUserId"
+        variant="outlined"
+        onChange={(e) => setSecondaryUserId(e.target.value)}
       />
 
       <Button variant='contained' onClick={async () => {
@@ -64,14 +72,6 @@ const TestPage = () => {
         updatePhotos(result);
       }}>
         Get Feed
-      </Button>
-
-
-      <Button variant='contained' onClick={async () => {
-        const result = await api.friendAction('00001', '00002', 'request');
-        console.log(result);
-      }}>
-        Friend Action
       </Button>
 
       <Button variant='contained' onClick={async () => {
@@ -84,17 +84,24 @@ const TestPage = () => {
 
       <Button variant='contained' onClick={async () => {
         const result = await api.getUserInfo(userId);
-        console.log(result);
+        console.log(JSON.stringify(result, null, 2));
       }}>
         Get User info
       </Button>
 
       <Button variant='contained' onClick={async () => {
-        const result = await api.getUserInfo(userId);
+        const result = await api.friendAction(userId, secondaryUserId, 'request');
         console.log(result);
       }}>
-        Get User info
+        Request Friend
       </Button>
+
+      {/* <Button variant='contained' onClick={async () => {
+        const result = await api.getUserInfo(userId);
+        console.log(JSON.stringify(result, null, 2));
+      }}>
+        Get User info
+      </Button> */}
 
       <GridList cols={3} >
         {photos.map((tile) => (

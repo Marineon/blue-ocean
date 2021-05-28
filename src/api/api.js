@@ -36,13 +36,14 @@ api.friendAction = (currentUser, targetUser, action) => {
     .catch((err) => { console.log(`there was an error performing ${action} friend`, err) });
 }
 
-api.getUserInfo = (currentUserId) => {
-  axios.get(`${hostname}:${PORT}/api/users/${currentUserId}`)
-    .then((res) => {
-      console.log('new User Info, set me to state or something', res.body);
-    })
+api.getUserInfo = (userId) => {
+  const path = `${hostname}:${PORT}/api/users/info`;
+  const query = `${new URLSearchParams({ userId })}`;
+  return axios.get(`${path}?${query}`)
+    .then((res) => res.data)
     .catch((err) => {
       console.log('error getting updated user Info', err);
+      throw err;
     })
 }
 

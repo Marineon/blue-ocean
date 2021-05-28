@@ -3,10 +3,13 @@ import User from '../models/User.js';
 const users = {};
 
 // get user info
-users.getInfo = (userId) => {
-  return User.findById(userId).exec()
-    .then((doc) => doc)
-    .catch((err) => err);
+users.getInfo = async (userId) => {
+  try {
+    const [userInfo] = await User.find({ 'userId': userId }).exec();
+    return userInfo
+  } catch (err) {
+    throw err;
+  }
 };
 
 
@@ -19,8 +22,8 @@ users.getFriends = async (userId) => {
 // friend request
 users.friendRequest = async (currentUser, targetUser) => {
   try {
-    const currUser = await User.findById(currentUser.toString()).exec();
-    const targUser = await User.findById(targetUser.toString()).exec();
+    const currUser = await User.find({'userId': currentUser}).exec();
+    const targUser = await User.find({'userId': targetUser}).exec();
 
     const currUserObj = {
       userId: currentUser,

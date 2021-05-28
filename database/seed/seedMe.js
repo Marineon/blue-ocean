@@ -8,7 +8,7 @@ mongoose.connect('mongodb://localhost/blueocean', {
   useUnifiedTopology: true,
 });
 
-const userCount = 20 // don't go more than 100
+const userCount = 100;
 
 const pad = (num, size) => {
   num = num.toString();
@@ -26,35 +26,36 @@ const randFriends = (upTo, userCount) => {
 }
 
 const fillNames = () => {
-  dummy.names.slice(-userCount).forEach((name, i) => {
+  for (let i = 1; i < userCount; i++) {
+    // dummy.names.slice(-userCount).forEach((name, i) => {
     try {
       const userId = pad(i, 5);
-      const fullName = name;
-      const email = name.replace(' ', '').concat('@email.com');
+      const fullName = dummy.names[Math.floor(Math.random() * dummy.names.length)];
+      const email = fullName.replace(' ', '').concat('@email.com');
       const password = 'qwerty';
       const userLevel = 1;
-      // const friends = randFriends(15, userCount);
-      // const pending = randFriends(4, userCount);
-      // const requested = randFriends(4, userCount);
+      const friends = randFriends(15, userCount);
+      const pending = randFriends(4, userCount);
+      const requested = randFriends(4, userCount);
       const newUserData = {
-        // userName,
+        userId,
         fullName,
         email,
         password,
         userLevel,
-        // friends,
-        // pending,
-        // requested
+        friends,
+        pending,
+        requested
       };
-      const timeout = i * 10;
-      setTimeout(() => {
+      // const timeout = i * 10;
+      // setTimeout(() => {
         console.log(newUserData);
         new User(newUserData).save()
-      }, timeout)
+      // }, timeout)
     } catch {
       console.error('oops');
     }
-  });
+  };
 }
 
 const randTags = (upTo) => {
@@ -69,7 +70,7 @@ const randTags = (upTo) => {
 const fillPhotos = () => {
   dummy.photos.forEach((photo, i) => {
     try {
-      const userId = pad(Math.floor(Math.random() * userCount), 5);
+      const userId = pad(i, 5);
       const username = dummy.names[Math.floor(Math.random() * dummy.names.length)]
       const photoId = pad(i, 5);
       const uploadDate = photo.split('images/')[1].split('Z')[0].concat('Z');
@@ -115,9 +116,10 @@ connection.once("open", async function() {
       })
     }
   });
-
-  fillNames();
-  fillPhotos();
+  setTimeout(() => {
+    fillNames();
+    fillPhotos();
+  }, 1000)
 });
 
 
