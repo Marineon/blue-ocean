@@ -142,17 +142,17 @@ users.removeFriend = async (currentUser, targetUser) => {
   }
 };
 
-users.login = (username, password) => {
-  User.findOne(username)
+users.login = (username, password, cb) => {
+  User.findOne({userName: username}).exec()
     .then((doc) => {
       if (doc.password === password) {
-        return doc;
+        cb(doc)
       } else {
         return 'Invalid Password';
       }
     })
     .catch((err) => {
-      throw err;
+      console.log('error from controller', err)
     });
 };
 
