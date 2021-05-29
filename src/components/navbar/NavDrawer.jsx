@@ -60,6 +60,7 @@ export default function NavDrawer(props) {
 
   // api photos shape
   // { personalPhotos, sharedPhotos, publicPhotos, personalAlbums, sharedAlbums, publicAlbums, friendsList, allUsers }
+
   // useEffect(() => {
   //   // user context
   //   if (userId) {
@@ -73,6 +74,21 @@ export default function NavDrawer(props) {
 
 
   // }, [userId])
+
+  useEffect(() => {
+    // user context
+    if (userId) {
+      let response = api.kitchenSink(userId);
+      response.then((result) => {
+        setPhotos(result && result.personalPhotos, result && result.sharedPhotos, result && result.publicPhotos);
+        setAlbums(result && result.personalAlbums, result && result.sharedAlbums, result && result.publicAlbums);
+        console.log(result);
+      })
+    }
+
+
+  }, [userId])
+
 
   const toggleDrawer = (open) => (event) => {
     setShowState(open)
