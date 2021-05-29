@@ -2,86 +2,77 @@
 
 
 
-# blue-ocean
+# toPics
 
-Git Workflow
-------------
+A Photo-sharing app, for users to upload, organize and share photos with friends and the world!
+
+Built with:
+* [React (Hooks)] (https://reactjs.org/)
+* [React Router] (https://reactrouter.com/)
+* [Node.js] (https://nodejs.org/en/)
+* [Material-UI] (https://material-ui.com/)
+* [Axios] (https://www.npmjs.com/package/axios)
+* [Express] (https://expressjs.com/)
+* [MongoDB] (https://www.mongodb.com/)
+* [Mongoose] (https://mongoosejs.com/)
 
 
-Do this once to set upstream. (not required but makes it easier)
 
-    git remote add upstream https://github.com/Marineon/blue-ocean.git
+Requirements
+=============
+<h3>Install Dependencies</h3>
 
-Update your master branch
+Development
+=============
+From within the root directory:
+`npm install`
 
-    git checkout main
-    git pull --rebase upstream main
+Development
+=============
+From within the root directory:
 
-Start work on a feature
+To run webpack build<br>
+`npm run build`
 
-    git checkout -b feature-branch
+To run server<br>
+`npm run server`
 
-If you've already created a branch, just switch to it
+To launch the app<br>
+`npm start`
 
-    git checkout feature-branch
 
-Write code, commit, repeat
+Features
+========
 
-    git add .
-    git commit -m "clever message"
+## User Authentication:
+Login / Sign up
+![screenshot of Login]()
+## Navigation:
+![screenshot of Navigating]()
+## Photo Upload:
+![screenshot of Uploading]()
+## Album Management
+Create Album
+![screenshot of Album Create]()
+Edit Album
+![screenshot of Album Edit]()
+## Photo Management
+Add / Edit Tags
+![screenshot of ...]()
 
-Rebase before pull request. First update main.
+![screenshot of ...]()
 
-    get checkout main
-    git pull --rebase upstream
+## Search / Filter
+Search Bar
+![screenshot of ...]()
 
-Incorporate the changes from main into your feature branch.
-
-    git checkout feature-branch
-    git pull --rebase upstream main
-
-Fix any merge conflicts then do:
-
-    git add .
-    git commit
-    git rebase --continue
-
-Push the feature branch.
-
-    git push origin feature-branch
-
-If you get warnings about it being rejected, try:
-
-    git push origin feature-branch -f
-
-Make a pull request on GitHub
-
-After the pull request is merged,
-
-    git checkout main
-    git pull --rebase upstream main
-    git branch -d feature-branch
-
-git branch -d feature-branch just cleans up branches. You don't have to do this if you want to keep adding features to that branch (not recommended) and if git doesn't permit you to delete the branch because it think's it hasn't been merged yet, you can force it with `-D` instead of `-d`.
-
----
-
-## Team Members
-
-- Jared Rogers
-
-- Kyle Harrington
-
-- Elijiah Davis
-
-- Brenton Hershner
-
-- Gabe Acevedo
-
-- Tony Ly
-
-- Jun Park
-
-- Luke Henry
-
-- Zubair Akbar
+## The Team:
+- [Jared Rogers](https://github.com/rogersjared)
+- [Kyle Harrington](https://github.com/Relykon)
+- [Elijiah Davis](https://github.com/GTOnizuka13)
+- [Brenton Hershner](https://github.com/BrentonHershner)
+- [Gabe Acevedo](https://github.com/gea2111)
+- [Tony Ly](https://github.com/tonyjly)
+- [Jun Park](https://github.com/junpark77)
+- [Luke Henry](https://github.com/Luke82601)
+- [Zubair Akbar](https://github.com/zubair-akbar)
