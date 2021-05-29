@@ -17,7 +17,6 @@ photos.getPublic = async () => {
 
 // get feed (public and shared by friends)
 photos.getFeed = async (userId) => {
-
   try {
     const publicPhotos = await photos.getPublic();
     const friendPhotos = await photos.getFromFriends(userId);
@@ -32,7 +31,7 @@ photos.getFeed = async (userId) => {
 // get photos from specific user
 photos.getUserPhotos = async (userId) => {
   try {
-    const userPhotos = await Photo.find()
+    const userPhotos = await Photo.find({})
     return userPhotos.sort((a, b) => {
       return a.uploadDate - b.uploadDate;
     })
@@ -42,12 +41,14 @@ photos.getUserPhotos = async (userId) => {
 };
 
 // get photos from specific user's friends
-photos.getFromFriends = async (userId) => {
+photos.getSharedPhotos = async (userId) => {
   try {
-    const friends = await users.getFriends(userId);
-    const userFriendPhotos = await Photo.find({ 'userId': { $in: friends } });
-    return userFriendPhotos.filter(photo => photo.accessLevel === 1)
-      .sort((a, b) => a.uploadDate - b.uploadDate);
+    const [friends] = await users.getFriends(userId);
+    if(!friends || friends.friends) { return []; }
+    return Promise.all(friends.friends.map(f => Photo.find({'userId': f} )))
+      .then(resolution => resolution.flat()
+        .filter(p => p.accessLevel === 1)
+        .sort((a, b) => a.uploadDate - b.uploadDate))
   } catch (err) {
     throw err;
   }
