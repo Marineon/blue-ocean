@@ -31,37 +31,37 @@ A Photo-sharing app, for users to upload, organize and share photos with friends
 
 Login / Sign up
 
-![screenshot of Login](https://github.com/Marineon/blue-ocean/tree/readme/screenshots/login_logout.gif?raw=true)
+![screenshot of Login](/screenshots/login_logout.gif?raw=true)
 
 ## Navigation
 
-![screenshot of Navigating](https://github.com/Marineon/blue-ocean/tree/readme/screenshots/nav_bar_navigation_and_dark_mode.gif?raw=true)
+![screenshot of Navigating](/screenshots/nav_bar_navigation_and_dark_mode.gif?raw=true)
 
 ## Photo Upload
 
-![screenshot of Uploading](https://github.com/Marineon/blue-ocean/tree/readme/screenshots/upload_images.gif?raw=true)
+![screenshot of Uploading](/screenshots/upload_images.gif?raw=true)
 
 ## Album Management
 
 Create Album
 
-![screenshot of Album Create](https://github.com/Marineon/blue-ocean/tree/readme/screenshots/.gifcreate_new_album.gif?raw=true)
+![screenshot of Album Create](/screenshots/.gifcreate_new_album.gif?raw=true)
 
 Edit Album
 
-![screenshot of Album Edit](https://github.com/Marineon/blue-ocean/tree/readme/screenshots/edit_album.gif?raw=true)
+![screenshot of Album Edit](/screenshots/edit_album.gif?raw=true)
 
 ## Photo Management
 
 Add / Edit Tags
 
-![screenshot of ...](https://github.com/Marineon/blue-ocean/tree/readme/screenshots/editing_photos.gif?raw=true)
+![screenshot of ...](/screenshots/editing_photos.gif?raw=true)
 
 ## Search / Filter
 
 Search Bar
 
-![screenshot of ...](https://github.com/Marineon/blue-ocean/tree/readme/screenshots/friends.gif?raw=true)
+![screenshot of ...](/screenshots/friends.gif?raw=true)
 
 # Development
 
