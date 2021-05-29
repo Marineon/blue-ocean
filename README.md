@@ -1,4 +1,3 @@
-
 # toPics
 
 A Photo-sharing app, for users to upload, organize and share photos with friends and the world!
