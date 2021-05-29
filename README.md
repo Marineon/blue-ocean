@@ -45,7 +45,7 @@ Login / Sign up
 
 Create Album
 
-![screenshot of Album Create](/screenshots/.gifcreate_new_album.gif?raw=true)
+![screenshot of Album Create](/screenshots/create_new_album.gif?raw=true)
 
 Edit Album
 
