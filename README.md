@@ -46,25 +46,23 @@ Features
 
 ## User Authentication:
 Login / Sign up
-![screenshot of Login]()
+![screenshot of Login](https://github.com/Marineon/blue-ocean/tree/readme/screenshots/login_logout.gif)
 ## Navigation:
-![screenshot of Navigating]()
+![screenshot of Navigating](https://github.com/Marineon/blue-ocean/tree/readme/screenshots/nav_bar_navigation_and_dark_mode.gif)
 ## Photo Upload:
-![screenshot of Uploading]()
+![screenshot of Uploading](https://github.com/Marineon/blue-ocean/tree/readme/screenshots/upload_images.gif)
 ## Album Management
 Create Album
-![screenshot of Album Create]()
+![screenshot of Album Create](https://github.com/Marineon/blue-ocean/tree/readme/screenshots/.gifcreate_new_album.gif)
 Edit Album
-![screenshot of Album Edit]()
+![screenshot of Album Edit](https://github.com/Marineon/blue-ocean/tree/readme/screenshots/edit_album.gif)
 ## Photo Management
 Add / Edit Tags
-![screenshot of ...]()
-
-![screenshot of ...]()
+![screenshot of ...](https://github.com/Marineon/blue-ocean/tree/readme/screenshots/editing_photos.gif)
 
 ## Search / Filter
 Search Bar
-![screenshot of ...]()
+![screenshot of ...](https://github.com/Marineon/blue-ocean/tree/readme/screenshots/friends.gif)
 
 ## The Team:
 - [Jared Rogers](https://github.com/rogersjared)
