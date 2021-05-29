@@ -51,6 +51,31 @@ photosRouter.patch('/single', async (req, res) => {
   }
 });
 
+// friends photos + public photos
+photosRouter.get('/feed', async (req, res) => {
+  try {
+    const feedPhotos = await photos.getFeed(req.query.userId);
+    res.status(200).send(feedPhotos);
+  } catch (err) {
+    res.status(500).send(err);
+  }
+});
+
+// find one and update
+photosRouter.patch('/single', async (req, res) => {
+  console.log('server')
+  try {
+    console.log('data',req.data)
+    console.log('body',req.body)
+    console.log('query', req.query)
+    console.log('params', req.params)
+    // await photos.updateOne(req.body.photoId);
+    res.sendstatus(200);
+  } catch (err) {
+    res.status(500).send(err);
+  }
+});
+
 // add tags and change accessLevel for multiple
 photosRouter.patch('/multiple', async (req, res) => {
   const { photoIds } = req.body;
@@ -94,7 +119,7 @@ photosRouter.delete('/multi', async (req, res) => {
 });
 
 //just for testing
-photosRouter.post('/', (req, res) => {
+photosRouter.post('/', async (req, res) => {
   const testPhoto = new Photo(req.body).save()
     .then((photo) => { res.status(200).send(photo) })
     .catch((err) => { res.status(400).send(err) });

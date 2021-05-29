@@ -6,6 +6,7 @@ import Paper from '@material-ui/core/Paper';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 import Button from '@material-ui/core/Button';
+import ButtonGroup from '@material-ui/core/ButtonGroup';
 import TextField from '@material-ui/core/TextField';
 import api from '../../api/api';
 
@@ -66,35 +67,92 @@ const TestPage = () => {
         onChange={(e) => setSecondaryUserId(e.target.value)}
       />
 
-      <Button variant='contained' onClick={async () => {
-        const result = await api.getFeed(userId);
-        console.log(result);
-        updatePhotos(result);
-      }}>
-        Get Feed
+      <div className={classes.root}>
+
+        <ButtonGroup>
+          <Button variant='contained' onClick={async () => {
+            const result = await api.getFeed(userId);
+            console.log(result);
+            updatePhotos(result);
+          }}>
+            Get Feed
       </Button>
 
-      <Button variant='contained' onClick={async () => {
-        const result = await api.getUserPhotos(userId);
-        console.log(result);
-        updatePhotos(result);
-      }}>
-        Get Users Photos
+
+          <Button variant='contained' onClick={async () => {
+            const result = await api.getUserPhotos(userId);
+            console.log(result);
+            updatePhotos(result);
+          }}>
+            Get Users Photos
       </Button>
 
-      <Button variant='contained' onClick={async () => {
-        const result = await api.getUserInfo(userId);
-        console.log(JSON.stringify(result, null, 2));
-      }}>
-        Get User info
+
+          <Button variant='contained' onClick={async () => {
+            const result = await api.getUserInfo(userId);
+            console.log(result);
+          }}>
+            Get User info
       </Button>
 
-      <Button variant='contained' onClick={async () => {
-        const result = await api.friendAction(userId, secondaryUserId, 'request');
-        console.log(result);
-      }}>
-        Request Friend
+
+          <Button variant='contained' onClick={async () => {
+            const result = await api.friendAction(userId, secondaryUserId, 'request');
+            console.log(result);
+          }}>
+            Request Friend
       </Button>
+
+
+          <Button variant='contained' onClick={async () => {
+            const result = await api.friendAction(userId, secondaryUserId, 'cancelRequest');
+            console.log(result);
+          }}>
+            Cancel Request
+      </Button>
+
+
+          <Button variant='contained' onClick={async () => {
+            const result = await api.friendAction(userId, secondaryUserId, 'accept');
+            console.log(result);
+          }}>
+            Accept Request
+      </Button>
+
+
+          <Button variant='contained' onClick={async () => {
+            const result = await api.friendAction(userId, secondaryUserId, 'reject');
+            console.log(result);
+          }}>
+            Reject Request
+      </Button>
+
+
+          <Button variant='contained' onClick={async () => {
+            const result = await api.friendAction(userId, secondaryUserId, 'reject');
+            console.log(result);
+          }}>
+            Reject Request
+      </Button>
+
+          <Button variant='contained' onClick={async () => {
+            const editObj = {}
+            const result = await api.updatePhoto(editObj);
+            console.log(result);
+          }}>
+            Update Photo
+      </Button>
+
+          <Button variant='contained' onClick={async () => {
+            const editObj = {}
+            const result = await api.kitchenSink(editObj);
+            console.log(result);
+          }}>
+            Kitchen Sink
+      </Button>
+
+        </ButtonGroup>
+      </div>
 
       {/* <Button variant='contained' onClick={async () => {
         const result = await api.getUserInfo(userId);
@@ -104,7 +162,7 @@ const TestPage = () => {
       </Button> */}
 
       <GridList cols={3} >
-        {photos.map((tile) => (
+\//        {photos && photos.map((tile) => (
           <GridListTile key={tile.url} >
             <img src={`${tile.url}`} alt={tile.url} />
           </GridListTile>

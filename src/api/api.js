@@ -54,6 +54,7 @@ api.updatePhoto = (editsObj) => {
   // description: ‘string to add for description if updating/adding’,
   // tags: [‘array’, ‘ofTags’, ‘toAdd’], <---- any tags not in this array will be removed
   // accessLevel: NumOfPermission(0=private,1=onlySpecificUsers(future feature),2=allFriends,3=global)
+  console.log('api', editsObj);
   axios.patch(`${hostname}:${PORT}/api/photos/single`, editsObj)
     .then((res) => {
       console.log('successful patch, we should add in refresh photos API call or something here', res.body);
@@ -102,5 +103,18 @@ api.getFeed = (userId) => {
     .then((res) => res.data)
     .catch((err) => { console.log('error getting all photos', err) })
 }
+
+api.kitchenSink = (userId) => {
+
+  console.log('kitchen sink');
+
+  const path = `${hostname}:${PORT}/api/everything`;
+  const query = `${new URLSearchParams({ userId })}`;
+  if (!userId) { return; }
+  return axios.get(`${path}?${query}`)
+    .then((res) => res.data)
+    .catch((err) => { console.log('error getting something', err) })
+}
+
 
 export default api;

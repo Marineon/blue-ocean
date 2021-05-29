@@ -22,7 +22,7 @@ const randFriends = (upTo, userCount) => {
   for (let i = 0; i <= numberOfFriends; i += 1) {
     friends.push(pad(Math.floor(Math.random() * userCount) + 1, 5))
   }
-  return friends;
+  return Array.from(new Set(friends));
 }
 
 const fillNames = () => {
@@ -31,7 +31,8 @@ const fillNames = () => {
     try {
       const userId = pad(i, 5);
       const fullName = dummy.names[Math.floor(Math.random() * dummy.names.length)];
-      const email = fullName.replace(' ', '').concat('@email.com');
+      const userName = fullName.replace(' ','');
+      const email = userName.concat('@email.com');
       const password = 'qwerty';
       const userLevel = 1;
       const friends = randFriends(15, userCount);
@@ -39,6 +40,7 @@ const fillNames = () => {
       const requested = randFriends(4, userCount);
       const newUserData = {
         userId,
+        userName,
         fullName,
         email,
         password,
@@ -71,7 +73,7 @@ const fillPhotos = () => {
   dummy.photos.forEach((photo, i) => {
     try {
       const userId = pad(i, 5);
-      const username = dummy.names[Math.floor(Math.random() * dummy.names.length)]
+      const userName = dummy.names[Math.floor(Math.random() * dummy.names.length)]
       const photoId = pad(i, 5);
       const uploadDate = photo.split('images/')[1].split('Z')[0].concat('Z');
       //2021-05-27T082635378Z
@@ -81,7 +83,7 @@ const fillPhotos = () => {
       const url = photo;
       const newPhotoData = {
         photoId,
-        username,
+        userName,
         userId,
         uploadDate,
         description,
