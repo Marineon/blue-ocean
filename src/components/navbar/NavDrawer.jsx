@@ -60,19 +60,19 @@ export default function NavDrawer(props) {
 
   // api photos shape
   // { personalPhotos, sharedPhotos, publicPhotos, personalAlbums, sharedAlbums, publicAlbums, friendsList, allUsers }
-  useEffect(() => {
-    // user context
-    if (userId) {
-      let response = api.kitchenSink(userId);
-      response.then((result) => {
-        setPhotos(result.personalPhotos, result.sharedPhotos, result.publicPhotos);
-        setAlbums(result.personalAlbums, result.sharedAlbums, result.publicAlbums);
-        console.log(result);
-      })
-    }
+  // useEffect(() => {
+  //   // user context
+  //   if (userId) {
+  //     let response = api.kitchenSink(userId);
+  //     response.then((result) => {
+  //       setPhotos(result.personalPhotos, result.sharedPhotos, result.publicPhotos);
+  //       setAlbums(result.personalAlbums, result.sharedAlbums, result.publicAlbums);
+  //       console.log(result);
+  //     })
+  //   }
 
 
-  }, [userId])
+  // }, [userId])
 
   const toggleDrawer = (open) => (event) => {
     setShowState(open)
