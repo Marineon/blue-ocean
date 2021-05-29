@@ -30,36 +30,51 @@ A Photo-sharing app, for users to upload, organize and share photos with friends
 ## User Authentication
 
 Login / Sign up
+- Create an account or login to begin using toPics!
+- Password recovery available
 
 ![screenshot of Login](/screenshots/login_logout.gif?raw=true)
 
 ## Navigation
+- Navigate to any of these views:
+    -  ***personal** collection, **friends** feed, **public** feed, **friends list***
 
 ![screenshot of Navigating](/screenshots/nav_bar_navigation_and_dark_mode.gif?raw=true)
 
 ## Photo Upload
+- Tap the **+** icon at the bottom left to upload your images
 
 ![screenshot of Uploading](/screenshots/upload_images.gif?raw=true)
 
-## Album Management
+## Photo Management
 
+Add/Edit Tags & Change Permissions
+- Select one or multiple images to view a modal for editing, then apply changes
+    - toggle the ***select*** slider to select multiple photos for editing
+
+![screenshot of ...](/screenshots/editing_photos.gif?raw=true)
+
+## Album Management
 Create Album
+- Select photo(s) to gain the option to create an album
+- Set tags and permissions of all photos at once
 
 ![screenshot of Album Create](/screenshots/create_new_album.gif?raw=true)
 
 Edit Album
+- Select an album to begin editing
+    - Add or remove tags
+    - Change permissions
+    - Update album name and description
 
 ![screenshot of Album Edit](/screenshots/edit_album.gif?raw=true)
 
-## Photo Management
-
-Add / Edit Tags
-
-![screenshot of ...](/screenshots/editing_photos.gif?raw=true)
-
 ## Search / Filter
-
-Search Bar
+Search Bar (live photo filtering)
+- From personal photos or albums view:
+    - Enter term to *filter by **tags***
+- From friends or public feed views:
+    - Enter term to *filter by **username** & **tags***
 
 ![screenshot of ...](/screenshots/friends.gif?raw=true)
 
@@ -67,21 +82,21 @@ Search Bar
 
 ### Built with
 
-- [React (Hooks)] (https://reactjs.org/)
+- [React (Hooks)](https://reactjs.org/)
 
-- [React Router] (https://reactrouter.com/)
+- [React Router](https://reactrouter.com/)
 
-- [Node.js] (https://nodejs.org/en/)
+- [Node.js](https://nodejs.org/en/)
 
-- [Material-UI] (https://material-ui.com/)
+- [Material-UI](https://material-ui.com/)
 
-- [Axios] (https://www.npmjs.com/package/axios)
+- [Axios](https://www.npmjs.com/package/axios)
 
-- [Express] (https://expressjs.com/)
+- [Express](https://expressjs.com/)
 
-- [MongoDB] (https://www.mongodb.com/)
+- [MongoDB](https://www.mongodb.com/)
 
-- [Mongoose] (https://mongoosejs.com/)
+- [Mongoose](https://mongoosejs.com/)
 
 From within the root directory:
 `npm install`
@@ -101,9 +116,7 @@ To launch the app
 `npm start`
 
 ## Git Workflow
-
 ---
-
 Do this once to set upstream. (not required but makes it easier)
 
     git remote add upstream https://github.com/Marineon/blue-ocean.git
